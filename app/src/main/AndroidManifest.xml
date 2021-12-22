@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BicycleApp">
         <activity
+            android:name=".TripsListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddTripActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
