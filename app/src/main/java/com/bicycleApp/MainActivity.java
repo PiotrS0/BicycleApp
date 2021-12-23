@@ -52,23 +52,19 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent (this, AddTripActivity.class);
         startActivity(intent);
 
-        Location location;
 
     }
 
     public void openList(){
-        Cursor cursor = database.getAllTrips();
-        while(cursor.moveToNext()){
 
-        }
-//        Intent intent = new Intent(this, List.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, TripsListActivity.class);
+        startActivity(intent);
 
     }
 
     public void openInfo(){
-//        Intent intent = new Intent(this, Info.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, InfoActivity.class);
+        startActivity(intent);
     }
 
     public void openExit(){

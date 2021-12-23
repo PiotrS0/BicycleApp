@@ -19,6 +19,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import Data.MyDatabase;
@@ -40,6 +42,7 @@ public class AddTripActivity extends AppCompatActivity {
     public AddTripActivity() {
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,8 @@ public class AddTripActivity extends AppCompatActivity {
         timeButton = findViewById(R.id.timeButton);
         dateTextView = findViewById(R.id.dateTextView);
         timeTextView = findViewById(R.id.timeTextView);
+        dateTextView.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        timeTextView.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
         editText = findViewById(R.id.editTextCity);
         database = new MyDatabase(this, 1);
         dateButton.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +122,10 @@ public class AddTripActivity extends AppCompatActivity {
                 calendar1.set(Calendar.MINUTE, minute);
                 data2.setHours(hour);
                 data2.setMinutes(minute);
-                timeTextView.setText(""+hour+":"+minute);
+                if(minute<10)
+                    timeTextView.setText(""+hour+":"+0+minute);
+                else
+                    timeTextView.setText(""+hour+":"+minute);
 
             }
         }, HOUR, MINUTE, true);

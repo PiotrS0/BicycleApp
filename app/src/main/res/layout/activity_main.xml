@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bi"
+        android:text="BikeApp"
         android:textSize="30sp" />
 
     <Button
@@ -25,7 +25,25 @@
         android:id="@+id/listbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lista wycieczek" />
+        android:text="Lista zaplanowanych" />
+
+    <Button
+        android:id="@+id/btn_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Record" />
+
+    <Button
+        android:id="@+id/archivesbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Archiwum" />
+
+    <Button
+        android:id="@+id/btn_stats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stats" />
 
     <Button
         android:id="@+id/infobutton"
@@ -39,9 +57,6 @@
         android:layout_height="wrap_content"
         android:text="Wyjście" />
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView3"
-        android:layout_width="match_parent"
-        android:layout_height="207dp" />
+
 
 </LinearLayout>
