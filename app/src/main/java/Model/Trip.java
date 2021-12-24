@@ -15,6 +15,33 @@ public class Trip {
         this.notification = true;
     }
 
+    public Trip(int id, String date, String city, boolean notification) {
+        this.id = id;
+        this.date = date;
+        this.city = city;
+        this.notification = notification;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getDateWithoutSeconds(){
+        return date.substring(0,date.length()-3);
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public boolean getNotification() {
+        return notification;
+    }
+
     public void setId(int id){
         this.id = id;
     }

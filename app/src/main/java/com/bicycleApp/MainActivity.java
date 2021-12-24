@@ -3,10 +3,8 @@ package com.bicycleApp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -15,10 +13,7 @@ import Data.MyDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button buttonAdd;
-    private Button buttonExit;
-    private Button buttonList;
-    private Button buttonInfo;
+    private Button addButton, exitButton, listButton, infoButton, statsButton, highlightsButton;
     private SensorManager sensorManager;
     private java.util.List<Sensor> sensorList;
     private Sensor sensorLight;
@@ -29,17 +24,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        buttonAdd = (Button) findViewById(R.id.addbutton);
-        buttonAdd.setOnClickListener((view -> {openAdd();}));
+        addButton = (Button) findViewById(R.id.addbutton);
+        addButton.setOnClickListener((view -> {openAdd();}));
 
-        buttonExit = (Button) findViewById(R.id.exitbutton);
-        buttonExit.setOnClickListener((view -> {openExit();}));
+        exitButton = (Button) findViewById(R.id.exitbutton);
+        exitButton.setOnClickListener((view -> {openExit();}));
 
-        buttonList = findViewById(R.id.listbutton);
-        buttonList.setOnClickListener((view -> {openList();}));
+        listButton = findViewById(R.id.listbutton);
+        listButton.setOnClickListener((view -> {openList();}));
 
-        buttonInfo = (Button) findViewById(R.id.infobutton);
-        buttonInfo.setOnClickListener((view -> {openInfo();}));
+        infoButton = (Button) findViewById(R.id.infobutton);
+        infoButton.setOnClickListener((view -> {openInfo();}));
+
+        statsButton = findViewById(R.id.btn_stats);
+        statsButton.setOnClickListener((view -> {openStats();}));
+
+        highlightsButton = findViewById(R.id.btn_highlights);
+        highlightsButton.setOnClickListener((view -> {openHighlights();}));
 
         database = new MyDatabase(this, 1);
         Log.d("MAIN","BAZA1");
@@ -47,16 +48,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void openAdd(){
-
-
         Intent intent = new Intent (this, AddTripActivity.class);
         startActivity(intent);
-
-
     }
 
     public void openList(){
-
         Intent intent = new Intent(this, TripsListActivity.class);
         startActivity(intent);
 
@@ -64,6 +60,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void openInfo(){
         Intent intent = new Intent(this, InfoActivity.class);
+        startActivity(intent);
+    }
+
+    public void openStats(){
+//        Intent intent = new Intent(this, InfoActivity.class);
+//        startActivity(intent);
+//        database.clearTable("Trip");
+//        database.deleteRow("Trip",15);
+    }
+
+    public void openHighlights(){
+        Intent intent = new Intent(this, HighlightsActivity.class);
         startActivity(intent);
     }
 

@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".TripDetailsActivity">
 
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="197dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="64dp"
+        android:checked="true"
+        android:text="Wysyłaj powiadomienia"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
     <Button
         android:id="@+id/btn_back"
         android:layout_width="wrap_content"
@@ -13,4 +24,34 @@
         android:text="Wróć"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tripdetailstextdate"
+        android:layout_width="309dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="60dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="302dp"
+        android:layout_height="169dp"
+        android:layout_marginTop="68dp"
+        android:text="MIEJSCE NA POGODE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tripdetailstextdate" />
+
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Usuń"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_back" />
 </androidx.constraintlayout.widget.ConstraintLayout>

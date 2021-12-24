@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BicycleApp">
         <activity
+            android:name=".HighlightsActivity"
+            android:exported="false" />
+        <activity
             android:name=".InfoActivity"
             android:exported="false" />
         <activity

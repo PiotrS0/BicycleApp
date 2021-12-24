@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -100,8 +101,7 @@ public class AddTripActivity extends AppCompatActivity {
                 data2.setYear(year-1900);
                 data2.setMonth(month);
                 data2.setDate(date);
-                month = month+1;
-                dateTextView.setText(""+year +"-"+ month +"-"+ date);
+                dateTextView.setText(""+year +"-"+ (month+1) +"-"+ date);
             }
         }, YEAR, MONTH, DATE);
 
@@ -133,17 +133,32 @@ public class AddTripActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void openAdd() throws InterruptedException {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String dateAfterFormat = sdf.format(data2);
 
-        database.addTrip(editText.getText().toString(), dateAfterFormat,checkBox.isChecked());
+        Date nowDate = convertToDateViaInstant(LocalDateTime.now());
 
-        Toast.makeText(AddTripActivity.this,"Wycieczka dodana", Toast.LENGTH_SHORT).show();
+        if(data2.before(nowDate))
+            Toast.makeText(AddTripActivity.this,"Wprowadź poprawną datę", Toast.LENGTH_SHORT).show();
+        else{
+            database.addTrip(editText.getText().toString(), dateAfterFormat,checkBox.isChecked());
 
-        Thread.sleep(1000);
-        finish();
+            Toast.makeText(AddTripActivity.this,"Wycieczka dodana", Toast.LENGTH_SHORT).show();
+
+            Thread.sleep(1000);
+            finish();
+        }
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    Date convertToDateViaInstant(LocalDateTime dateToConvert) {
+        return java.util.Date
+                .from(dateToConvert.atZone(ZoneId.systemDefault())
+                        .toInstant());
     }
 }

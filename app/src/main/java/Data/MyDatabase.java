@@ -47,4 +47,23 @@ public class MyDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         return db.query("Trip",columns,null,null,null,null,null);
     }
+
+    public void clearTable(String tableName){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("delete from " + tableName);
+    }
+
+    public void deleteRow(String table, int id){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(table,"Id = "+ id,null);
+    }
+
+    public void changeNotification(int id, boolean notification){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("Notification", notification);
+        db.update("Trip",cv,"Id = "+ id,null);
+    }
+
+
 }
