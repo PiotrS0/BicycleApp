@@ -10,8 +10,8 @@
         android:id="@+id/checkBox2"
         android:layout_width="197dp"
         android:layout_height="39dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="36dp"
         android:checked="true"
         android:text="Wysyłaj powiadomienia"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,12 +39,12 @@
         android:id="@+id/textView3"
         android:layout_width="302dp"
         android:layout_height="169dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="36dp"
         android:text="MIEJSCE NA POGODE"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.467"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tripdetailstextdate" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <Button
         android:id="@+id/btn_delete"
@@ -54,4 +54,14 @@
         android:text="Usuń"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_back" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="166dp"
+        android:layout_height="161dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tripdetailstextdate"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

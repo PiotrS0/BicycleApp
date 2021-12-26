@@ -13,7 +13,7 @@ import Data.MyDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button addButton, exitButton, listButton, infoButton, statsButton, highlightsButton;
+    private Button addButton, exitButton, listButton, infoButton, statsButton, highlightsButton, recordButton;
     private SensorManager sensorManager;
     private java.util.List<Sensor> sensorList;
     private Sensor sensorLight;
@@ -27,11 +27,15 @@ public class MainActivity extends AppCompatActivity {
         addButton = (Button) findViewById(R.id.addbutton);
         addButton.setOnClickListener((view -> {openAdd();}));
 
+        listButton = findViewById(R.id.listbutton);
+        listButton.setOnClickListener((view -> {openList();}));
+
+        recordButton = findViewById(R.id.btn_record);
+
         exitButton = (Button) findViewById(R.id.exitbutton);
         exitButton.setOnClickListener((view -> {openExit();}));
 
-        listButton = findViewById(R.id.listbutton);
-        listButton.setOnClickListener((view -> {openList();}));
+
 
         infoButton = (Button) findViewById(R.id.infobutton);
         infoButton.setOnClickListener((view -> {openInfo();}));
