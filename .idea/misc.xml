@@ -4,12 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Piotr/AndroidStudioProjects/BicycleApp/app/src/main/res/drawable/image.xml" value="0.3177083333333333" />
+        <entry key="..\:/Users/Piotr/AndroidStudioProjects/BicycleApp/app/src/main/res/layout/activity_add_highlight.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/Piotr/AndroidStudioProjects/BicycleApp/app/src/main/res/layout/activity_add_trip.xml" value="0.2838541666666667" />
+        <entry key="..\:/Users/Piotr/AndroidStudioProjects/BicycleApp/app/src/main/res/layout/activity_highlight_adapter.xml" value="0.35885416666666664" />
         <entry key="..\:/Users/Piotr/AndroidStudioProjects/BicycleApp/app/src/main/res/layout/activity_highlights.xml" value="0.35885416666666664" />
         <entry key="..\:/Users/Piotr/AndroidStudioProjects/BicycleApp/app/src/main/res/layout/activity_info.xml" value="0.26979166666666665" />
         <entry key="..\:/Users/Piotr/AndroidStudioProjects/BicycleApp/app/src/main/res/layout/activity_main.xml" value="0.30625" />
+        <entry key="..\:/Users/Piotr/AndroidStudioProjects/BicycleApp/app/src/main/res/layout/activity_main2.xml" value="0.3229166666666667" />
+        <entry key="..\:/Users/Piotr/AndroidStudioProjects/BicycleApp/app/src/main/res/layout/activity_tour_registration.xml" value="0.28072916666666664" />
         <entry key="..\:/Users/Piotr/AndroidStudioProjects/BicycleApp/app/src/main/res/layout/activity_trip_details.xml" value="0.26979166666666665" />
         <entry key="..\:/Users/Piotr/AndroidStudioProjects/BicycleApp/app/src/main/res/layout/activity_trips_list.xml" value="0.3015625" />
+        <entry key="..\:/Users/Piotr/AndroidStudioProjects/BicycleApp/app/src/main/res/layout/highlight_adapter.xml" value="0.25" />
         <entry key="..\:/Users/Piotr/AndroidStudioProjects/BicycleApp/app/src/main/res/layout/trip_adapter.xml" value="0.35885416666666664" />
       </map>
     </option>

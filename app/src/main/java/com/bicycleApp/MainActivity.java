@@ -1,22 +1,17 @@
 package com.bicycleApp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import Data.MyDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button addButton, exitButton, listButton, infoButton, statsButton, highlightsButton, recordButton;
-    private SensorManager sensorManager;
-    private java.util.List<Sensor> sensorList;
-    private Sensor sensorLight;
     private MyDatabase database;
 
     @Override
@@ -25,46 +20,35 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         addButton = (Button) findViewById(R.id.addbutton);
-        addButton.setOnClickListener((view -> {openAdd();}));
-
+        addButton.setOnClickListener((view -> {
+            Intent intent = new Intent (this, AddTripActivity.class);
+            startActivity(intent);
+        }));
         listButton = findViewById(R.id.listbutton);
-        listButton.setOnClickListener((view -> {openList();}));
-
+        listButton.setOnClickListener((view -> {
+            Intent intent = new Intent(this, TripsListActivity.class);
+            startActivity(intent);
+        }));
         recordButton = findViewById(R.id.btn_record);
-
         exitButton = (Button) findViewById(R.id.exitbutton);
-        exitButton.setOnClickListener((view -> {openExit();}));
-
-
-
+        exitButton.setOnClickListener((view -> {finish();}));
         infoButton = (Button) findViewById(R.id.infobutton);
-        infoButton.setOnClickListener((view -> {openInfo();}));
-
+        infoButton.setOnClickListener((view -> {
+            Intent intent = new Intent(this, InfoActivity.class);
+            startActivity(intent);
+        }));
         statsButton = findViewById(R.id.btn_stats);
-        statsButton.setOnClickListener((view -> {openStats();}));
-
+        statsButton.setOnClickListener((view -> {
+            openStats();
+        }));
         highlightsButton = findViewById(R.id.btn_highlights);
-        highlightsButton.setOnClickListener((view -> {openHighlights();}));
+        highlightsButton.setOnClickListener((view -> {
+            Intent intent = new Intent(this, HighlightsActivity.class);
+            startActivity(intent);
+        }));
 
         database = new MyDatabase(this, 1);
         Log.d("MAIN","BAZA1");
-    }
-
-
-    public void openAdd(){
-        Intent intent = new Intent (this, AddTripActivity.class);
-        startActivity(intent);
-    }
-
-    public void openList(){
-        Intent intent = new Intent(this, TripsListActivity.class);
-        startActivity(intent);
-
-    }
-
-    public void openInfo(){
-        Intent intent = new Intent(this, InfoActivity.class);
-        startActivity(intent);
     }
 
     public void openStats(){
@@ -74,12 +58,4 @@ public class MainActivity extends AppCompatActivity {
 //        database.deleteRow("Trip",15);
     }
 
-    public void openHighlights(){
-        Intent intent = new Intent(this, HighlightsActivity.class);
-        startActivity(intent);
-    }
-
-    public void openExit(){
-        finish();
-    }
 }

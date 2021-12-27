@@ -16,10 +16,11 @@
 
     <ListView
         android:id="@+id/trips_list"
-        android:layout_width="410dp"
-        android:layout_height="583dp"
+        android:layout_width="367dp"
+        android:layout_height="507dp"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.38" />
 </androidx.constraintlayout.widget.ConstraintLayout>
