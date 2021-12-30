@@ -16,11 +16,10 @@ import java.util.List;
 import Data.MyDatabase;
 import Model.Trip;
 
-public class TripsListActivity extends AppCompatActivity {
+public class TripListActivity extends AppCompatActivity {
 
     private MyDatabase database;
     private List<Trip> tripList = new LinkedList<>();
-    private Button button;
     private Cursor cursor;
     private ListView list;
     private TripAdapter tripAdapter;
@@ -28,10 +27,8 @@ public class TripsListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trips_list);
+        setContentView(R.layout.activity_trip_list);
         list = (ListView) findViewById(R.id.trips_list);
-        button = findViewById(R.id.button);
-        button.setOnClickListener((view -> {finish();}));
         database = new MyDatabase(this,1);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -64,7 +61,7 @@ public class TripsListActivity extends AppCompatActivity {
         Intent intent = new Intent(this, TripDetailsActivity.class);
         intent.putExtra("Id", tripList.get(position).getId());
         intent.putExtra("Date", tripList.get(position).getDate());
-        intent.putExtra("City", tripList.get(position).getCity());
+        intent.putExtra("Title", tripList.get(position).getTitle());
         intent.putExtra("Notification", tripList.get(position).getNotification());
         startActivity(intent);
     }

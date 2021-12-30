@@ -5,7 +5,7 @@ import android.media.Image;
 
 import java.util.Date;
 
-public class HighLight{
+public class Highlight {
     private int id;
     private Bitmap image;
     private String description;
@@ -14,14 +14,14 @@ public class HighLight{
     private String lon;
     private int tourId;
 
-    public HighLight(){}
+    public Highlight(){}
 
-    public HighLight(Bitmap image, String date) {
+    public Highlight(Bitmap image, String date) {
         this.image = image;
         this.date = date;
     }
 
-    public HighLight(int id, Bitmap image, String description, String date, String lat, String lon, int tourId) {
+    public Highlight(int id, Bitmap image, String description, String date, String lat, String lon, int tourId) {
         this.id = id;
         this.image = image;
         this.description = description;

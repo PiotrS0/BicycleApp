@@ -82,7 +82,7 @@ public class TripDetailsActivity extends AppCompatActivity {
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                database.changeNotification(id, checkBox.isChecked());
+                database.changeTripNotification(id, checkBox.isChecked());
             }
         });
 

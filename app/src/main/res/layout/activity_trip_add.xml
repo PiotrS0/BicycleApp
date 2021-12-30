@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddTripActivity">
+    tools:context=".TripAddActivity">
 
     <TextView
         android:id="@+id/dateTextView"
@@ -88,7 +88,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
-        android:id="@+id/editTextCity"
+        android:id="@+id/editTextTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -104,12 +104,18 @@
         android:layout_height="62dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="60dp"
-        android:text="Miejscowość:"
+        android:text="Tytuł:"
         android:textAlignment="center"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timeButton" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_height="0dp"
+        android:layout_width="0dp">
+
+    </androidx.constraintlayout.widget.Guideline>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

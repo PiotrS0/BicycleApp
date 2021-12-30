@@ -10,13 +10,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BicycleApp">
         <activity
-            android:name=".AddHighlightActivity"
+            android:name=".TourAdapter"
             android:exported="false" />
         <activity
-            android:name=".TourRegistrationActivity"
+            android:name=".HighlightDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".HighlightsActivity"
+            android:name=".StatsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TourDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TourListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HighlightAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RecordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HighlightListActivity"
             android:exported="false" />
         <activity
             android:name=".InfoActivity"
@@ -25,10 +40,10 @@
             android:name=".TripDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".TripsListActivity"
+            android:name=".TripListActivity"
             android:exported="false" />
         <activity
-            android:name=".AddTripActivity"
+            android:name=".TripAddActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

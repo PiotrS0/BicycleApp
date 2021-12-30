@@ -3,22 +3,22 @@ package Model;
 public class Trip {
     private int id;
     private String date;
-    private String city;
+    private String title;
     private boolean notification;
 
     public Trip(){}
 
-    public Trip(int id, String date, String city){
+    public Trip(int id, String date, String title){
         this.id = id;
         this.date = date;
-        this.city = city;
+        this.title = title;
         this.notification = true;
     }
 
-    public Trip(int id, String date, String city, boolean notification) {
+    public Trip(int id, String date, String title, boolean notification) {
         this.id = id;
         this.date = date;
-        this.city = city;
+        this.title = title;
         this.notification = notification;
     }
 
@@ -34,8 +34,8 @@ public class Trip {
         return date.substring(0,date.length()-3);
     }
 
-    public String getCity() {
-        return city;
+    public String getTitle() {
+        return title;
     }
 
     public boolean getNotification() {
@@ -50,8 +50,8 @@ public class Trip {
         this.date = date;
     }
 
-    public void setCity(String city){
-        this.city = city;
+    public void setTitle(String title){
+        this.title = title;
     }
 
     public void setNotification(boolean notification){

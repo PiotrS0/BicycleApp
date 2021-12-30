@@ -1,32 +1,36 @@
 package com.bicycleApp;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
-import Model.Highlight;
+import Model.Tour;
+import Model.Trip;
 
-public class HighlightAdapter extends BaseAdapter {
+public class TourAdapter extends BaseAdapter {
 
     private Context context;
-    private List<Highlight> highlightList;
+    private List<Tour> toursList;
     private LayoutInflater layoutInflater;
 
-    public HighlightAdapter(Context context, List<Highlight> highlightList) {
+    public TourAdapter(Context context, List<Tour> toursList) {
         this.context = context;
-        this.highlightList = highlightList;
+        this.toursList = toursList;
+
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return highlightList.size();
+        return toursList.size();
     }
 
     @Override
@@ -41,27 +45,25 @@ public class HighlightAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
-        ViewHolder viewHolder;
+        TourAdapter.ViewHolder viewHolder;
         if(convertView == null){
-            viewHolder = new ViewHolder();
-            convertView = layoutInflater.inflate(R.layout.highlight_adapter,viewGroup,false);
-            viewHolder.date = (TextView) convertView.findViewById(R.id.textViewHA);
-            viewHolder.image = (ImageView) convertView.findViewById(R.id.imageViewHA);
+            viewHolder = new TourAdapter.ViewHolder();
+            convertView = layoutInflater.inflate(R.layout.tour_adapter, viewGroup,false);
+            viewHolder.index = (TextView) convertView.findViewById(R.id.text_number);
+            viewHolder.date = (TextView) convertView.findViewById(R.id.text_element);
             convertView.setTag(viewHolder);
         }
         else
-            viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder = (TourAdapter.ViewHolder) convertView.getTag();
 
-        viewHolder.date.setText(""+ highlightList.get(position).getDate());
-        viewHolder.image.setImageResource(R.drawable.error);
-
+        viewHolder.index.setText(""+(position+1));
+        viewHolder.date.setText(""+toursList.get(position).getDateWithoutSeconds());
 
         return convertView;
     }
 
-
     class ViewHolder{
+        TextView index;
         TextView date;
-        ImageView image;
     }
 }

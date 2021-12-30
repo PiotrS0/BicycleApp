@@ -27,7 +27,7 @@ import java.util.Date;
 import Data.MyDatabase;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
-public class AddTripActivity extends AppCompatActivity {
+public class TripAddActivity extends AppCompatActivity {
 
     private Button buttonAdd;
     private Button buttonCancel;
@@ -40,14 +40,17 @@ public class AddTripActivity extends AppCompatActivity {
     private Date data2 = new Date();
     private CheckBox checkBox;
     private EditText editText;
-    public AddTripActivity() {
+    private double lat, lon;
+
+
+    public TripAddActivity() {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_trip);
+        setContentView(R.layout.activity_trip_add);
         buttonAdd = findViewById(R.id.add_button);
         buttonAdd.setOnClickListener((view -> {
             try {
@@ -65,7 +68,7 @@ public class AddTripActivity extends AppCompatActivity {
         timeTextView = findViewById(R.id.timeTextView);
         dateTextView.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         timeTextView.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
-        editText = findViewById(R.id.editTextCity);
+        editText = findViewById(R.id.editTextTitle);
         database = new MyDatabase(this, 1);
         dateButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -136,6 +139,8 @@ public class AddTripActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void openAdd() throws InterruptedException {
 
+        lat = 34.567;
+        lon = 67.453;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String dateAfterFormat = sdf.format(data2);
@@ -143,11 +148,11 @@ public class AddTripActivity extends AppCompatActivity {
         Date nowDate = convertToDateViaInstant(LocalDateTime.now());
 
         if(data2.before(nowDate))
-            Toast.makeText(AddTripActivity.this,"Wprowadź poprawną datę", Toast.LENGTH_SHORT).show();
+            Toast.makeText(TripAddActivity.this,"Wprowadź poprawną datę", Toast.LENGTH_SHORT).show();
         else{
-            database.addTrip(editText.getText().toString(), dateAfterFormat,checkBox.isChecked());
+            database.addTrip(editText.getText().toString(), dateAfterFormat,checkBox.isChecked(),lat,lon);
 
-            Toast.makeText(AddTripActivity.this,"Wycieczka dodana", Toast.LENGTH_SHORT).show();
+            Toast.makeText(TripAddActivity.this,"Wycieczka dodana", Toast.LENGTH_SHORT).show();
 
             Thread.sleep(1000);
             finish();

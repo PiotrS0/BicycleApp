@@ -8,24 +8,18 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import android.icu.util.Calendar;
-
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-
 public class MyDatabase extends SQLiteOpenHelper {
     public MyDatabase(@Nullable Context context,  int version) {
-        super(context, "test4.db", null, version);
+        super(context, "test7.db", null, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //db.execSQL("create table Trip(Id integer not null primary key autoincrement, Date Date not null, Lat text not null, Lon text not null, Notification numeric not null)");
-        db.execSQL("create table Trip(Id integer not null primary key autoincrement, Date Date not null, City text not null, Notification numeric not null)");
-        db.execSQL("create table Tour(Id integer not null primary key autoincrement, StartLat text not null, StartLon text not null, EndLat text not null, EndLon text not null"+
-                ", Time numeric not null, Distance numeric not null)");
+        db.execSQL("create table Trip(Id integer not null primary key autoincrement, Date Date not null, Title text, Notification numeric not null, Lat numeric not null, Lon numeric not null)");
+        db.execSQL("create table Tour(Id integer not null primary key autoincrement, Title text, StartLat text not null, StartLon text not null, EndLat text not null, EndLon text not null"+
+                ", Time numeric not null, Distance numeric not null, Date Date not null)");
         db.execSQL("create table Point(Id integer not null primary key autoincrement, Date Date not null, Lat text not null, Lon text not null, TourId integer not null references Tour(Id))");
-        db.execSQL("create table Highlight(Id integer not null, Image blob not null, Description text, Date Date not null, TripId references Trip(Id), TourId references Tour(Id))");
+        db.execSQL("create table Highlight(Id integer not null, Image blob not null, Title text, Description text, Date Date not null, Lat numeric not null, Lon numeric not null, TourId references Tour(Id))");
     }
 
     @Override
@@ -33,19 +27,75 @@ public class MyDatabase extends SQLiteOpenHelper {
 
     }
 
-    public void addTrip(String city, String date, Boolean notification){
+    public void addTrip(String title, String date, Boolean notification, Double lat, Double lon){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("City", city);
+        values.put("Title", title);
         values.put("Date", date);
         values.put("Notification",notification);
+        values.put("Lat",lat);
+        values.put("Lon",lon);
         db.insertOrThrow("Trip",null,values);
     }
 
+    public void addTour(String title, double startLat, double startLon, double endLat, double endLon, double time, double distance, String date){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("Title",title);
+        values.put("StartLat",startLat);
+        values.put("StartLon",startLon);
+        values.put("EndLat",endLat);
+        values.put("EndLon",endLon);
+        values.put("Time",time);
+        values.put("Distance",distance);
+        values.put("Date", date);
+        db.insertOrThrow("Tour",null, values);
+    }
+
+    public void addPoint(String date, int tourId, double lat, double lon){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("Date",date);
+        values.put("Lat",lat);
+        values.put("Lon",lon);
+        values.put("TourId",tourId);
+        db.insertOrThrow("Point",null,values);
+    }
+
+    public void addHighlight(String image, String title, String description,String date, double lat, double lon, int tourId){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("Image", image);
+        values.put("Title",title);
+        values.put("Description", description);
+        values.put("Date",date);
+        values.put("Lat",lat);
+        values.put("Lon",lon);
+        values.put("TourId",tourId);
+        db.insertOrThrow("Tour",null,values);
+    }
+
     public Cursor getAllTrips(){
-        String[] columns = {"Id","Date","City","Notification"};
+        String[] columns = {"Id","Date","Title","Notification"};
         SQLiteDatabase db = getReadableDatabase();
         return db.query("Trip",columns,null,null,null,null,null);
+    }
+
+    public Cursor getAllTours(){
+        String[] columns = {"Id","Title","StartLat","StartLon","EndLat","EndLon","Time","Distance","Date"};
+        SQLiteDatabase db = getReadableDatabase();
+        return db.query("Tour",columns,null,null,null,null,null);
+    }
+
+    public Cursor getAllHighlights(){
+        String[] columns = {"Id","Image","Title","Description","Date","Lat","Lon","TourId"};
+        SQLiteDatabase db = getReadableDatabase();
+        return db.query("Highlight",columns,null,null,null,null,null);
+    }
+
+    public Cursor getTourPoints(int tourId){
+        SQLiteDatabase db = getReadableDatabase();
+        return db.query("Point",null,"TourId = " + tourId,null,null,null,null);
     }
 
     public void clearTable(String tableName){
@@ -58,11 +108,11 @@ public class MyDatabase extends SQLiteOpenHelper {
         db.delete(table,"Id = "+ id,null);
     }
 
-    public void changeNotification(int id, boolean notification){
+    public void changeTripNotification(int id, boolean notification){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("Notification", notification);
-        db.update("Trip",cv,"Id = "+ id,null);
+        db.update("Trip",cv,"Id = " + id,null);
     }
 
 

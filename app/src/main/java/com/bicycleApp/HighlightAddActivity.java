@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class AddHighlightActivity extends AppCompatActivity {
+public class HighlightAddActivity extends AppCompatActivity {
 
     private static final int GALLERY_REQUEST_CODE = 100;
     private static final int CAMERA_REQUEST_CODE = 200;
@@ -28,7 +28,7 @@ public class AddHighlightActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_highlight);
+        setContentView(R.layout.activity_highlight_add);
 
         this.selectedImageView = (ImageView) findViewById(R.id.new_memory_selected_image);
         this.titleEditText = (EditText) findViewById(R.id.new_memory_title);

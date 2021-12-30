@@ -2,26 +2,23 @@ package com.bicycleApp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.Toolbar;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import Data.MyDatabase;
-import Model.HighLight;
+import Model.Highlight;
 
-public class HighlightsActivity extends AppCompatActivity {
+public class HighlightListActivity extends AppCompatActivity {
 
     private MyDatabase database;
-    private List<HighLight> highLightList = new LinkedList<>();
+    private List<Highlight> highlightList = new LinkedList<>();
     private GridView gridView;
     private Cursor cursor;
     private HighlightAdapter highlightAdapter;
@@ -30,7 +27,7 @@ public class HighlightsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_highlights);
+        setContentView(R.layout.activity_highlight_list);
         gridView = findViewById(R.id.gridH);
         //button = findViewById(R.id.button3Add);
 //        button.setOnClickListener(view -> {
@@ -39,21 +36,21 @@ public class HighlightsActivity extends AppCompatActivity {
 //        });
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.error);
 
-        HighLight highLight = new HighLight(bitmap,"SIEMA");
-        highLightList.add(highLight);
-        highLightList.add(highLight);
-        highLightList.add(highLight);
-        highLightList.add(highLight);
-        highLightList.add(highLight);
-        highLightList.add(highLight);
-        highLightList.add(highLight);
-        highLightList.add(highLight);
-        highLightList.add(highLight);
-        highLightList.add(highLight);
-        highLightList.add(highLight);
-        highLightList.add(highLight);
+        Highlight highLight = new Highlight(bitmap,"SIEMA");
+        highlightList.add(highLight);
+        highlightList.add(highLight);
+        highlightList.add(highLight);
+        highlightList.add(highLight);
+        highlightList.add(highLight);
+        highlightList.add(highLight);
+        highlightList.add(highLight);
+        highlightList.add(highLight);
+        highlightList.add(highLight);
+        highlightList.add(highLight);
+        highlightList.add(highLight);
+        highlightList.add(highLight);
 
-        highlightAdapter = new HighlightAdapter(this,highLightList);
+        highlightAdapter = new HighlightAdapter(this, highlightList);
         gridView.setAdapter(highlightAdapter);
         setTitle("Highlights");
     }
