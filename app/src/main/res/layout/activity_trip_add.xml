@@ -1,121 +1,118 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".TripAddActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/dateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="88dp"
-        android:text="dateTextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintStart_toEndOf="@+id/dateButton"
-        app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/dateButton"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="88dp"
-        android:text="get date"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBarAddTrip"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/tripAdd_actitity_title"
+            app:menu="@menu/top_app_bar_with_confirm"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            />
 
-    <Button
-        android:id="@+id/timeButton"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="44dp"
-        android:text="get time"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateButton" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:id="@+id/timeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="48dp"
-        android:text="timeTextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintStart_toEndOf="@+id/timeButton"
-        app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
+    <!-- Note: A RecyclerView can also be used -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        <TextView
+            android:id="@+id/dateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="88dp"
+            android:text="dateTextView"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:layout_constraintStart_toEndOf="@+id/dateButton"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/cancel_button"
+            android:id="@+id/dateButton"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="200dp"
-            android:layout_marginRight="3dp"
-            android:text="Wróć">
-        </Button>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="88dp"
+            android:text="get date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <Button
-            android:id="@+id/add_button"
+            android:id="@+id/timeButton"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:text="Dodaj"></Button>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="44dp"
+            android:text="get time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dateButton" />
 
-    </LinearLayout>
-
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="197dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
-        android:checked="true"
-        android:text="Wysyłaj powiadomienia"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <EditText
-        android:id="@+id/editTextTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="32dp"
-        android:ems="10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/timeTextView" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="106dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="60dp"
-        android:text="Tytuł:"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeButton" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_height="0dp"
-        android:layout_width="0dp">
-
-    </androidx.constraintlayout.widget.Guideline>
+        <TextView
+            android:id="@+id/timeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="48dp"
+            android:text="timeTextView"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:layout_constraintStart_toEndOf="@+id/timeButton"
+            app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="197dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="40dp"
+            android:checked="true"
+            android:text="Wysyłaj powiadomienia"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <EditText
+            android:id="@+id/editTextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="32dp"
+            android:ems="10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/timeTextView" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="106dp"
+            android:layout_height="62dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="60dp"
+            android:text="Tytuł:"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timeButton" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_height="0dp"
+            android:layout_width="0dp">
+
+        </androidx.constraintlayout.widget.Guideline>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

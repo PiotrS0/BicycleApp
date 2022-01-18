@@ -6,6 +6,7 @@ import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,6 +18,9 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.appbar.MaterialToolbar;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -29,8 +33,7 @@ import Data.MyDatabase;
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class TripAddActivity extends AppCompatActivity {
 
-    private Button buttonAdd;
-    private Button buttonCancel;
+    private MaterialToolbar toolbar;
     private Calendar calendar1 = Calendar.getInstance();
     private static final String TAG = "MainActivity";
     private MyDatabase database;
@@ -51,16 +54,24 @@ public class TripAddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_add);
-        buttonAdd = findViewById(R.id.add_button);
-        buttonAdd.setOnClickListener((view -> {
-            try {
-                openAdd();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        toolbar = findViewById(R.id.topAppBarAddTrip);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
-        }));
-        buttonCancel = findViewById(R.id.cancel_button);
-        buttonCancel.setOnClickListener((view -> {finish();}));
+        });
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                try {
+                    openAdd();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return false;
+            }
+        });
         checkBox = findViewById(R.id.checkBox);
         dateButton = findViewById(R.id.dateButton);
         timeButton = findViewById(R.id.timeButton);
@@ -86,7 +97,6 @@ public class TripAddActivity extends AppCompatActivity {
         });
     }
 
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void handleDateButton() {
         Calendar calendar = Calendar.getInstance();
@@ -107,7 +117,6 @@ public class TripAddActivity extends AppCompatActivity {
                 dateTextView.setText(""+year +"-"+ (month+1) +"-"+ date);
             }
         }, YEAR, MONTH, DATE);
-
         datePickerDialog.show();
     }
 
@@ -158,7 +167,6 @@ public class TripAddActivity extends AppCompatActivity {
             finish();
         }
     }
-
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     Date convertToDateViaInstant(LocalDateTime dateToConvert) {

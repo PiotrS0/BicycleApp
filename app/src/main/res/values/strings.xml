@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">BicycleApp</string>
+    <string name="title_activity_map_point_picker">MapPointPickerActivity</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_maps_show_point">MapsShowPointActivity</string>
+    <string name="info_actitity_title">Info</string>
+    <string name="main_actitity_title">Main</string>
+    <string name="stats_actitity_title">Stats</string>
+    <string name="HighlightList_actitity_title">Highlights</string>
+    <string name="HighlightAdd_actitity_title">AddHighlight</string>
+    <string name="HighlightDetails_actitity_title">HighlightDetails</string>
+    <string name="tripList_actitity_title">TripsList</string>
+    <string name="tripDetails_actitity_title">TripDetails</string>
+    <string name="tripAdd_actitity_title">AddTrip</string>
+<!--    <string name="info_actitity_title">Info</string>-->
+<!--    <string name="info_actitity_title">Info</string>-->
+<!--    <string name="info_actitity_title">Info</string>-->
+<!--    <string name="info_actitity_title">Info</string>-->
+
 </resources>

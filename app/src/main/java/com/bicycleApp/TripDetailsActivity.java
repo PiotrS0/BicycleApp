@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.google.android.material.appbar.MaterialToolbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,8 +42,6 @@ import Data.MyDatabase;
 
 public class TripDetailsActivity extends AppCompatActivity {
 
-    private Button button;
-    private Button deleteButton;
     private TextView textView, weatherTextView;
     private CheckBox checkBox;
     private int id;
@@ -52,6 +53,7 @@ public class TripDetailsActivity extends AppCompatActivity {
     private final String appid = "cd7c73584d832f404cedc12f4d738e07";
     private Date dateFromBase;
     private ImageView imageView;
+    private MaterialToolbar toolbar;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -59,16 +61,24 @@ public class TripDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_details);
         database = new MyDatabase(this, 1);
-        button = findViewById(R.id.btn_back);
-        button.setOnClickListener((view -> {finish();}));
-        deleteButton = findViewById(R.id.btn_delete);
-        deleteButton.setOnClickListener((view -> {
-            try {
-                deleteItem();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        toolbar = findViewById(R.id.topAppBarTripDetails);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
-        }));
+        });
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                try {
+                    deleteItem();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return false;
+            }
+        });
         textView = findViewById(R.id.tripdetailstextdate);
         checkBox = findViewById(R.id.checkBox2);
         weatherTextView = findViewById(R.id.textView3);

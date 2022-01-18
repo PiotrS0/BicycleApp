@@ -10,19 +10,20 @@ import Data.MyDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button addButton, exitButton, listButton, infoButton, statsButton, highlightsButton, recordButton, toursButton;
+    private Button exitButton, listButton, infoButton, statsButton, highlightsButton, recordButton, toursButton;
     private MyDatabase database;
+    private Button testButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        addButton = (Button) findViewById(R.id.addbutton);
-        addButton.setOnClickListener((view -> {
-            Intent intent = new Intent (this, TripAddActivity.class);
-            startActivity(intent);
+        testButton = findViewById(R.id.testButton);
+        testButton.setOnClickListener((view -> {
+            startActivity(new Intent(this, HighlightAddActivity.class));
         }));
+
         listButton = findViewById(R.id.listbutton);
         listButton.setOnClickListener((view -> {
             Intent intent = new Intent(this, TripListActivity.class);
@@ -46,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
         }));
         statsButton = findViewById(R.id.btn_stats);
         statsButton.setOnClickListener((view -> {
-            startActivity(new Intent(this, StatsActivity.class));
-            //openStats();
+            //startActivity(new Intent(this, StatsActivity.class));
+            openStats();
         }));
         highlightsButton = findViewById(R.id.btn_highlights);
         highlightsButton.setOnClickListener((view -> {
@@ -59,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openStats(){
-//        Intent intent = new Intent(this, InfoActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, MapPointPickerActivity.class);
+        startActivity(intent);
 //        database.clearTable("Trip");
 //        database.deleteRow("Trip",15);
     }

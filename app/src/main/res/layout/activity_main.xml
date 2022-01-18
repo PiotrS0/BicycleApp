@@ -16,12 +16,6 @@
         android:textSize="30sp" />
 
     <Button
-        android:id="@+id/addbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Zaplanuj wycieczkę" />
-
-    <Button
         android:id="@+id/listbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,6 +57,11 @@
         android:layout_height="wrap_content"
         android:text="Wyjście" />
 
+    <Button
+        android:id="@+id/testButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TEST" />
 
 
 </LinearLayout>

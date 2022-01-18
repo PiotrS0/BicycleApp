@@ -1,27 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".InfoActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textInfo"
-        android:layout_width="369dp"
-        android:layout_height="362dp"
-        android:layout_marginTop="24dp"
-        android:text=""
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.appbar.AppBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btn_back5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Powrót"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="@string/info_actitity_title"
+        app:menu="@menu/top_app_bar"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+        <!-- Note: A RecyclerView can also be used -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <!-- Scrollable content -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,21 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp"
-    tools:context="com.bicycleApp.HighlightListActivity">
+    android:layout_height="match_parent">
 
-    <GridView
-        android:id="@+id/gridH"
-        android:numColumns="auto_fit"
-        android:verticalSpacing="4dp"
-        android:gravity="center"
-        android:horizontalSpacing="4dp"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBarHighlightsList"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/HighlightList_actitity_title"
+            app:menu="@menu/top_app_bar"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Note: A RecyclerView can also be used -->
+    <FrameLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <GridView
+            android:id="@+id/gridH"
+            android:numColumns="auto_fit"
+            android:verticalSpacing="4dp"
+            android:gravity="center"
+            android:horizontalSpacing="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
