@@ -148,18 +148,19 @@ public class TripAddActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void openAdd() throws InterruptedException {
 
-        lat = 34.567;
-        lon = 67.453;
+        lat = 53.119559;
+        lon = 23.150423;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String dateAfterFormat = sdf.format(data2);
 
         Date nowDate = convertToDateViaInstant(LocalDateTime.now());
+        String nowDateAfterFormat = sdf.format(nowDate);
 
         if(data2.before(nowDate))
             Toast.makeText(TripAddActivity.this,"Wprowadź poprawną datę", Toast.LENGTH_SHORT).show();
         else{
-            database.addTrip(editText.getText().toString(), dateAfterFormat,checkBox.isChecked(),lat,lon);
+            database.addTrip(editText.getText().toString(), dateAfterFormat,checkBox.isChecked(),nowDateAfterFormat,lat,lon);
 
             Toast.makeText(TripAddActivity.this,"Wycieczka dodana", Toast.LENGTH_SHORT).show();
 

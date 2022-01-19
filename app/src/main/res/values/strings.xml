@@ -12,8 +12,11 @@
     <string name="tripList_actitity_title">TripsList</string>
     <string name="tripDetails_actitity_title">TripDetails</string>
     <string name="tripAdd_actitity_title">AddTrip</string>
-<!--    <string name="info_actitity_title">Info</string>-->
-<!--    <string name="info_actitity_title">Info</string>-->
+    <string name="delete">delete</string>
+    <string name="location">location</string>
+    <string name="start_point">StartPoint</string>
+    <string name="tourList_actitity_title">TourList</string>
+    <string name="tourDetails_actitity_title">TourDetails</string>
 <!--    <string name="info_actitity_title">Info</string>-->
 <!--    <string name="info_actitity_title">Info</string>-->
 

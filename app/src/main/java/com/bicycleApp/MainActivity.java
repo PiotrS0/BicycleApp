@@ -2,17 +2,19 @@ package com.bicycleApp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import Data.MyDatabase;
+import Model.Tour;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button exitButton, listButton, infoButton, statsButton, highlightsButton, recordButton, toursButton;
+    private Button listButton, infoButton, statsButton, highlightsButton, recordButton, toursButton;
     private MyDatabase database;
-    private Button testButton;
+    private Button testButton, baseButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,14 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, HighlightAddActivity.class));
         }));
 
+        baseButton = findViewById(R.id.baseButton);
+        baseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                makebasetour();
+            }
+        });
+
         listButton = findViewById(R.id.listbutton);
         listButton.setOnClickListener((view -> {
             Intent intent = new Intent(this, TripListActivity.class);
@@ -34,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this,RecordActivity.class);
             startActivity(intent);
         }));
-        exitButton = (Button) findViewById(R.id.exitbutton);
-        exitButton.setOnClickListener((view -> {finish();}));
         infoButton = (Button) findViewById(R.id.infobutton);
         infoButton.setOnClickListener((view -> {
             Intent intent = new Intent(this, InfoActivity.class);
@@ -60,10 +68,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openStats(){
-        Intent intent = new Intent(this, MapPointPickerActivity.class);
+        Intent intent = new Intent(this, MapsShowPointActivity.class);
         startActivity(intent);
 //        database.clearTable("Trip");
 //        database.deleteRow("Trip",15);
+    }
+
+    private void makebasetour(){
+        //database.clearTable("Tour");
+        database.addTour("Title123",12.34,12.34,56.78,56.78,1234,56.70,"2022-01-20 19:02:35");
     }
 
 }

@@ -10,12 +10,12 @@ import androidx.annotation.Nullable;
 
 public class MyDatabase extends SQLiteOpenHelper {
     public MyDatabase(@Nullable Context context,  int version) {
-        super(context, "test7.db", null, version);
+        super(context, "test8.db", null, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table Trip(Id integer not null primary key autoincrement, Date Date not null, Title text, Notification numeric not null, Lat numeric not null, Lon numeric not null)");
+        db.execSQL("create table Trip(Id integer not null primary key autoincrement, Date Date not null, Title text, Notification numeric not null, LastNotificationDate Date not null, Lat numeric not null, Lon numeric not null)");
         db.execSQL("create table Tour(Id integer not null primary key autoincrement, Title text, StartLat text not null, StartLon text not null, EndLat text not null, EndLon text not null"+
                 ", Time numeric not null, Distance numeric not null, Date Date not null)");
         db.execSQL("create table Point(Id integer not null primary key autoincrement, Date Date not null, Lat text not null, Lon text not null, TourId integer not null references Tour(Id))");
@@ -27,12 +27,13 @@ public class MyDatabase extends SQLiteOpenHelper {
 
     }
 
-    public void addTrip(String title, String date, Boolean notification, Double lat, Double lon){
+    public void addTrip(String title, String date, Boolean notification, String lastNotificationDate, Double lat, Double lon){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("Title", title);
         values.put("Date", date);
+        values.put("Title", title);
         values.put("Notification",notification);
+        values.put("LastNotificationDate", lastNotificationDate);
         values.put("Lat",lat);
         values.put("Lon",lon);
         db.insertOrThrow("Trip",null,values);
@@ -76,7 +77,7 @@ public class MyDatabase extends SQLiteOpenHelper {
     }
 
     public Cursor getAllTrips(){
-        String[] columns = {"Id","Date","Title","Notification"};
+        String[] columns = {"Id","Date","Title","Notification","LastNotificationDate","Lat","Lon"};
         SQLiteDatabase db = getReadableDatabase();
         return db.query("Trip",columns,null,null,null,null,null);
     }

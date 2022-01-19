@@ -2,6 +2,7 @@ package com.bicycleApp;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -45,12 +46,13 @@ public class TripDetailsActivity extends AppCompatActivity {
     private TextView textView, weatherTextView;
     private CheckBox checkBox;
     private int id;
-    private String date;
+    private String date, lastNotificationDate;
     private boolean notification;
+    private double lat, lon;
     private MyDatabase database;
     DecimalFormat df = new DecimalFormat("#.##");
     private final String url = "https://api.openweathermap.org/data/2.5/";
-    private final String appid = "cd7c73584d832f404cedc12f4d738e07";
+    private String apiId;
     private Date dateFromBase;
     private ImageView imageView;
     private MaterialToolbar toolbar;
@@ -60,6 +62,7 @@ public class TripDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_details);
+        apiId = getResources().getString(R.string.openweather_api_key);
         database = new MyDatabase(this, 1);
         toolbar = findViewById(R.id.topAppBarTripDetails);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -71,10 +74,19 @@ public class TripDetailsActivity extends AppCompatActivity {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                try {
-                    deleteItem();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+
+                if(item.getTitle().equals("location")){
+                    Intent intent = new Intent(getApplicationContext(), MapsShowPointActivity.class);
+                    intent.putExtra("Lat", lat);
+                    intent.putExtra("Lon", lon);
+                    startActivity(intent);
+                }
+                if(item.getTitle().equals("delete")){
+                    try {
+                        deleteItem();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
                 return false;
             }
@@ -85,6 +97,8 @@ public class TripDetailsActivity extends AppCompatActivity {
         id = getIntent().getIntExtra("Id",0);
         date = getIntent().getStringExtra("Date");
         notification = getIntent().getBooleanExtra("Notification",true);
+        lat = getIntent().getDoubleExtra("Lat",0);
+        lon = getIntent().getDoubleExtra("Lon",0);
         imageView = findViewById(R.id.imageView2);
         textView.setText(date.substring(0,date.length()-3));
         checkBox.setChecked(notification);
@@ -175,8 +189,6 @@ public class TripDetailsActivity extends AppCompatActivity {
 
     public void getWeatherDetails(int days){
         String tempUrl = "";
-        String lat = "53.119559";
-        String lon = "23.150423";
 
         if(days == 0){
             weatherTextView.setText("Prognoza pogody jest dostępna na 7 dni przed terminem wycieczki.");
@@ -185,7 +197,7 @@ public class TripDetailsActivity extends AppCompatActivity {
 
         else{
             if(days==-1){
-                tempUrl = url + "weather?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + appid;
+                tempUrl = url + "weather?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + apiId;
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, tempUrl, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -235,7 +247,7 @@ public class TripDetailsActivity extends AppCompatActivity {
 
             else{
                 int param;
-                tempUrl = url + "onecall?lat=" + lat + "&lon=" + lon + "&exclude=current,minutely,hourly,alerts&units=metric&appid=" + appid;
+                tempUrl = url + "onecall?lat=" + lat + "&lon=" + lon + "&exclude=current,minutely,hourly,alerts&units=metric&appid=" + apiId;
                 if(days == -2)
                     param = 0;
                 else

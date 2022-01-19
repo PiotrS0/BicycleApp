@@ -3,6 +3,7 @@ package com.bicycleApp;
 import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -12,19 +13,31 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.bicycleApp.databinding.ActivityMapsShowPointBinding;
+import com.google.android.material.appbar.MaterialToolbar;
 
 public class MapsShowPointActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private ActivityMapsShowPointBinding binding;
     private Marker marker;
+    private double lat, lon;
+    private MaterialToolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        lat = getIntent().getDoubleExtra("Lat", 0);
+        lon = getIntent().getDoubleExtra("Lon", 0);
         binding = ActivityMapsShowPointBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        toolbar = findViewById(R.id.topAppBarMapShowPoint);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -48,7 +61,7 @@ public class MapsShowPointActivity extends FragmentActivity implements OnMapRead
 
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
+        LatLng sydney = new LatLng(lat, lon);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }

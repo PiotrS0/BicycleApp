@@ -52,16 +52,16 @@
         android:text="Informacje" />
 
     <Button
-        android:id="@+id/exitbutton"
+        android:id="@+id/testButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Wyjście" />
+        android:text="TEST" />
 
     <Button
-        android:id="@+id/testButton"
-        android:layout_width="match_parent"
+        android:id="@+id/baseButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TEST" />
+        android:text="Base" />
 
 
 </LinearLayout>

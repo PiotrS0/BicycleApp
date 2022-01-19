@@ -9,11 +9,14 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.appbar.MaterialToolbar;
+
 import java.util.LinkedList;
 import java.util.List;
 
 import Data.MyDatabase;
 import Model.Tour;
+import Adapters.*;
 
 public class TourListActivity extends AppCompatActivity {
 
@@ -22,6 +25,7 @@ public class TourListActivity extends AppCompatActivity {
     private Cursor cursor;
     private ListView list;
     private TourAdapter tourAdapter;
+    private MaterialToolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,13 @@ public class TourListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 placeholder(i);
+            }
+        });
+        toolbar = findViewById(R.id.topAppBarTourList);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
@@ -53,7 +64,7 @@ public class TourListActivity extends AppCompatActivity {
     }
 
     private void placeholder(int position){
-        Intent intent = new Intent(this, TripDetailsActivity.class);
+        Intent intent = new Intent(this, TourDetailsActivity.class);
         intent.putExtra("Id", toursList.get(position).getId());
         intent.putExtra("Date", toursList.get(position).getDate());
         intent.putExtra("Title", toursList.get(position).getTitle());

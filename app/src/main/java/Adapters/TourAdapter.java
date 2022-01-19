@@ -1,4 +1,4 @@
-package com.bicycleApp;
+package Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,26 +7,28 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.bicycleApp.R;
+
 import java.util.List;
 
-import Model.Trip;
+import Model.Tour;
 
-public class TripAdapter extends BaseAdapter {
+public class TourAdapter extends BaseAdapter {
 
     private Context context;
-    private List<Trip> tripList;
+    private List<Tour> toursList;
     private LayoutInflater layoutInflater;
 
-    public TripAdapter(Context context, List<Trip> tripList) {
+    public TourAdapter(Context context, List<Tour> toursList) {
         this.context = context;
-        this.tripList = tripList;
+        this.toursList = toursList;
 
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return tripList.size();
+        return toursList.size();
     }
 
     @Override
@@ -44,16 +46,16 @@ public class TripAdapter extends BaseAdapter {
         ViewHolder viewHolder;
         if(convertView == null){
             viewHolder = new ViewHolder();
-            convertView = layoutInflater.inflate(R.layout.trip_adapter, viewGroup,false);
-            viewHolder.index = (TextView) convertView.findViewById(R.id.text_number);
-            viewHolder.date = (TextView) convertView.findViewById(R.id.text_element);
+            convertView = layoutInflater.inflate(R.layout.tour_adapter, viewGroup,false);
+            viewHolder.index = (TextView) convertView.findViewById(R.id.tour_adapter_text_number);
+            viewHolder.date = (TextView) convertView.findViewById(R.id.tour_adapter_text_element);
             convertView.setTag(viewHolder);
         }
         else
             viewHolder = (ViewHolder) convertView.getTag();
 
         viewHolder.index.setText(""+(position+1));
-        viewHolder.date.setText(""+tripList.get(position).getDateWithoutSeconds());
+        viewHolder.date.setText(""+toursList.get(position).getDateWithoutSeconds());
 
         return convertView;
     }

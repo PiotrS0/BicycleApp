@@ -38,7 +38,7 @@
             android:exported="false"
             android:label="@string/title_activity_map_point_picker" />
         <activity
-            android:name=".TourAdapter"
+            android:name="Adapters.TourAdapter"
             android:exported="false" />
         <activity
             android:name=".HighlightDetailsActivity"

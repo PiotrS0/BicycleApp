@@ -1,6 +1,7 @@
 package com.bicycleApp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.ComponentName;
 import android.content.Intent;
@@ -10,9 +11,13 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.android.material.appbar.MaterialToolbar;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,15 +28,31 @@ public class HighlightAddActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST_CODE = 200;
     private ImageView selectedImageView;
     private EditText titleEditText;
+    private MaterialToolbar toolbar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_highlight_add);
-
+        toolbar = findViewById(R.id.topAppBarHighlightAdd);
         this.selectedImageView = (ImageView) findViewById(R.id.new_memory_selected_image);
         this.titleEditText = (EditText) findViewById(R.id.new_memory_title);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                save();
+                return false;
+            }
+        });
     }
 
     public void openGallery(View view) {
@@ -47,13 +68,12 @@ public class HighlightAddActivity extends AppCompatActivity {
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
         }
+        else{
+            Toast.makeText(HighlightAddActivity.this, "Camera device unavaliable", Toast.LENGTH_LONG).show();
+        }
     }
 
-    public void cancel(View view) {
-        finish();
-    }
-
-    public void save(View view) {
+    public void save() {
         Bitmap image = ((BitmapDrawable)selectedImageView.getDrawable()).getBitmap();
 //        new MemoryDbHelper(this).addMemory(new Memory(titleEditText.getText().toString(), image));
         finish();
