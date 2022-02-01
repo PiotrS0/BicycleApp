@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.bicycleApp">
 
     <!--
@@ -39,7 +40,8 @@
             android:label="@string/title_activity_map_point_picker" />
         <activity
             android:name="Adapters.TourAdapter"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".HighlightDetailsActivity"
             android:exported="false" />
@@ -82,6 +84,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name="Services.TourRecordService"></service>
     </application>
 
 </manifest>

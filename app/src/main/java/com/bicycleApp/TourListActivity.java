@@ -69,6 +69,11 @@ public class TourListActivity extends AppCompatActivity {
         intent.putExtra("Date", toursList.get(position).getDate());
         intent.putExtra("Title", toursList.get(position).getTitle());
         intent.putExtra("Distance", toursList.get(position).getDistance());
+        intent.putExtra("Time", toursList.get(position).getTime());
+        intent.putExtra("StartLat", toursList.get(position).getStartLat());
+        intent.putExtra("StartLon", toursList.get(position).getStartLon());
+        intent.putExtra("EndLat", toursList.get(position).getEndLat());
+        intent.putExtra("EndLon", toursList.get(position).getEndLon());
         startActivity(intent);
     }
 }

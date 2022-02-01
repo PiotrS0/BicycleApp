@@ -31,46 +31,24 @@
             android:id="@+id/dateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="88dp"
+            android:layout_marginStart="88dp"
+            android:layout_marginTop="92dp"
             android:text="dateTextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            app:layout_constraintStart_toEndOf="@+id/dateButton"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/dateButton"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="88dp"
-            android:text="get date"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <Button
-            android:id="@+id/timeButton"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="44dp"
-            android:text="get time"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dateButton" />
 
         <TextView
             android:id="@+id/timeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginStart="88dp"
+            android:layout_marginTop="28dp"
             android:text="timeTextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            app:layout_constraintStart_toEndOf="@+id/timeButton"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
-
 
         <CheckBox
             android:id="@+id/checkBox"
@@ -87,31 +65,42 @@
             android:id="@+id/editTextTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="32dp"
             android:ems="10"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.652"
             app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/timeTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/bnt_location_add_trip" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="106dp"
             android:layout_height="62dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="32dp"
             android:text="Tytuł:"
             android:textAlignment="center"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/timeButton" />
+            app:layout_constraintTop_toBottomOf="@+id/bnt_location_add_trip" />
 
         <androidx.constraintlayout.widget.Guideline
             android:layout_height="0dp"
             android:layout_width="0dp">
 
         </androidx.constraintlayout.widget.Guideline>
+
+        <Button
+            android:id="@+id/bnt_location_add_trip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="144dp"
+            android:layout_marginTop="12dp"
+            android:text="GetLoc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timeTextView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

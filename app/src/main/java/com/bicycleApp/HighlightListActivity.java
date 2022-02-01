@@ -3,12 +3,14 @@ package com.bicycleApp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 
@@ -41,6 +43,14 @@ public class HighlightListActivity extends AppCompatActivity {
                 finish();
             }
         });
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                placeholder(i);
+            }
+        });
+
+
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.error);
 
         Highlight highLight = new Highlight(bitmap,"SIEMA");
@@ -60,5 +70,10 @@ public class HighlightListActivity extends AppCompatActivity {
         highlightAdapter = new HighlightAdapter(this, highlightList);
         gridView.setAdapter(highlightAdapter);
         setTitle("Highlights");
+    }
+
+    private void placeholder(int position){
+        Intent intent = new Intent(this, HighlightDetailsActivity.class);
+        startActivity(intent);
     }
 }

@@ -1,7 +1,10 @@
 package com.bicycleApp;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -37,17 +41,14 @@ public class TripAddActivity extends AppCompatActivity {
     private Calendar calendar1 = Calendar.getInstance();
     private static final String TAG = "MainActivity";
     private MyDatabase database;
-    Button dateButton, timeButton;
+    Button locationButton;
     TextView dateTextView, timeTextView;
     private Date data = new Date();
     private Date data2 = new Date();
     private CheckBox checkBox;
     private EditText editText;
     private double lat, lon;
-
-
-    public TripAddActivity() {
-    }
+    private final static int MY_REQUEST_CODE = 1;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -73,28 +74,45 @@ public class TripAddActivity extends AppCompatActivity {
             }
         });
         checkBox = findViewById(R.id.checkBox);
-        dateButton = findViewById(R.id.dateButton);
-        timeButton = findViewById(R.id.timeButton);
         dateTextView = findViewById(R.id.dateTextView);
         timeTextView = findViewById(R.id.timeTextView);
-        dateTextView.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        timeTextView.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
-        editText = findViewById(R.id.editTextTitle);
-        database = new MyDatabase(this, 1);
-        dateButton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
+        dateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 handleDateButton();
             }
         });
-        timeButton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
+        dateTextView.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        timeTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 handleTimeButton();
             }
         });
+        timeTextView.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
+        editText = findViewById(R.id.editTextTitle);
+        database = new MyDatabase(this, 1);
+        locationButton = findViewById(R.id.bnt_location_add_trip);
+        locationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MapPointPickerActivity.class);
+                startActivityForResult(intent, MY_REQUEST_CODE);
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == MY_REQUEST_CODE) {
+                if (data != null){
+                    lat = data.getDoubleExtra("latPicked",0);
+                    lon = data.getDoubleExtra("lonPicked",0);
+                }
+            }
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -114,7 +132,10 @@ public class TripAddActivity extends AppCompatActivity {
                 data2.setYear(year-1900);
                 data2.setMonth(month);
                 data2.setDate(date);
-                dateTextView.setText(""+year +"-"+ (month+1) +"-"+ date);
+                String allDate = "" + year;
+                allDate += month < 10 ? "-0" + (month+1) : "-" + (month+1);
+                allDate += date < 10 ? "-0" + date : "-" + date;
+                dateTextView.setText(allDate);
             }
         }, YEAR, MONTH, DATE);
         datePickerDialog.show();
@@ -148,8 +169,6 @@ public class TripAddActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void openAdd() throws InterruptedException {
 
-        lat = 53.119559;
-        lon = 23.150423;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String dateAfterFormat = sdf.format(data2);
