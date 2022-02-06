@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 
 public class MyDatabase extends SQLiteOpenHelper {
     public MyDatabase(@Nullable Context context,  int version) {
-        super(context, "test8.db", null, version);
+        super(context, "test10.db", null, version);
     }
 
     @Override
@@ -19,7 +19,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         db.execSQL("create table Tour(Id integer not null primary key autoincrement, Title text, StartLat text not null, StartLon text not null, EndLat text not null, EndLon text not null"+
                 ", Time numeric not null, Distance numeric not null, Date Date not null)");
         db.execSQL("create table Point(Id integer not null primary key autoincrement, Date Date not null, Lat text not null, Lon text not null, TourId integer not null references Tour(Id))");
-        db.execSQL("create table Highlight(Id integer not null, Image blob not null, Title text, Description text, Date Date not null, Lat numeric not null, Lon numeric not null, TourId references Tour(Id))");
+        db.execSQL("create table Highlight(Id integer not null primary key autoincrement, Image blob not null, Title text, Description text, Date Date not null, Lat numeric not null, Lon numeric not null, TourId references Tour(Id))");
     }
 
     @Override
@@ -63,7 +63,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         db.insertOrThrow("Point",null,values);
     }
 
-    public void addHighlight(String image, String title, String description,String date, double lat, double lon, int tourId){
+    public void addHighlight(byte[] image, String title, String description,String date, double lat, double lon, int tourId){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("Image", image);
@@ -73,7 +73,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         values.put("Lat",lat);
         values.put("Lon",lon);
         values.put("TourId",tourId);
-        db.insertOrThrow("Tour",null,values);
+        db.insertOrThrow("Highlight",null,values);
     }
 
     public Cursor getAllTrips(){

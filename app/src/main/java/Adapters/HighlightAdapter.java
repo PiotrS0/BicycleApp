@@ -1,12 +1,16 @@
-package com.bicycleApp;
+package Adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bicycleApp.R;
 
 import java.util.List;
 
@@ -53,8 +57,9 @@ public class HighlightAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
 
         viewHolder.date.setText(""+ highlightList.get(position).getDate());
-        viewHolder.image.setImageResource(R.drawable.error);
-
+        byte[] imgByte = highlightList.get(position).getImage();
+        Bitmap img = BitmapFactory.decodeByteArray(imgByte,0,imgByte.length);
+        viewHolder.image.setImageBitmap(img);
 
         return convertView;
     }

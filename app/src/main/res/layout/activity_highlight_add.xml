@@ -36,10 +36,18 @@
             android:layout_height="150dp" />
 
         <EditText
-            android:id="@+id/new_memory_title"
+            android:id="@+id/new_highlight_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="hint"/>
+            android:hint="Title"/>
+
+        <EditText
+            android:id="@+id/new_highlight_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="Description (optional)" />
 
         <Button
             android:onClick="openGallery"

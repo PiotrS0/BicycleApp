@@ -7,23 +7,25 @@ import java.util.Date;
 
 public class Highlight {
     private int id;
-    private Bitmap image;
+    private byte[] image;
+    private String title;
     private String description;
     private String date;
-    private String lat;
-    private String lon;
+    private double lat;
+    private double lon;
     private int tourId;
 
     public Highlight(){}
 
-    public Highlight(Bitmap image, String date) {
+    public Highlight(byte[] image, String date) {
         this.image = image;
         this.date = date;
     }
 
-    public Highlight(int id, Bitmap image, String description, String date, String lat, String lon, int tourId) {
+    public Highlight(int id, byte[] image, String title, String description, String date, double lat, double lon, int tourId) {
         this.id = id;
         this.image = image;
+        this.title = title;
         this.description = description;
         this.date = date;
         this.lat = lat;
@@ -39,12 +41,20 @@ public class Highlight {
         this.id = id;
     }
 
-    public Bitmap getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Bitmap image) {
+    public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -63,19 +73,19 @@ public class Highlight {
         this.date = date;
     }
 
-    public String getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public void setLat(String lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public String getLon() {
+    public double getLon() {
         return lon;
     }
 
-    public void setLon(String lon) {
+    public void setLon(double lon) {
         this.lon = lon;
     }
 

@@ -1,17 +1,12 @@
 package com.bicycleApp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
 
 import com.google.android.material.appbar.MaterialToolbar;
@@ -19,6 +14,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import java.util.LinkedList;
 import java.util.List;
 
+import Adapters.HighlightAdapter;
 import Data.MyDatabase;
 import Model.Highlight;
 
@@ -35,6 +31,7 @@ public class HighlightListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_highlight_list);
+        database = new MyDatabase(this, 1);
         gridView = findViewById(R.id.gridH);
         toolbar = findViewById(R.id.topAppBarHighlightsList);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -49,31 +46,32 @@ public class HighlightListActivity extends AppCompatActivity {
                 placeholder(i);
             }
         });
+    }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        highlightList.removeAll(highlightList);
+        cursor = database.getAllHighlights();
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.error);
-
-        Highlight highLight = new Highlight(bitmap,"SIEMA");
-        highlightList.add(highLight);
-        highlightList.add(highLight);
-        highlightList.add(highLight);
-        highlightList.add(highLight);
-        highlightList.add(highLight);
-        highlightList.add(highLight);
-        highlightList.add(highLight);
-        highlightList.add(highLight);
-        highlightList.add(highLight);
-        highlightList.add(highLight);
-        highlightList.add(highLight);
-        highlightList.add(highLight);
-
+        while(cursor.moveToNext()){
+            Highlight highlight = new Highlight(cursor.getInt(0),cursor.getBlob(1),cursor.getString(2),cursor.getString(3), cursor.getString(4), cursor.getDouble(5),cursor.getDouble(6), cursor.getInt(7));
+            highlightList.add(highlight);
+        }
         highlightAdapter = new HighlightAdapter(this, highlightList);
         gridView.setAdapter(highlightAdapter);
-        setTitle("Highlights");
     }
 
     private void placeholder(int position){
         Intent intent = new Intent(this, HighlightDetailsActivity.class);
+        intent.putExtra("Id", highlightList.get(position).getId());
+        intent.putExtra("Image", highlightList.get(position).getImage());
+        intent.putExtra("Title", highlightList.get(position).getTitle());
+        intent.putExtra("Description", highlightList.get(position).getDescription());
+        intent.putExtra("Date", highlightList.get(position).getDate());
+        intent.putExtra("Lat", highlightList.get(position).getLat());
+        intent.putExtra("Lon", highlightList.get(position).getLon());
+        intent.putExtra("TourId", highlightList.get(position).getTourId());
         startActivity(intent);
     }
 }
