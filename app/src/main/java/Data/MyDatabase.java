@@ -8,6 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.Date;
+
+import Model.Trip;
+
 public class MyDatabase extends SQLiteOpenHelper {
     public MyDatabase(@Nullable Context context,  int version) {
         super(context, "test10.db", null, version);
@@ -115,6 +119,10 @@ public class MyDatabase extends SQLiteOpenHelper {
         cv.put("Notification", notification);
         db.update("Trip",cv,"Id = " + id,null);
     }
+//    public Cursor getNearestTrip(Date date){
+//        SQLiteDatabase db = getReadableDatabase();
+//        return db.query("Trip",null, "Date < " + date, null, null, null, null);
+//    }
 
 
 }

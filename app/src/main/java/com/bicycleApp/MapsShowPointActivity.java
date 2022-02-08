@@ -19,7 +19,6 @@ public class MapsShowPointActivity extends FragmentActivity implements OnMapRead
 
     private GoogleMap mMap;
     private ActivityMapsShowPointBinding binding;
-    private Marker marker;
     private double lat, lon;
     private MaterialToolbar toolbar;
 
@@ -58,11 +57,8 @@ public class MapsShowPointActivity extends FragmentActivity implements OnMapRead
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(lat, lon);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng startPoint = new LatLng(lat, lon);
+        mMap.addMarker(new MarkerOptions().position(startPoint).title("Start point"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPoint, 10));
     }
 }

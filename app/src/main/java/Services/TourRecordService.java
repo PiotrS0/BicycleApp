@@ -2,8 +2,6 @@ package Services;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.content.IntentSender;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 

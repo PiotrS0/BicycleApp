@@ -1,14 +1,16 @@
 package com.bicycleApp;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import Data.MyDatabase;
-import Model.Tour;
+import Services.NotificationService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,10 +18,19 @@ public class MainActivity extends AppCompatActivity {
     private MyDatabase database;
     private Button testButton, baseButton;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+//        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//        Log.d("DSANDNSADNSANDSNADNSA","DSADSADSADSADSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+//        manager.notify(1, builder.build());
+
+        startService(new Intent(this, NotificationService.class));
 
         testButton = findViewById(R.id.testButton);
         testButton.setOnClickListener((view -> {

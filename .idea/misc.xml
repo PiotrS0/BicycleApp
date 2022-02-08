@@ -37,6 +37,8 @@
         <entry key="..\:/Users/Piotr/AndroidStudioProjects/BicycleApp/app/src/main/res/menu/top_app_bar_with_delete_and_location.xml" value="0.28020833333333334" />
         <entry key="..\:/Users/Piotr/AndroidStudioProjects/BicycleApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.27760416666666665" />
         <entry key="..\:/Users/Piotr/AndroidStudioProjects/BicycleApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.27760416666666665" />
+        <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/layout/activity_trip_details.xml" value="0.28125" />
+        <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/layout/activity_trip_details_from_notification.xml" value="0.28125" />
       </map>
     </option>
   </component>
