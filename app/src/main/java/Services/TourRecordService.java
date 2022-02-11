@@ -1,33 +1,58 @@
 package Services;
 
-import android.app.IntentService;
+import android.app.Service;
 import android.content.Intent;
 
 import androidx.annotation.Nullable;
 
 import android.os.Handler;
+import android.os.IBinder;
 
-public class TourRecordService extends IntentService {
-    /**
-     * @param name
-     * @deprecated
-     */
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class TourRecordService extends Service {
+
+    public static final String TIMER_UPDATED = "timerUpdated";
+    public static final String TIME_EXTRA = "timeExtra";
 
     Handler handler = new Handler();
 
-    public TourRecordService() {
+    private Timer timer = new Timer();
 
-        super("RecordService");
-    }
-
-    public TourRecordService(String name) {
-
-        super(name);
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 
     @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        double time = intent.getDoubleExtra(TIME_EXTRA, 0.0);
+        timer.scheduleAtFixedRate(new TimeTask(time), 0, 1000);
+        //return super.onStartCommand(intent, flags, startId);
+        return START_NOT_STICKY;
+    }
 
+    @Override
+    public void onDestroy() {
+        timer.cancel();
+        super.onDestroy();
+    }
 
+    class TimeTask extends TimerTask{
+        private double time;
+
+        public TimeTask(double time){
+           this.time = time;
+        }
+
+        @Override
+        public void run(){
+            Intent intent = new Intent(TIMER_UPDATED);
+            time++;
+            intent.putExtra(TIME_EXTRA, time);
+            sendBroadcast(intent);
+        }
     }
 }

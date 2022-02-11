@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 //        Log.d("DSANDNSADNSANDSNADNSA","DSADSADSADSADSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
 //        manager.notify(1, builder.build());
 
-        startService(new Intent(this, NotificationService.class));
+        //startService(new Intent(this, NotificationService.class));
 
         testButton = findViewById(R.id.testButton);
         testButton.setOnClickListener((view -> {
@@ -66,8 +66,7 @@ public class MainActivity extends AppCompatActivity {
         }));
         statsButton = findViewById(R.id.btn_stats);
         statsButton.setOnClickListener((view -> {
-            //startActivity(new Intent(this, StatsActivity.class));
-            openStats();
+            startActivity(new Intent(this, StatsActivity.class));
         }));
         highlightsButton = findViewById(R.id.btn_highlights);
         highlightsButton.setOnClickListener((view -> {

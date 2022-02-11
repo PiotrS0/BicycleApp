@@ -183,7 +183,7 @@ public class TripAddActivity extends AppCompatActivity {
 
             Toast.makeText(TripAddActivity.this,"Wycieczka dodana", Toast.LENGTH_SHORT).show();
 
-            Thread.sleep(1000);
+            Thread.sleep(500);
             finish();
         }
     }

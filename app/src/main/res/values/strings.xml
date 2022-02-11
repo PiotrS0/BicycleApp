@@ -17,7 +17,18 @@
     <string name="start_point">StartPoint</string>
     <string name="tourList_actitity_title">TourList</string>
     <string name="tourDetails_actitity_title">TourDetails</string>
+    <string name="title_activity_map_show_route">MapShowRoute</string>
     <!--    <string name="info_actitity_title">Info</string>-->
     <!--    <string name="info_actitity_title">Info</string>-->
+
+    <string-array name="options_array">
+        <item>3 days</item>
+        <item>7 days</item>
+        <item>14 days</item>
+        <item>30 days</item>
+        <item>3 months</item>
+        <item>6 months</item>
+        <item>12 months</item>
+    </string-array>
 
 </resources>
