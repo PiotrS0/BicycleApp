@@ -43,7 +43,6 @@ import Data.MyDatabase;
 public class TripDetailsFromNotificationActivity extends AppCompatActivity {
 
     private TextView textView, weatherTextView;
-    private CheckBox checkBox;
     private int id;
     private String date, lastNotificationDate;
     private boolean notification;
@@ -60,38 +59,18 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trip_details);
+        setContentView(R.layout.activity_trip_details_from_notification);
         apiId = getResources().getString(R.string.openweather_api_key);
         database = new MyDatabase(this, 1);
-        toolbar = findViewById(R.id.topAppBarTripDetails);
+        toolbar = findViewById(R.id.topAppBarTripDetailsFromNotification);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
 
-                if(item.getTitle().equals("location")){
-                    Intent intent1 = new Intent(getApplicationContext(), MapsShowPointActivity.class);
-                    intent1.putExtra("Lat", lat);
-                    intent1.putExtra("Lon", lon);
-                    startActivity(intent1);
-                }
-                if(item.getTitle().equals("delete")){
-                    try {
-                        deleteItem();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                return false;
-            }
-        });
         textView = findViewById(R.id.tripdetailstextdate);
-        checkBox = findViewById(R.id.checkBox2);
         weatherTextView = findViewById(R.id.textView3);
         id = this.getIntent().getIntExtra("Id",0);
         date = this.getIntent().getStringExtra("Date");
@@ -100,14 +79,6 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
         lon = this.getIntent().getDoubleExtra("Lon",0);
         imageView = findViewById(R.id.imageView2);
         textView.setText(date.substring(0,date.length()-3));
-        checkBox.setChecked(notification);
-
-        checkBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                database.changeTripNotification(id, checkBox.isChecked());
-            }
-        });
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {

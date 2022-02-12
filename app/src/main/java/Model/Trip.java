@@ -5,29 +5,26 @@ public class Trip {
     private String date;
     private String title;
     private boolean notification;
-    private String lastNotificationDate;
     private double lat;
     private double lon;
 
     public Trip() {
     }
 
-    public Trip(int id, String date, String title, String lastNotificationDate, double lat, double lon) {
+    public Trip(int id, String date, String title, double lat, double lon) {
         this.id = id;
         this.date = date;
         this.title = title;
-        this.lastNotificationDate = lastNotificationDate;
         this.lat = lat;
         this.lon = lon;
         this.notification = true;
     }
 
-    public Trip(int id, String date, String title, boolean notification, String lastNotificationDate, double lat, double lon) {
+    public Trip(int id, String date, String title, boolean notification, double lat, double lon) {
         this.id = id;
         this.date = date;
         this.title = title;
         this.notification = notification;
-        this.lastNotificationDate = lastNotificationDate;
         this.lat = lat;
         this.lon = lon;
     }
@@ -66,14 +63,6 @@ public class Trip {
 
     public void setNotification(boolean notification) {
         this.notification = notification;
-    }
-
-    public String getLastNotificationDate() {
-        return lastNotificationDate;
-    }
-
-    public void setLastNotificationDate(String lastNotificationDate) {
-        this.lastNotificationDate = lastNotificationDate;
     }
 
     public double getLat() {

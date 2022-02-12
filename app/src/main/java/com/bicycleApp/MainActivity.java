@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 //        Log.d("DSANDNSADNSANDSNADNSA","DSADSADSADSADSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
 //        manager.notify(1, builder.build());
 
-        //startService(new Intent(this, NotificationService.class));
+        startService(new Intent(this, NotificationService.class));
 
         testButton = findViewById(R.id.testButton);
         testButton.setOnClickListener((view -> {
@@ -86,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void makebasetour(){
         //database.clearTable("Tour");
-        database.addTour("Title123",12.34,12.34,56.78,56.78,1234,56.70,"2022-01-20 19:02:35");
+        database.addTour("Title123",12.34,12.34,56.78,56.78,3670,56.70,"2022-01-20 19:02:35");
+        database.addTour("Title1243",12.34,12.34,56.78,56.78,3810,12.30,"2022-02-09 19:02:35");
     }
 
 }

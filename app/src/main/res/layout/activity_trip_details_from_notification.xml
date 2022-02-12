@@ -10,11 +10,11 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBarTripDetails"
+            android:id="@+id/topAppBarTripDetailsFromNotification"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="@string/tripDetails_actitity_title"
-            app:menu="@menu/top_app_bar_with_delete_and_location"
+            app:menu="@menu/top_app_bar"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             />
@@ -27,17 +27,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <CheckBox
-            android:id="@+id/checkBox2"
-            android:layout_width="197dp"
-            android:layout_height="39dp"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="28dp"
-            android:checked="true"
-            android:text="Wysyłaj powiadomienia"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <TextView
             android:id="@+id/tripdetailstextdate"

@@ -98,6 +98,8 @@ public class RecordActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             time = intent.getDoubleExtra(TourRecordService.TIME_EXTRA, 0);
             textView.setText(getTimeStringFromDouble(time));
+            if(time == 86400)
+                stopService(serviceIntent);
             //setText = getTimeStringFromDouble(time);
         }
 

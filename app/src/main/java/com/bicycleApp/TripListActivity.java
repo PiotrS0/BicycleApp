@@ -69,7 +69,7 @@ public class TripListActivity extends AppCompatActivity {
         tripList.removeAll(tripList);
         cursor = database.getAllTrips();
         while(cursor.moveToNext()){
-            Trip trip = new Trip(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(4),cursor.getDouble(5),cursor.getDouble(6));
+            Trip trip = new Trip(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getDouble(4),cursor.getDouble(5));
             if(cursor.getInt(3) == 0)
                 trip.setNotification(false);
 

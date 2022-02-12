@@ -18,10 +18,17 @@
     <string name="tourList_actitity_title">TourList</string>
     <string name="tourDetails_actitity_title">TourDetails</string>
     <string name="title_activity_map_show_route">MapShowRoute</string>
+    <string name="stats_tours_amount">Tours Completed</string>
+    <string name="stats_distance">Distance</string>
+    <string name="stats_average_time">Average time per tour</string>
+    <string name="stats_time">Time</string>
+    <string name="stats_average_distance">Average distance per tour</string>
+    <string name="stats_average_speed">Average speed per tour</string>
     <!--    <string name="info_actitity_title">Info</string>-->
     <!--    <string name="info_actitity_title">Info</string>-->
 
     <string-array name="options_array">
+        <item>Choose option</item>
         <item>3 days</item>
         <item>7 days</item>
         <item>14 days</item>

@@ -5,34 +5,19 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.bicycleApp.R;
-import com.bicycleApp.TripDetailsActivity;
 import com.bicycleApp.TripDetailsFromNotificationActivity;
-import com.bumptech.glide.Glide;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -61,8 +46,7 @@ public class NotificationService extends IntentService {
     private boolean isOnline = true;
     private DecimalFormat df = new DecimalFormat("#.##");
     private String weatherTemperature = "", weatherCloudines = "", weatherDescription = "";
-    private NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-    private NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
+
     private NotificationCompat.Builder builder;
 
 
@@ -91,7 +75,7 @@ public class NotificationService extends IntentService {
                 database = new MyDatabase(getApplicationContext(), 1);
                 cursor = database.getAllTrips();
                 while(cursor.moveToNext()){
-                    Trip trip = new Trip(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(4),cursor.getDouble(5),cursor.getDouble(6));
+                    Trip trip = new Trip(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getDouble(4),cursor.getDouble(5));
                     if(cursor.getInt(3) == 0)
                         trip.setNotification(false);
                     tripList.add(trip);
@@ -122,11 +106,6 @@ public class NotificationService extends IntentService {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                try {
-                    getWeatherDetails(checkData(dateFromBase));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
                 int cocheckuje = checkData(dateFromBase);
 
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
@@ -138,17 +117,24 @@ public class NotificationService extends IntentService {
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
                     flag = PendingIntent.FLAG_MUTABLE;
 
+                Intent intent = new Intent(getApplicationContext(), TripDetailsFromNotificationActivity.class);
+                intent.putExtra("Id", nearestTrip.getId());
+                intent.putExtra("Date", nearestTrip.getDate());
+                //intent.putExtra("Title", tripList.get(position).getTitle());
+                intent.putExtra("Notification", nearestTrip.getNotification());
+                intent.putExtra("Lat", nearestTrip.getLat());
+                intent.putExtra("Lon", nearestTrip.getLon());
 
+                PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent,flag);
+
+                NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
                 inboxStyle.addLine(nearestTrip.getDate());
                 if(isOnline == true){
                     inboxStyle.addLine("Przewidywana pogoda");
-                    inboxStyle.addLine(""+weatherTemperature);
-                    inboxStyle.addLine(""+weatherCloudines);
-                    inboxStyle.addLine(""+weatherDescription);
                 }
 
-
+                NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
 
 
                 builder = new NotificationCompat.Builder(getApplicationContext(), "Mynotification")
@@ -157,20 +143,20 @@ public class NotificationService extends IntentService {
                         .setTicker("krotkie powiadomienie")
                         .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.error))
                         .setAutoCancel(true)
+                        .addAction(R.mipmap.ic_launcher, "Zobacz prognozę pogody", pendingIntent)
                         .setStyle(inboxStyle)
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setDefaults(Notification.DEFAULT_SOUND);
 
-                //NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
-                //managerCompat.notify(1, builder.build());
+
+                managerCompat.notify(1, builder.build());
 
 
 
 
             }
         });
-
 
     }
 
@@ -205,87 +191,7 @@ public class NotificationService extends IntentService {
             return days = 0;
     }
 
-    public void getWeatherDetails(int days){
-        String tempUrl = "";
 
-
-            if(days==-1){
-                tempUrl = url + "weather?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + apiId;
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, tempUrl, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        String output = "";
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            JSONArray jsonArray = jsonResponse.getJSONArray("weather");
-                            JSONObject jsonObjectWeather = jsonArray.getJSONObject(0);
-                            String description = jsonObjectWeather.getString("description");
-                            JSONObject jsonObjectMain = jsonResponse.getJSONObject("main");
-                            double temp = jsonObjectMain.getDouble("temp");
-                            JSONObject jsonObjectClouds = jsonResponse.getJSONObject("clouds");
-                            String clouds = jsonObjectClouds.getString("all");
-                            weatherTemperature += "Temp: " + df.format(temp) + " °C";
-                            weatherCloudines += "Cloudiness: " + clouds + "%";
-                            weatherDescription += "" + description;
-                            inboxStyle.addLine(weatherCloudines);
-                            isOnline = true;
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener(){
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        isOnline = false;
-                    }
-                });
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                requestQueue.add(stringRequest);
-            }
-
-            else{
-                int param;
-                tempUrl = url + "onecall?lat=" + lat + "&lon=" + lon + "&exclude=current,minutely,hourly,alerts&units=metric&appid=" + apiId;
-                if(days == -2)
-                    param = 0;
-                else
-                    param = days;
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, tempUrl, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        String output = "";
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            JSONArray jsonArray = jsonResponse.getJSONArray("daily");
-                            JSONObject jsonObject = jsonArray.getJSONObject(param);
-                            JSONArray jsonWeatherArray = jsonObject.getJSONArray("weather");
-                            JSONObject jsonObjectWeather = jsonWeatherArray.getJSONObject(0);
-                            JSONObject jsonTempObject = jsonObject.getJSONObject("temp");
-                            double temp = jsonTempObject.getDouble("day");
-                            String icon = jsonObjectWeather.getString("icon");
-                            String description = jsonObjectWeather.getString("description");
-                            int clouds = jsonObject.getInt("clouds");
-                            weatherTemperature += "Temp: " + df.format(temp) + " °C";
-                            weatherCloudines += "Cloudiness: " + clouds + "%";
-                            weatherDescription += "" + description;
-                            inboxStyle.addLine(weatherCloudines);
-                            isOnline = true;
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        isOnline = false;
-                    }
-                });
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                requestQueue.add(stringRequest);
-            }
-            managerCompat.notify(1, builder.build());
-    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)

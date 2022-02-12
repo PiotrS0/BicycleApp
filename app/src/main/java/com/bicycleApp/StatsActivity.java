@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +44,8 @@ public class StatsActivity extends AppCompatActivity {
     private Cursor cursor;
     private List<Tour> toursList = new ArrayList<Tour>();
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private double distance, avgDistance, time, avgTime, speed, avgSpeed;
+    private TextView textToursCompleted, textTime, textAVGTime, textDistance, textAVGDistance, textAVGSpeed;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -56,6 +59,12 @@ public class StatsActivity extends AppCompatActivity {
             toursList.add(tour);
         }
         toolbar = findViewById(R.id.topAppBarStats);
+        textToursCompleted = findViewById(R.id.text_stats_tour_completed);
+        textTime = findViewById(R.id.text_stats_time);
+        textAVGTime = findViewById(R.id.text_stats_avg_time);
+        textDistance = findViewById(R.id.text_stats_distance);
+        textAVGDistance = findViewById(R.id.text_stats_avg_distance);
+        textAVGSpeed = findViewById(R.id.text_stats_avg_speed);
         spinner = findViewById(R.id.statsSpinner);
         rangeButton = findViewById(R.id.btn_stats_range);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -82,18 +91,20 @@ public class StatsActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if(i == 0)
-                    tempDateFrom = convertToDateViaInstant(currentDate.minusDays(3));
+                    return;
                 if(i == 1)
-                    tempDateFrom = convertToDateViaInstant(currentDate.minusDays(7));
+                    tempDateFrom = convertToDateViaInstant(currentDate.minusDays(3));
                 if(i == 2)
-                    tempDateFrom = convertToDateViaInstant(currentDate.minusDays(14));
+                    tempDateFrom = convertToDateViaInstant(currentDate.minusDays(7));
                 if(i == 3)
-                    tempDateFrom = convertToDateViaInstant(currentDate.minusDays(30));
+                    tempDateFrom = convertToDateViaInstant(currentDate.minusDays(14));
                 if(i == 4)
-                    tempDateFrom = convertToDateViaInstant(currentDate.minusMonths(3));
+                    tempDateFrom = convertToDateViaInstant(currentDate.minusDays(30));
                 if(i == 5)
-                    tempDateFrom = convertToDateViaInstant(currentDate.minusMonths(6));
+                    tempDateFrom = convertToDateViaInstant(currentDate.minusMonths(3));
                 if(i == 6)
+                    tempDateFrom = convertToDateViaInstant(currentDate.minusMonths(6));
+                if(i == 7)
                     tempDateFrom = convertToDateViaInstant(currentDate.minusYears(1));
 
                 Log.d("Karolina", ""+i);
@@ -102,7 +113,7 @@ public class StatsActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+                Log.d("Info", "Spinner onNothingSelected called");
             }
         });
 
@@ -121,6 +132,7 @@ public class StatsActivity extends AppCompatActivity {
                 startDate = calendar.getTime();
                 calendar.setTimeInMillis(pair.second);
                 endDate = calendar.getTime();
+                rangeButton.setText(pickerRange.getHeaderText());
                 displayParameters(startDate, endDate);
             }
         });
@@ -145,31 +157,53 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     private void displayParameters(Date dateFrom, Date dateTo){
-        List<Tour> list = new ArrayList<Tour>();
+        int tourAmount = 0;
+        distance = 0;
+        avgDistance = 0;
+        time = 0;
+        avgTime = 0;
+        speed = 0;
+        avgSpeed = 0;
+
         for(Tour tour : toursList){
             try {
                 Date d = sdf.parse(tour.getDate());
-                if(d.after(dateFrom) && d.before(dateTo))
-                    list.add(tour);
+                if(d.after(dateFrom) && d.before(dateTo)){
+                    distance += tour.getDistance();
+                    time += tour.getTime();
+                    speed += tour.getDistance()/(tour.getTime()/3600);
+                    tourAmount++;
+                }
+
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         }
+        avgDistance = distance / tourAmount;
+        avgTime = time / tourAmount;
+        avgSpeed = speed / tourAmount;
 
-        for(Tour t : list){
+        int hours = (int) time % 86400 / 3600;
+        int minutes = (int) time % 86400 % 3600 / 60;
+        int seconds = (int) time % 86400 % 3600 % 60;
+        int avghours = (int) avgTime % 86400 / 3600;
+        int avgminutes = (int) avgTime % 86400 % 3600 / 60;
+        int avgseconds = (int) avgTime % 86400 % 3600 % 60;
 
-        }
-
-
-
-
-
+        textToursCompleted.setText(""+tourAmount);
+        textDistance.setText(""+distance+" km");
+        textAVGDistance.setText(""+avgDistance+" km");
+        textTime.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
+        textAVGTime.setText(String.format("%02d:%02d:%02d", avghours, avgminutes, avgseconds));
+        textAVGSpeed.setText(""+roundTo2DecimalPlace(avgSpeed)+" km/h");
     }
-
-
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     Date convertToDateViaInstant(LocalDateTime dateToConvert) {
         return java.util.Date.from(dateToConvert.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    public static double roundTo2DecimalPlace(double value) {
+        return Math.round(value * 100.0) / 100.0;
     }
 }
