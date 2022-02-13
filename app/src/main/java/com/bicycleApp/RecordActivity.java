@@ -1,48 +1,42 @@
 package com.bicycleApp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bicycleApp.databinding.ActivityMainBinding;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Timer;
+import com.google.android.material.appbar.MaterialToolbar;
 
 import Services.TourRecordService;
 
 public class RecordActivity extends AppCompatActivity {
 
     private Button recordButton;
-    private Chronometer chronometer;
-    private long pauseOffset;
-    private boolean running;
-
     private boolean timerStarted = false;
     private double time = 0;
     private Intent serviceIntent;
     private TextView textView;
-
+    private MaterialToolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
 
+        toolbar = findViewById(R.id.topAppBarRecord);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
-///
-        ///
-        ///
         recordButton = findViewById(R.id.RecordButton);
         textView = findViewById(R.id.textRecord);
 
@@ -104,8 +98,6 @@ public class RecordActivity extends AppCompatActivity {
         }
 
     };
-
-
 
     private String getTimeStringFromDouble(double time){
         int resultInt = (int) time;

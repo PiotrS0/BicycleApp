@@ -44,7 +44,7 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
 
     private TextView textView, weatherTextView;
     private int id;
-    private String date, lastNotificationDate;
+    private String date, title;
     private boolean notification;
     private double lat, lon;
     private MyDatabase database;
@@ -74,6 +74,7 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
         weatherTextView = findViewById(R.id.textView3);
         id = this.getIntent().getIntExtra("Id",0);
         date = this.getIntent().getStringExtra("Date");
+        title = this.getIntent().getStringExtra("Title");
         notification = this.getIntent().getBooleanExtra("Notification",true);
         lat = this.getIntent().getDoubleExtra("Lat",0);
         lon = this.getIntent().getDoubleExtra("Lon",0);

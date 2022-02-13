@@ -13,7 +13,7 @@
         android:id="@+id/topAppBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:title="@string/info_actitity_title"
+        app:title="@string/main_info"
         app:menu="@menu/top_app_bar"
         app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
         style="@style/Widget.MaterialComponents.Toolbar.Primary"

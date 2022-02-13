@@ -38,17 +38,9 @@ public class NotificationService extends IntentService {
     private Cursor cursor;
     private List<Trip> tripList = new LinkedList<>();
     private Date date;
-    private Date date2;
-    private Date dateFromBase;
-    private final String url = "https://api.openweathermap.org/data/2.5/";
-    private String apiId;
-    private double lat, lon;
     private boolean isOnline = true;
-    private DecimalFormat df = new DecimalFormat("#.##");
-    private String weatherTemperature = "", weatherCloudines = "", weatherDescription = "";
 
     private NotificationCompat.Builder builder;
-
 
     public NotificationService(String name) {
         super(name);
@@ -66,14 +58,12 @@ public class NotificationService extends IntentService {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void run() {
-
-                apiId = getResources().getString(R.string.openweather_api_key);
-
-
-
-
                 database = new MyDatabase(getApplicationContext(), 1);
+
                 cursor = database.getAllTrips();
+                if(cursor.getCount() == 0)
+                    return;
+
                 while(cursor.moveToNext()){
                     Trip trip = new Trip(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getDouble(4),cursor.getDouble(5));
                     if(cursor.getInt(3) == 0)
@@ -98,15 +88,6 @@ public class NotificationService extends IntentService {
                         nearestTrip = x;
                     }
                 }
-                lat = nearestTrip.getLat();
-                lon = nearestTrip.getLon();
-
-                try {
-                    dateFromBase = sdf.parse(nearestTrip.getDate());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                int cocheckuje = checkData(dateFromBase);
 
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
                     NotificationChannel channel = new NotificationChannel("Mynotification", "Mynotificaiton", NotificationManager.IMPORTANCE_DEFAULT);
@@ -120,7 +101,7 @@ public class NotificationService extends IntentService {
                 Intent intent = new Intent(getApplicationContext(), TripDetailsFromNotificationActivity.class);
                 intent.putExtra("Id", nearestTrip.getId());
                 intent.putExtra("Date", nearestTrip.getDate());
-                //intent.putExtra("Title", tripList.get(position).getTitle());
+                intent.putExtra("Title", nearestTrip.getTitle());
                 intent.putExtra("Notification", nearestTrip.getNotification());
                 intent.putExtra("Lat", nearestTrip.getLat());
                 intent.putExtra("Lon", nearestTrip.getLon());
@@ -130,12 +111,10 @@ public class NotificationService extends IntentService {
                 NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
                 inboxStyle.addLine(nearestTrip.getDate());
-                if(isOnline == true){
+                if(isOnline == true)
                     inboxStyle.addLine("Przewidywana pogoda");
-                }
 
                 NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
-
 
                 builder = new NotificationCompat.Builder(getApplicationContext(), "Mynotification")
                         .setContentTitle("Nadchodząca wycieczka")
@@ -149,50 +128,10 @@ public class NotificationService extends IntentService {
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setDefaults(Notification.DEFAULT_SOUND);
 
-
                 managerCompat.notify(1, builder.build());
-
-
-
-
             }
         });
-
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private int checkData(Date dateBase){
-        int days = 0;
-        LocalDateTime timeNow = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-        dateBase.setHours(timeNow.getHour());
-        dateBase.setMinutes(timeNow.getMinute());
-        dateBase.setSeconds(timeNow.getSecond());
-        LocalDateTime time = dateBase.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-
-        if(time.getDayOfMonth() == timeNow.getDayOfMonth() && time.getMonthValue() == timeNow.getMonthValue() && time.getYear() == timeNow.getYear())
-            return days = -2;
-        if(time.isEqual(timeNow.plusDays(1)))
-            return days = 1;
-        else if(time.isEqual(timeNow.plusDays(2)))
-            return days = 2;
-        else if(time.isEqual(timeNow.plusDays(3)))
-            return days = 3;
-        else if(time.isEqual(timeNow.plusDays(4)))
-            return days = 4;
-        else if(time.isEqual(timeNow.plusDays(5)))
-            return days = 5;
-        else if(time.isEqual(timeNow.plusDays(6)))
-            return days = 6;
-        else if(time.isEqual(timeNow.plusDays(7)))
-            return days = 7;
-        else if(timeNow.isAfter(time))
-            return days = -1;
-        else
-            return days = 0;
-    }
-
-
-
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     Date convertToDateViaInstant(LocalDateTime dateToConvert) {

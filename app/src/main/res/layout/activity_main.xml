@@ -2,66 +2,111 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayoutMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="BikeApp"
-        android:textSize="30sp" />
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="200dp"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/listbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lista zaplanowanych" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="1dp"
+            android:text="@string/main_app_name"
+            android:textSize="30sp" />
 
-    <Button
-        android:id="@+id/btn_record"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Record" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="142dp"
+            app:srcCompat="@drawable/ic_baseline_directions_bike_24" />
 
-    <Button
-        android:id="@+id/archivesbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Archiwum" />
 
-    <Button
-        android:id="@+id/btn_stats"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Stats" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_highlights"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Highlights" />
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="120dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
 
-    <Button
-        android:id="@+id/infobutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Informacje" />
+        <Button
+            android:id="@+id/listbutton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:drawableBottom="@drawable/ic_baseline_event_note_24"
+            android:text="@string/main_planned" />
 
-    <Button
-        android:id="@+id/testButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TEST" />
+        <Button
+            android:id="@+id/btn_record"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:drawableBottom="@drawable/ic_baseline_fiber_manual_record_48"
+            android:text="@string/main_record" />
 
-    <Button
-        android:id="@+id/baseButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Base" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="120dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/archivesbutton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
+            android:drawableBottom="@drawable/ic_baseline_playlist_add_check_48"
+            android:layout_weight="1"
+            android:text="@string/main_completed" />
+
+        <Button
+            android:id="@+id/btn_highlights"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:drawableBottom="@drawable/ic_baseline_history_48"
+            android:text="@string/main_highlights" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="120dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_stats"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:drawableBottom="@drawable/ic_baseline_leaderboard_48"
+            android:text="@string/main_stats" />
+
+        <Button
+            android:id="@+id/infobutton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:drawableBottom="@drawable/ic_baseline_info_48"
+            android:text="@string/main_info" />
+    </LinearLayout>
 
 
 </LinearLayout>

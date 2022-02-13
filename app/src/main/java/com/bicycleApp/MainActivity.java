@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
     private Button listButton, infoButton, statsButton, highlightsButton, recordButton, toursButton;
     private MyDatabase database;
-    private Button testButton, baseButton;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -24,26 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-//        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//        Log.d("DSANDNSADNSANDSNADNSA","DSADSADSADSADSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-//        manager.notify(1, builder.build());
-
         startService(new Intent(this, NotificationService.class));
-
-        testButton = findViewById(R.id.testButton);
-        testButton.setOnClickListener((view -> {
-            startActivity(new Intent(this, HighlightAddActivity.class));
-        }));
-
-        baseButton = findViewById(R.id.baseButton);
-        baseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                makebasetour();
-            }
-        });
 
         listButton = findViewById(R.id.listbutton);
         listButton.setOnClickListener((view -> {
@@ -77,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         database = new MyDatabase(this, 1);
     }
 
-    public void openStats(){
+    public void openActivityTest(){
         Intent intent = new Intent(this, MapsShowPointActivity.class);
         startActivity(intent);
 //        database.clearTable("Trip");
