@@ -1,14 +1,21 @@
 package com.bicycleApp;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.appbar.MaterialToolbar;
@@ -17,13 +24,16 @@ import Services.TourRecordService;
 
 public class RecordActivity extends AppCompatActivity {
 
-    private Button recordButton;
+    private Button recordButton, stopButton;
     private boolean timerStarted = false;
     private double time = 0;
     private Intent serviceIntent;
     private TextView textView;
     private MaterialToolbar toolbar;
+    private static int REQUEST_LOCATION_PERMISSION = 123;
+    private boolean locationAvaliable = false;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,17 +48,46 @@ public class RecordActivity extends AppCompatActivity {
         });
 
         recordButton = findViewById(R.id.RecordButton);
+        stopButton = findViewById(R.id.btn_record_stop);
         textView = findViewById(R.id.textRecord);
 
         recordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startStopTimer();
+                if(locationAvaliable == false)
+                    Toast.makeText(getApplicationContext(), "Lokalizacja niedostępna", Toast.LENGTH_LONG).show();
+                else
+                    startStopTimer();
             }
         });
+        stopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetTimer();
+            }
+
+        });
+
+        if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            locationAvaliable = true;
+        }
+        else{
+            requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
+        }
+
         serviceIntent = new Intent(getApplicationContext(), TourRecordService.class);
         registerReceiver(updateTime, new IntentFilter(TourRecordService.TIMER_UPDATED));
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if((requestCode == REQUEST_LOCATION_PERMISSION) && (grantResults[0] == PackageManager.PERMISSION_GRANTED))
+            locationAvaliable = true;
+        else
+            locationAvaliable = false;
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     private void resetTimer()
@@ -56,6 +95,9 @@ public class RecordActivity extends AppCompatActivity {
         stopTimer();
         time = 0.0;
         textView.setText(getTimeStringFromDouble(time));
+        Intent intent = new Intent(this, RecordSaveActivity.class);
+
+        startActivity(intent);
         //binding.timeTV.text = getTimeStringFromDouble(time)
     }
 

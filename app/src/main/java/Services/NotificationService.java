@@ -110,7 +110,7 @@ public class NotificationService extends IntentService {
 
                 NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
-                inboxStyle.addLine(nearestTrip.getDate());
+                inboxStyle.addLine(nearestTrip.getDate().substring(0, nearestTrip.getDate().length()-3));
                 if(isOnline == true)
                     inboxStyle.addLine("Przewidywana pogoda");
 
@@ -118,8 +118,8 @@ public class NotificationService extends IntentService {
 
                 builder = new NotificationCompat.Builder(getApplicationContext(), "Mynotification")
                         .setContentTitle("Nadchodząca wycieczka")
-                        .setContentText("testestse")
-                        .setTicker("krotkie powiadomienie")
+                        .setContentText(nearestTrip.getDate().substring(0, nearestTrip.getDate().length()-3))
+                        .setTicker("Nadchodząca wycieczka")
                         .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.error))
                         .setAutoCancel(true)
                         .addAction(R.mipmap.ic_launcher, "Zobacz prognozę pogody", pendingIntent)
