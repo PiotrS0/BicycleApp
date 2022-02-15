@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/text_number"
+        android:id="@+id/trip_adapter_text_number"
         android:layout_width="106dp"
         android:layout_height="73dp"
         android:layout_marginStart="16dp"
@@ -14,11 +14,27 @@
         android:text="TextView"
         android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/text_element"
-        android:layout_width="278dp"
-        android:layout_height="73dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_marginTop="28dp"
-        android:text="TextView"
-        android:textSize="24sp" />
+        android:layout_height="73dp"
+        android:layout_marginEnd="28dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/trip_adapter_text_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/trip_adapter_text_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="24sp" />
+
+
+    </LinearLayout>
 </LinearLayout>

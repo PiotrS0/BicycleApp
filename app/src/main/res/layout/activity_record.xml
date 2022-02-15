@@ -27,22 +27,14 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <!--        <Chronometer-->
-        <!--            android:id="@+id/chronometerR"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="156dp"-->
-        <!--            android:layout_marginTop="92dp"-->
-        <!--            android:textSize="30sp"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
         <Button
             android:id="@+id/RecordButton"
-            android:layout_width="187dp"
-            android:layout_height="184dp"
-            android:layout_marginTop="60dp"
-            android:text="Rejestruj"
+            android:layout_width="120dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/roundedbutton"
+            android:drawableLeft="@drawable/ic_baseline_play_arrow_24"
+            android:drawableRight="@drawable/ic_baseline_pause_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textRecord" />
@@ -68,6 +60,18 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/RecordButton" />
+
+        <Button
+            android:id="@+id/btn_record_highlight"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/roundedbutton"
+            android:drawableBottom="@drawable/ic_baseline_star_24"
+            android:text="Highlight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_record_stop" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

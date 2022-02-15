@@ -50,6 +50,7 @@ public class HighlightDetailsActivity extends AppCompatActivity {
         lon = getIntent().getDoubleExtra("Lon", 0);
         image = getIntent().getByteArrayExtra("Image");
 
+        toolbar.setTitle(date);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {

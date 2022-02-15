@@ -46,7 +46,7 @@ public class TripDetailsActivity extends AppCompatActivity {
     private TextView textView, weatherTextView;
     private CheckBox checkBox;
     private int id;
-    private String date, lastNotificationDate;
+    private String date, title;
     private boolean notification;
     private double lat, lon;
     private MyDatabase database;
@@ -91,16 +91,18 @@ public class TripDetailsActivity extends AppCompatActivity {
                 return false;
             }
         });
-        textView = findViewById(R.id.tripdetailstextdate);
+        textView = findViewById(R.id.trip_details_title);
         checkBox = findViewById(R.id.checkBox2);
         weatherTextView = findViewById(R.id.textView3);
         id = getIntent().getIntExtra("Id",0);
         date = getIntent().getStringExtra("Date");
         notification = getIntent().getBooleanExtra("Notification",true);
+        title = getIntent().getStringExtra("Title");
         lat = getIntent().getDoubleExtra("Lat",0);
         lon = getIntent().getDoubleExtra("Lon",0);
         imageView = findViewById(R.id.imageView2);
-        textView.setText(date.substring(0,date.length()-3));
+        textView.setText(title);
+        toolbar.setTitle(date.substring(0,date.length()-3));
         checkBox.setChecked(notification);
 
         checkBox.setOnClickListener(new View.OnClickListener() {
@@ -192,7 +194,7 @@ public class TripDetailsActivity extends AppCompatActivity {
 
         if(days == 0){
             weatherTextView.setText("Prognoza pogody jest dostępna na 7 dni przed terminem wycieczki.");
-            Glide.with(this).load(R.drawable.error).into(imageView);
+            Glide.with(this).load(R.mipmap.empty).into(imageView);
         }
 
         else{

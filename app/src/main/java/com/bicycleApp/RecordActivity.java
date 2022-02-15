@@ -20,11 +20,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.appbar.MaterialToolbar;
 
+import Data.MyDatabase;
 import Services.TourRecordService;
 
 public class RecordActivity extends AppCompatActivity {
 
-    private Button recordButton, stopButton;
+    private Button recordButton, stopButton, highlightButton;
     private boolean timerStarted = false;
     private double time = 0;
     private Intent serviceIntent;
@@ -32,13 +33,16 @@ public class RecordActivity extends AppCompatActivity {
     private MaterialToolbar toolbar;
     private static int REQUEST_LOCATION_PERMISSION = 123;
     private boolean locationAvaliable = false;
+    private MyDatabase database;
+    private long id;
+    private double distance;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
-
+        database = new MyDatabase(this, 1);
         toolbar = findViewById(R.id.topAppBarRecord);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +53,9 @@ public class RecordActivity extends AppCompatActivity {
 
         recordButton = findViewById(R.id.RecordButton);
         stopButton = findViewById(R.id.btn_record_stop);
+        stopButton.setVisibility(View.INVISIBLE);
+        highlightButton = findViewById(R.id.btn_record_highlight);
+        highlightButton.setVisibility(View.INVISIBLE);
         textView = findViewById(R.id.textRecord);
 
         recordButton.setOnClickListener(new View.OnClickListener() {
@@ -56,8 +63,9 @@ public class RecordActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(locationAvaliable == false)
                     Toast.makeText(getApplicationContext(), "Lokalizacja niedostępna", Toast.LENGTH_LONG).show();
-                else
+                else{
                     startStopTimer();
+                }
             }
         });
         stopButton.setOnClickListener(new View.OnClickListener() {
@@ -67,13 +75,17 @@ public class RecordActivity extends AppCompatActivity {
             }
 
         });
+        highlightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), HighlightAddActivity.class));
+            }
+        });
 
-        if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+        if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
             locationAvaliable = true;
-        }
-        else{
+        else
             requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
-        }
 
         serviceIntent = new Intent(getApplicationContext(), TourRecordService.class);
         registerReceiver(updateTime, new IntentFilter(TourRecordService.TIMER_UPDATED));
@@ -93,28 +105,33 @@ public class RecordActivity extends AppCompatActivity {
     private void resetTimer()
     {
         stopTimer();
+        Intent intent = new Intent(this, RecordSaveActivity.class);
+        intent.putExtra("TourId", id);
+        intent.putExtra("Time", time);
+        intent.putExtra("Distance", distance);
         time = 0.0;
         textView.setText(getTimeStringFromDouble(time));
-        Intent intent = new Intent(this, RecordSaveActivity.class);
-
         startActivity(intent);
         //binding.timeTV.text = getTimeStringFromDouble(time)
     }
 
     private void startStopTimer()
     {
-        if (timerStarted) {
+        if (timerStarted)
             stopTimer();
-        } else {
+        else
             startTimer();
-        }
     }
 
     private void startTimer()
     {
+        if(timerStarted == false)
+            id = database.addTourStart();
         serviceIntent.putExtra(TourRecordService.TIME_EXTRA, time);
+        serviceIntent.putExtra("TourId", id);
+        serviceIntent.putExtra("ISPAUSE", false);
         startService(serviceIntent);
-        recordButton.setText("stop");
+        recordButton.setText("Pauza");
 //        binding.startStopButton.text = "Stop"
 //        binding.startStopButton.icon = getDrawable(R.drawable.ic_baseline_pause_24)
         timerStarted = true;
@@ -122,6 +139,7 @@ public class RecordActivity extends AppCompatActivity {
 
     private void stopTimer()
     {
+        serviceIntent.putExtra("ISPAUSE", true);
         stopService(serviceIntent);
         recordButton.setText("Start");
 //        binding.startStopButton.text = "Start"
@@ -132,7 +150,10 @@ public class RecordActivity extends AppCompatActivity {
     private BroadcastReceiver updateTime = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            stopButton.setVisibility(View.VISIBLE);
+            highlightButton.setVisibility(View.VISIBLE);
             time = intent.getDoubleExtra(TourRecordService.TIME_EXTRA, 0);
+            distance = intent.getDoubleExtra("Distance", 0);
             textView.setText(getTimeStringFromDouble(time));
             if(time == 86400)
                 stopService(serviceIntent);
@@ -153,6 +174,4 @@ public class RecordActivity extends AppCompatActivity {
     private String makeTimeString(int hour, int min, int sec){
         return String.format("%02d:%02d:%02d", hour, min, sec);
     }
-
-
 }

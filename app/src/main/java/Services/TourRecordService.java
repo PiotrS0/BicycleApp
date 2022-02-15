@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -18,11 +17,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.widget.Toast;
 
-import com.bicycleApp.MainActivity;
-import com.bicycleApp.RecordActivity;
+import com.bicycleApp.Utilities;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
@@ -38,7 +37,11 @@ public class TourRecordService extends Service {
     private static final int TODO = Service.START_STICKY_COMPATIBILITY;
     private MyDatabase database;
     private List<Point> points = new LinkedList<Point>();
-
+    private long tourId;
+    private double startLat, startLon, endLat, endLon, distance;
+    private boolean isFirst = true;
+    private String startDate;
+    private int isNotPause = 1;
 
     Handler handler = new Handler();
 
@@ -54,7 +57,7 @@ public class TourRecordService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         database = new MyDatabase(this, 1);
-
+        tourId = intent.getLongExtra("TourId", 0);
         double time = intent.getDoubleExtra(TIME_EXTRA, 0.0);
         timer.scheduleAtFixedRate(new TimeTask(time), 0, 1000);
 
@@ -74,11 +77,28 @@ public class TourRecordService extends Service {
             @Override
             public void onLocationChanged(@NonNull Location location) {
                 handler.post(new Runnable() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void run() {
-                        //points.add(new Point())
-                        String s = "" + location.getLatitude() + " : " + location.getLongitude();
-                        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+                        Date date = Utilities.convertToDateViaInstant(LocalDateTime.now());
+                        if(intent.getBooleanExtra("ISPAUSE",false) == false){
+                            if(!isFirst){
+                                Location l = new Location(LocationManager.GPS_PROVIDER);
+                                l.setLatitude(endLat);
+                                l.setLongitude(endLon);
+                                distance += location.distanceTo(l);
+                            }
+                            endLat = location.getLatitude();
+                            endLon = location.getLongitude();
+                            points.add(new Point(date.toString(), (int)tourId, endLat, endLon));
+                        }
+
+                        if(isFirst){
+                            startLat = location.getLatitude();
+                            startLon = location.getLongitude();
+                            startDate = date.toString();
+                            isFirst = false;
+                        }
                     }
                 });
             }
@@ -126,6 +146,8 @@ public class TourRecordService extends Service {
         for(Point p : points){
             database.addPoint(p.getDate(), p.getTourId(), p.getLat(), p.getLon());
         }
+        database.updateTour((int) tourId, startLat, startLon, endLat, endLon, distance, startDate);
+        database.close();
         timer.cancel();
         super.onDestroy();
     }
@@ -159,6 +181,7 @@ public class TourRecordService extends Service {
             Intent intent = new Intent(TIMER_UPDATED);
             time++;
             intent.putExtra(TIME_EXTRA, time);
+            intent.putExtra("Distance", distance);
             sendBroadcast(intent);
         }
     }

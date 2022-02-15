@@ -84,7 +84,7 @@ public class TripListActivity extends AppCompatActivity {
         Intent intent = new Intent(this, TripDetailsActivity.class);
         intent.putExtra("Id", tripList.get(position).getId());
         intent.putExtra("Date", tripList.get(position).getDate());
-        //intent.putExtra("Title", tripList.get(position).getTitle());
+        intent.putExtra("Title", tripList.get(position).getTitle());
         intent.putExtra("Notification", tripList.get(position).getNotification());
         intent.putExtra("Lat", tripList.get(position).getLat());
         intent.putExtra("Lon", tripList.get(position).getLon());

@@ -120,11 +120,11 @@ public class NotificationService extends IntentService {
                         .setContentTitle("Nadchodząca wycieczka")
                         .setContentText(nearestTrip.getDate().substring(0, nearestTrip.getDate().length()-3))
                         .setTicker("Nadchodząca wycieczka")
-                        .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.error))
+                        .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.icon_app))
                         .setAutoCancel(true)
-                        .addAction(R.mipmap.ic_launcher, "Zobacz prognozę pogody", pendingIntent)
+                        .addAction(R.mipmap.icon_app, "Zobacz prognozę pogody", pendingIntent)
                         .setStyle(inboxStyle)
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.drawable.ic_baseline_directions_bike_24)
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setDefaults(Notification.DEFAULT_SOUND);
 

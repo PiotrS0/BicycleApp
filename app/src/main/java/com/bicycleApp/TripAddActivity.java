@@ -44,7 +44,6 @@ public class TripAddActivity extends AppCompatActivity {
     Button locationButton;
     TextView dateTextView, timeTextView;
     private Date data = new Date();
-    private Date data2 = new Date();
     private CheckBox checkBox;
     private EditText editText;
     private double lat, lon;
@@ -129,9 +128,9 @@ public class TripAddActivity extends AppCompatActivity {
                 calendar1.set(Calendar.YEAR, year);
                 calendar1.set(Calendar.MONTH, month+1);
                 calendar1.set(Calendar.DATE, date);
-                data2.setYear(year-1900);
-                data2.setMonth(month);
-                data2.setDate(date);
+                data.setYear(year-1900);
+                data.setMonth(month);
+                data.setDate(date);
                 String allDate = "" + year;
                 allDate += month < 10 ? "-0" + (month+1) : "-" + (month+1);
                 allDate += date < 10 ? "-0" + date : "-" + date;
@@ -153,8 +152,8 @@ public class TripAddActivity extends AppCompatActivity {
                 Log.i(TAG, "onTimeSet: " + hour + minute);
                 calendar1.set(Calendar.HOUR, hour);
                 calendar1.set(Calendar.MINUTE, minute);
-                data2.setHours(hour);
-                data2.setMinutes(minute);
+                data.setHours(hour);
+                data.setMinutes(minute);
                 if(minute<10)
                     timeTextView.setText(""+hour+":"+0+minute);
                 else
@@ -171,12 +170,12 @@ public class TripAddActivity extends AppCompatActivity {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        String dateAfterFormat = sdf.format(data2);
+        String dateAfterFormat = sdf.format(data);
 
-        Date nowDate = convertToDateViaInstant(LocalDateTime.now());
+        Date nowDate = Utilities.convertToDateViaInstant(LocalDateTime.now());
         String nowDateAfterFormat = sdf.format(nowDate);
 
-        if(data2.before(nowDate))
+        if(data.before(nowDate))
             Toast.makeText(TripAddActivity.this,"Wprowadź poprawną datę", Toast.LENGTH_SHORT).show();
         else{
             database.addTrip(editText.getText().toString(), dateAfterFormat,checkBox.isChecked(),nowDateAfterFormat,lat,lon);
@@ -186,12 +185,5 @@ public class TripAddActivity extends AppCompatActivity {
             Thread.sleep(500);
             finish();
         }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    Date convertToDateViaInstant(LocalDateTime dateToConvert) {
-        return java.util.Date
-                .from(dateToConvert.atZone(ZoneId.systemDefault())
-                        .toInstant());
     }
 }

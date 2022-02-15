@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         }));
         toursButton = findViewById(R.id.archivesbutton);
         toursButton.setOnClickListener((view -> {
+            //database.addTour("Title1",12.34,12.34,56.78,56.78,6670,56.70,"2022-01-20 19:02:35");
+            //database.addTour("Title2",12.34,12.34,56.78,56.78,3810,12.30,"2022-02-09 19:02:35");
             startActivity(new Intent(this, TourListActivity.class));
         }));
         statsButton = findViewById(R.id.btn_stats);

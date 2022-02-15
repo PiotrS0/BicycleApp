@@ -84,8 +84,7 @@ public class StatsActivity extends AppCompatActivity {
             }
         });
         LocalDateTime currentDate = LocalDateTime.now();
-        tempDateTo = convertToDateViaInstant(currentDate);
-        spinner.getSelectedItemId();
+        tempDateTo = Utilities.convertToDateViaInstant(currentDate);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -93,19 +92,19 @@ public class StatsActivity extends AppCompatActivity {
                 if(i == 0)
                     return;
                 if(i == 1)
-                    tempDateFrom = convertToDateViaInstant(currentDate.minusDays(3));
+                    tempDateFrom = Utilities.convertToDateViaInstant(currentDate.minusDays(3));
                 if(i == 2)
-                    tempDateFrom = convertToDateViaInstant(currentDate.minusDays(7));
+                    tempDateFrom = Utilities.convertToDateViaInstant(currentDate.minusDays(7));
                 if(i == 3)
-                    tempDateFrom = convertToDateViaInstant(currentDate.minusDays(14));
+                    tempDateFrom = Utilities.convertToDateViaInstant(currentDate.minusDays(14));
                 if(i == 4)
-                    tempDateFrom = convertToDateViaInstant(currentDate.minusDays(30));
+                    tempDateFrom = Utilities.convertToDateViaInstant(currentDate.minusDays(30));
                 if(i == 5)
-                    tempDateFrom = convertToDateViaInstant(currentDate.minusMonths(3));
+                    tempDateFrom = Utilities.convertToDateViaInstant(currentDate.minusMonths(3));
                 if(i == 6)
-                    tempDateFrom = convertToDateViaInstant(currentDate.minusMonths(6));
+                    tempDateFrom = Utilities.convertToDateViaInstant(currentDate.minusMonths(6));
                 if(i == 7)
-                    tempDateFrom = convertToDateViaInstant(currentDate.minusYears(1));
+                    tempDateFrom = Utilities.convertToDateViaInstant(currentDate.minusYears(1));
 
                 Log.d("Karolina", ""+i);
                 displayParameters(tempDateFrom, tempDateTo);
@@ -133,6 +132,7 @@ public class StatsActivity extends AppCompatActivity {
                 calendar.setTimeInMillis(pair.second);
                 endDate = calendar.getTime();
                 rangeButton.setText(pickerRange.getHeaderText());
+                spinner.setSelection(0);
                 displayParameters(startDate, endDate);
             }
         });
@@ -195,15 +195,6 @@ public class StatsActivity extends AppCompatActivity {
         textAVGDistance.setText(""+avgDistance+" km");
         textTime.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
         textAVGTime.setText(String.format("%02d:%02d:%02d", avghours, avgminutes, avgseconds));
-        textAVGSpeed.setText(""+roundTo2DecimalPlace(avgSpeed)+" km/h");
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    Date convertToDateViaInstant(LocalDateTime dateToConvert) {
-        return java.util.Date.from(dateToConvert.atZone(ZoneId.systemDefault()).toInstant());
-    }
-
-    public static double roundTo2DecimalPlace(double value) {
-        return Math.round(value * 100.0) / 100.0;
+        textAVGSpeed.setText(""+Utilities.roundTo2DecimalPlace(avgSpeed)+" km/h");
     }
 }

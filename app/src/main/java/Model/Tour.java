@@ -106,7 +106,7 @@ public class Tour {
 
     public void setDate(String date) { this.date = date; }
 
-    public String getDateWithoutSeconds(){
-        return date.substring(0,date.length()-3);
+    public String getDateWithoutTime(){
+        return date.substring(0,date.length()-9);
     }
 }

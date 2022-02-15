@@ -31,7 +31,7 @@
 
         <ImageView
             android:id="@+id/new_memory_selected_image"
-            android:src="@drawable/error"
+            android:src="@mipmap/empty_foreground"
             android:layout_width="match_parent"
             android:layout_height="150dp" />
 

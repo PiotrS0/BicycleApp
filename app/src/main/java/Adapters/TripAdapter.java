@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.bicycleApp.R;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import Model.Trip;
@@ -47,8 +49,9 @@ public class TripAdapter extends BaseAdapter {
         if(convertView == null){
             viewHolder = new ViewHolder();
             convertView = layoutInflater.inflate(R.layout.trip_adapter, viewGroup,false);
-            viewHolder.index = (TextView) convertView.findViewById(R.id.text_number);
-            viewHolder.date = (TextView) convertView.findViewById(R.id.text_element);
+            viewHolder.index = (TextView) convertView.findViewById(R.id.trip_adapter_text_number);
+            viewHolder.date = (TextView) convertView.findViewById(R.id.trip_adapter_text_date);
+            viewHolder.title = (TextView) convertView.findViewById(R.id.trip_adapter_text_title);
             convertView.setTag(viewHolder);
         }
         else
@@ -56,6 +59,7 @@ public class TripAdapter extends BaseAdapter {
 
         viewHolder.index.setText(""+(position+1));
         viewHolder.date.setText(""+tripList.get(position).getDateWithoutSeconds());
+        viewHolder.title.setText(""+tripList.get(position).getTitle());
 
         return convertView;
     }
@@ -63,5 +67,6 @@ public class TripAdapter extends BaseAdapter {
     class ViewHolder{
         TextView index;
         TextView date;
+        TextView title;
     }
 }

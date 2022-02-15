@@ -48,14 +48,16 @@ public class TourAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             convertView = layoutInflater.inflate(R.layout.tour_adapter, viewGroup,false);
             viewHolder.index = (TextView) convertView.findViewById(R.id.tour_adapter_text_number);
-            viewHolder.date = (TextView) convertView.findViewById(R.id.tour_adapter_text_element);
+            viewHolder.date = (TextView) convertView.findViewById(R.id.tour_adapter_text_date);
+            viewHolder.title = (TextView) convertView.findViewById(R.id.tour_adapter_text_title);
             convertView.setTag(viewHolder);
         }
         else
             viewHolder = (ViewHolder) convertView.getTag();
 
         viewHolder.index.setText(""+(position+1));
-        viewHolder.date.setText(""+toursList.get(position).getDateWithoutSeconds());
+        viewHolder.date.setText(""+toursList.get(position).getDateWithoutTime());
+        viewHolder.title.setText(toursList.get(position).getTitle());
 
         return convertView;
     }
@@ -63,5 +65,6 @@ public class TourAdapter extends BaseAdapter {
     class ViewHolder{
         TextView index;
         TextView date;
+        TextView title;
     }
 }

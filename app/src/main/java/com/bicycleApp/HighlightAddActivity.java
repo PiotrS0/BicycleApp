@@ -98,13 +98,12 @@ public class HighlightAddActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void save() {
         Bitmap image = ((BitmapDrawable)selectedImageView.getDrawable()).getBitmap();
-//        new MemoryDbHelper(this).addMemory(new Memory(titleEditText.getText().toString(), image));
         byte[] b = getBitmapAsByteArray(image);
         title = titleEditText.getText().toString() != "" ? titleEditText.getText().toString() : null;
         description = descriptionEditText.getText().toString() != "" ? descriptionEditText.getText().toString() : null;
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date nowDate = convertToDateViaInstant(LocalDateTime.now());
+        Date nowDate = Utilities.convertToDateViaInstant(LocalDateTime.now());
         nowDateAfterFormat = sdf.format(nowDate);
 
         lat = 34.56;
@@ -139,12 +138,5 @@ public class HighlightAddActivity extends AppCompatActivity {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             selectedImageView.setImageBitmap(imageBitmap);
         }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    Date convertToDateViaInstant(LocalDateTime dateToConvert) {
-        return java.util.Date
-                .from(dateToConvert.atZone(ZoneId.systemDefault())
-                        .toInstant());
     }
 }
