@@ -29,11 +29,13 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView
-            android:id="@+id/tripdetailstextdate"
+            android:id="@+id/text_trip_details_from_notification_title"
             android:layout_width="309dp"
             android:layout_height="56dp"
             android:layout_marginTop="24dp"
             android:text="TextView"
+            android:textSize="20sp"
+            android:gravity="center_horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.47"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,9 +56,11 @@
             android:id="@+id/imageView2"
             android:layout_width="166dp"
             android:layout_height="161dp"
+            android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tripdetailstextdate"
+            app:layout_constraintTop_toBottomOf="@+id/text_trip_details_from_notification_title"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

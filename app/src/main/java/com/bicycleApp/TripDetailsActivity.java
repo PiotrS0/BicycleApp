@@ -4,17 +4,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -34,12 +31,11 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
 
 import Data.MyDatabase;
+import Utils.Utilities;
 
 public class TripDetailsActivity extends AppCompatActivity {
 
@@ -57,7 +53,6 @@ public class TripDetailsActivity extends AppCompatActivity {
     private ImageView imageView;
     private MaterialToolbar toolbar;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +74,7 @@ public class TripDetailsActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), MapsShowPointActivity.class);
                     intent.putExtra("Lat", lat);
                     intent.putExtra("Lon", lon);
+                    intent.putExtra("Title", "Start point");
                     startActivity(intent);
                 }
                 if(item.getTitle().equals("delete")){
@@ -88,6 +84,7 @@ public class TripDetailsActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+
                 return false;
             }
         });
@@ -126,40 +123,30 @@ public class TripDetailsActivity extends AppCompatActivity {
         }
     }
 
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private int checkData(Date dateBase){
         int days = 0;
-        LocalDateTime timeNow = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-        dateBase.setHours(timeNow.getHour());
-        dateBase.setMinutes(timeNow.getMinute());
-        dateBase.setSeconds(timeNow.getSecond());
-        LocalDateTime time = dateBase.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        Calendar calendar = Calendar.getInstance();
+        Date date = Utilities.convertToDate(calendar);
+        dateBase.setHours(date.getHours());
+        dateBase.setMinutes(date.getMinutes());
+        dateBase.setSeconds(date.getSeconds());
 
-        if(time.getDayOfMonth() == timeNow.getDayOfMonth() && time.getMonthValue() == timeNow.getMonthValue() && time.getYear() == timeNow.getYear())
+        if(date.getDate() == dateBase.getDate() && date.getMonth() == dateBase.getMonth() && date.getYear() == dateBase.getYear())
             return days = -2;
-        if(time.isEqual(timeNow.plusDays(1)))
-            return days = 1;
-        else if(time.isEqual(timeNow.plusDays(2)))
-            return days = 2;
-        else if(time.isEqual(timeNow.plusDays(3)))
-            return days = 3;
-        else if(time.isEqual(timeNow.plusDays(4)))
-            return days = 4;
-        else if(time.isEqual(timeNow.plusDays(5)))
-            return days = 5;
-        else if(time.isEqual(timeNow.plusDays(6)))
-            return days = 6;
-        else if(time.isEqual(timeNow.plusDays(7)))
-            return days = 7;
-        else if(timeNow.isAfter(time))
+
+        for(int i = 0;i < 7;i++){
+            calendar.add(Calendar.DATE, 1);
+            date = Utilities.convertToDate(calendar);
+            if(date.getDate() == dateBase.getDate() && date.getMonth() == dateBase.getMonth() && date.getYear() == dateBase.getYear())
+                return days = i+1;
+        }
+        if(date.after(dateBase))
             return days = -1;
-        else
-            return days = 0;
+
+        return days;
     }
 
     private void deleteItem() throws InterruptedException {
-
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Czy na pewno chcesz usunąć wycieczkę?");
         alertDialogBuilder.setPositiveButton("Tak",
@@ -306,5 +293,4 @@ public class TripDetailsActivity extends AppCompatActivity {
             }
         }
     }
-
 }

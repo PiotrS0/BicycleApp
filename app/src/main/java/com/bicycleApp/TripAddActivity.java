@@ -1,14 +1,10 @@
 package com.bicycleApp;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.icu.util.Calendar;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -18,28 +14,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import java.util.Calendar;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.appbar.MaterialToolbar;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import Data.MyDatabase;
+import Utils.Utilities;
 
-@RequiresApi(api = Build.VERSION_CODES.N)
+
 public class TripAddActivity extends AppCompatActivity {
 
     private MaterialToolbar toolbar;
     private Calendar calendar1 = Calendar.getInstance();
-    private static final String TAG = "MainActivity";
     private MyDatabase database;
     Button locationButton;
     TextView dateTextView, timeTextView;
@@ -49,7 +42,6 @@ public class TripAddActivity extends AppCompatActivity {
     private double lat, lon;
     private final static int MY_REQUEST_CODE = 1;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,14 +73,20 @@ public class TripAddActivity extends AppCompatActivity {
                 handleDateButton();
             }
         });
-        dateTextView.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        //dateTextView.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        Calendar currentDate = Calendar.getInstance();
+        Date date = currentDate.getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateTextView.setText(dateFormat.format(date));
         timeTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 handleTimeButton();
             }
         });
-        timeTextView.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        timeTextView.setText(timeFormat.format(date));
+        //timeTextView.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
         editText = findViewById(R.id.editTextTitle);
         database = new MyDatabase(this, 1);
         locationButton = findViewById(R.id.bnt_location_add_trip);
@@ -114,7 +112,6 @@ public class TripAddActivity extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void handleDateButton() {
         Calendar calendar = Calendar.getInstance();
         int YEAR = calendar.get(Calendar.YEAR);
@@ -140,7 +137,6 @@ public class TripAddActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void handleTimeButton() {
         Calendar calendar = Calendar.getInstance();
         int HOUR = calendar.get(Calendar.HOUR);
@@ -149,7 +145,6 @@ public class TripAddActivity extends AppCompatActivity {
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                Log.i(TAG, "onTimeSet: " + hour + minute);
                 calendar1.set(Calendar.HOUR, hour);
                 calendar1.set(Calendar.MINUTE, minute);
                 data.setHours(hour);
@@ -165,14 +160,13 @@ public class TripAddActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void openAdd() throws InterruptedException {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String dateAfterFormat = sdf.format(data);
 
-        Date nowDate = Utilities.convertToDateViaInstant(LocalDateTime.now());
+        Date nowDate = Utilities.convertToDate(java.util.Calendar.getInstance());
         String nowDateAfterFormat = sdf.format(nowDate);
 
         if(data.before(nowDate))

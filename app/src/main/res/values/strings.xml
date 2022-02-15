@@ -33,12 +33,14 @@
     <string name="info_author">Author</string>
     <string name="info_released">Released on</string>
     <string name="info_os">Android OS</string>
-<!--    APP INFO -->
+    <!--    APP INFO -->
     <string name="version">1.0</string>
     <string name="updated">Feb 14, 2022</string>
     <string name="author">Piotr Sawczuk</string>
     <string name="released">Feb 14, 2022</string>
-    <string name="android_os">8.0 and up</string>
+    <string name="android_os">6.0 and up</string>
+    <string name="route">route</string>
+    <string name="edit">edit</string>
     <string-array name="options_array">
         <item>Choose option</item>
         <item>3 days</item>

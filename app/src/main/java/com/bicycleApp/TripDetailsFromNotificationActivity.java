@@ -1,21 +1,13 @@
 package com.bicycleApp;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -33,16 +25,15 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
 
 import Data.MyDatabase;
+import Utils.Utilities;
 
 public class TripDetailsFromNotificationActivity extends AppCompatActivity {
 
-    private TextView textView, weatherTextView;
+    private TextView titleText, weatherTextView;
     private int id;
     private String date, title;
     private boolean notification;
@@ -55,7 +46,6 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
     private ImageView imageView;
     private MaterialToolbar toolbar;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +60,7 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
             }
         });
 
-        textView = findViewById(R.id.tripdetailstextdate);
+        titleText = findViewById(R.id.text_trip_details_from_notification_title);
         weatherTextView = findViewById(R.id.textView3);
         id = this.getIntent().getIntExtra("Id",0);
         date = this.getIntent().getStringExtra("Date");
@@ -79,7 +69,8 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
         lat = this.getIntent().getDoubleExtra("Lat",0);
         lon = this.getIntent().getDoubleExtra("Lon",0);
         imageView = findViewById(R.id.imageView2);
-        textView.setText(date.substring(0,date.length()-3));
+        toolbar.setTitle(date.substring(0,date.length()-3));
+        titleText.setText(title);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
@@ -95,68 +86,28 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
         }
     }
 
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private int checkData(Date dateBase){
         int days = 0;
-        LocalDateTime timeNow = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-        dateBase.setHours(timeNow.getHour());
-        dateBase.setMinutes(timeNow.getMinute());
-        dateBase.setSeconds(timeNow.getSecond());
-        LocalDateTime time = dateBase.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        Calendar calendar = Calendar.getInstance();
+        Date date = Utilities.convertToDate(calendar);
+        dateBase.setHours(date.getHours());
+        dateBase.setMinutes(date.getMinutes());
+        dateBase.setSeconds(date.getSeconds());
 
-        if(time.getDayOfMonth() == timeNow.getDayOfMonth() && time.getMonthValue() == timeNow.getMonthValue() && time.getYear() == timeNow.getYear())
+        if(date.getDate() == dateBase.getDate() && date.getMonth() == dateBase.getMonth() && date.getYear() == dateBase.getYear())
             return days = -2;
-        if(time.isEqual(timeNow.plusDays(1)))
-            return days = 1;
-        else if(time.isEqual(timeNow.plusDays(2)))
-            return days = 2;
-        else if(time.isEqual(timeNow.plusDays(3)))
-            return days = 3;
-        else if(time.isEqual(timeNow.plusDays(4)))
-            return days = 4;
-        else if(time.isEqual(timeNow.plusDays(5)))
-            return days = 5;
-        else if(time.isEqual(timeNow.plusDays(6)))
-            return days = 6;
-        else if(time.isEqual(timeNow.plusDays(7)))
-            return days = 7;
-        else if(timeNow.isAfter(time))
+
+        for(int i = 0;i < 7;i++){
+            calendar.add(Calendar.DATE, 1);
+            date = Utilities.convertToDate(calendar);
+            if(date.getDate() == dateBase.getDate() && date.getMonth() == dateBase.getMonth() && date.getYear() == dateBase.getYear())
+                return days = i+1;
+        }
+        if(date.after(dateBase))
             return days = -1;
-        else
-            return days = 0;
+
+        return days;
     }
-
-    private void deleteItem() throws InterruptedException {
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("Czy na pewno chcesz usunąć wycieczkę?");
-        alertDialogBuilder.setPositiveButton("Tak",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        database.deleteRow("Trip",id);
-                        Toast.makeText(TripDetailsFromNotificationActivity.this,"Usunięto wycieczkę",Toast.LENGTH_SHORT).show();
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        finish();
-                    }
-                });
-
-        alertDialogBuilder.setNegativeButton("Nie",new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-    }
-
 
     public void getWeatherDetails(int days){
         String tempUrl = "";

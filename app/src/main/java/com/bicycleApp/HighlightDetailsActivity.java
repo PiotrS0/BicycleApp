@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.method.CharacterPickerDialog;
@@ -54,7 +55,16 @@ public class HighlightDetailsActivity extends AppCompatActivity {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                deleteHighlight();
+                if(item.getTitle().equals("location")){
+                    Intent intent = new Intent(getApplicationContext(), MapsShowPointActivity.class);
+                    intent.putExtra("Lat", lat);
+                    intent.putExtra("Lon", lon);
+                    intent.putExtra("Title", title);
+                    startActivity(intent);
+                }
+                if(item.getTitle().equals("delete")){
+                    deleteHighlight();
+                }
                 return false;
             }
         });

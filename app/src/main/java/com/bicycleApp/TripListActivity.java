@@ -54,7 +54,6 @@ public class TripListActivity extends AppCompatActivity {
         });
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 startActivity(new Intent(getApplicationContext(), TripAddActivity.class));

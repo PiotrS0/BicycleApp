@@ -10,11 +10,11 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBarTourDetails"
+            android:id="@+id/topAppBarTourEdit"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/tourDetails_actitity_title"
-            app:menu="@menu/top_app_bar_with_delete_and_route"
+            app:title="@string/tripDetails_actitity_title"
+            app:menu="@menu/top_app_bar_with_confirm"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             />
@@ -42,15 +42,42 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/text_tour_details_title"
+                android:id="@+id/textView30"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="bottom|center_horizontal"
+                android:paddingBottom="2dp"
+                android:text="Title"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="63dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/text_tour_edit_title"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:paddingLeft="5dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
                 android:gravity="center_horizontal"
-                android:text="Title"
+                android:text=""
                 android:textSize="20sp"
                 android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="63dp"
+            android:orientation="horizontal">
+
 
         </LinearLayout>
 
@@ -70,7 +97,7 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/text_tour_details_distance"
+                android:id="@+id/text_tour_edit_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -99,7 +126,7 @@
                 android:text="@string/stats_time" />
 
             <TextView
-                android:id="@+id/text_tour_details_time"
+                android:id="@+id/text_tour_edit_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -128,7 +155,7 @@
                 android:text="@string/average_speed" />
 
             <TextView
-                android:id="@+id/text_tour_details_avg_speed"
+                android:id="@+id/text_tour_edit_avg_speed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

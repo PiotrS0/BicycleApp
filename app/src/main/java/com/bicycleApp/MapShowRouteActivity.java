@@ -3,15 +3,19 @@ package com.bicycleApp;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.bicycleApp.databinding.ActivityMapShowRouteBinding;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.io.ByteArrayInputStream;
@@ -22,15 +26,33 @@ import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 import java.util.List;
 
+import Data.MyDatabase;
+import Model.Highlight;
+
 public class MapShowRouteActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private ActivityMapShowRouteBinding binding;
-    private LinkedList<LatLng> points = new LinkedList<LatLng>();
+    private List<LatLng> points = new LinkedList<LatLng>();
+    private MyDatabase database;
+    private Cursor cursor;
+    private int id;
+    private double startLat, startLon, endLat, endLon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        database = new MyDatabase(this, 1);
+        id = getIntent().getIntExtra("TourId", 0);
+        startLat = getIntent().getDoubleExtra("StartLat",0);
+        startLon = getIntent().getDoubleExtra("StartLon",0);
+        endLat = getIntent().getDoubleExtra("EndLat",0);
+        endLon = getIntent().getDoubleExtra("EndLon",0);
+
+        cursor = database.getTourPoints(id);
+        while(cursor.moveToNext()){
+            points.add(new LatLng(cursor.getDouble(2), cursor.getDouble(3)));
+        }
 
         binding = ActivityMapShowRouteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -55,73 +77,13 @@ public class MapShowRouteActivity extends FragmentActivity implements OnMapReady
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng startLoc = new LatLng(startLat, startLon);
+        LatLng endLoc = new LatLng(endLat, endLon);
+        mMap.addMarker(new MarkerOptions().position(startLoc).title("Start Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        mMap.addMarker(new MarkerOptions().position(endLoc).title("End Location"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startLoc, 10));
 
-        PolylineOptions polylineOptions = new PolylineOptions();
-        polylineOptions.clickable(true);
-        polylineOptions.addAll(points);
-
-
-//        PolylineOptions polylineOptions1 = new PolylineOptions();
-//
-//        Blammy blammy = new Blammy(polylineOptions1, points);
-//
-//        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//        try {
-//            ObjectOutputStream oos = new ObjectOutputStream(byteArrayOutputStream);
-//            oos.writeObject(blammy);
-//            oos.flush();
-//            oos.close();
-//            byteArrayOutputStream.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-
-        //#####################################
-
-//        Polyline polyline = googleMap.addPolyline(new PolylineOptions().clickable(true).add(
-//           new LatLng(34.56,12.34),
-//                new LatLng(34.56,12.34),
-//                new LatLng(33.56,12.34),
-//                new LatLng(32.56,12.34),
-//                new LatLng(31.56,12.34),
-//                new LatLng(30.56,12.34),
-//                new LatLng(29.56,12.34),
-//                new LatLng(28.56,12.34),
-//                new LatLng(27.56,12.34),
-//                new LatLng(26.56,12.34),
-//                new LatLng(25.56,12.34),
-//                new LatLng(24.56,12.34),
-//                new LatLng(23.56,12.34),
-//                new LatLng(22.56,12.34),
-//                new LatLng(21.56,22.34),
-//                new LatLng(20.56,12.34),
-//                new LatLng(19.56,12.34),
-//                new LatLng(18.56,12.34),
-//                new LatLng(17.56,18.34),
-//                new LatLng(16.56,12.34),
-//                new LatLng(15.56,12.34),
-//                new LatLng(14.56,12.34),
-//                new LatLng(24.56,12.34),
-//                new LatLng(34.56,12.34),
-//                new LatLng(44.56,36.34),
-//                new LatLng(54.56,12.34),
-//                new LatLng(64.56,12.34),
-//                new LatLng(74.56,12.34),
-//                new LatLng(15.56,25.34),
-//                new LatLng(20.56,12.34),
-//                new LatLng(26.56,12.34),
-//                new LatLng(18.56,12.34)
-//
-//        ));
-
-
-
-        //####################################
-
-
+        Polyline polyline = googleMap.addPolyline(new PolylineOptions().clickable(true).addAll(points));
+        polyline.setColor(Color.MAGENTA);
     }
 }

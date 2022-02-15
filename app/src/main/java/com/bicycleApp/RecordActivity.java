@@ -1,14 +1,17 @@
 package com.bicycleApp;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -35,7 +38,8 @@ public class RecordActivity extends AppCompatActivity {
     private boolean locationAvaliable = false;
     private MyDatabase database;
     private long id;
-    private double distance;
+    private double distance, lat, lon;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -78,7 +82,11 @@ public class RecordActivity extends AppCompatActivity {
         highlightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), HighlightAddActivity.class));
+                Intent highlightIntent = new Intent(getApplicationContext(), HighlightAddActivity.class);
+                highlightIntent.putExtra("TourId", (int)id);
+                highlightIntent.putExtra("Lat", lat);
+                highlightIntent.putExtra("Lon", lon);
+                startActivity(highlightIntent);
             }
         });
 
@@ -90,6 +98,29 @@ public class RecordActivity extends AppCompatActivity {
         serviceIntent = new Intent(getApplicationContext(), TourRecordService.class);
         registerReceiver(updateTime, new IntentFilter(TourRecordService.TIMER_UPDATED));
 
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        boolean gps_enabled = false;
+        try {
+            gps_enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch(Exception ex) {}
+        if(!gps_enabled) {
+            // notify user
+            new AlertDialog.Builder(this)
+                    .setMessage("GPS not enabled")
+                    .setPositiveButton("Open", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                            settings();
+                        }
+                    })
+                    .setNegativeButton("Cancel",null)
+                    .show();
+        }
+
+    }
+
+    private void settings(){
+        this.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
     }
 
     @Override
@@ -154,6 +185,8 @@ public class RecordActivity extends AppCompatActivity {
             highlightButton.setVisibility(View.VISIBLE);
             time = intent.getDoubleExtra(TourRecordService.TIME_EXTRA, 0);
             distance = intent.getDoubleExtra("Distance", 0);
+            lat = intent.getDoubleExtra("Lat",0);
+            lon = intent.getDoubleExtra("Lon",0);
             textView.setText(getTimeStringFromDouble(time));
             if(time == 86400)
                 stopService(serviceIntent);

@@ -8,9 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import java.util.Date;
+import Utils.Utilities;
 
-import Model.Trip;
+import java.util.Calendar;
 
 public class MyDatabase extends SQLiteOpenHelper {
     public MyDatabase(@Nullable Context context,  int version) {
@@ -43,29 +43,29 @@ public class MyDatabase extends SQLiteOpenHelper {
 
     public long addTourStart(){
         SQLiteDatabase db = getWritableDatabase();
+        Calendar calendar = Calendar.getInstance();
         ContentValues values = new ContentValues();
         values.put("Title", "NEW TOUR");
-        values.put("Date", "2022-02-22 00:00:00");
+        values.put("Date", Utilities.sdf.format(calendar.getTime()));
         return db.insertOrThrow("Tour", null, values);
     }
 
-    public void updateTour(int id, double startLat, double startLon, double endLat, double endLon, double distance, String date){
+    public void updateTour(int id, double startLat, double startLon, double endLat, double endLon, double time, double distance){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("StartLat",startLat);
         values.put("StartLon",startLon);
         values.put("EndLat",endLat);
         values.put("EndLon",endLon);
+        values.put("Time", time);
         values.put("Distance", distance);
-        values.put("Date", date);
         db.update("Tour", values,"Id = " + id,null);
     }
 
-    public void saveTour(int id, String title, double time){
+    public void saveTour(int id, String title){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("Title", title);
-        values.put("Time", time);
         db.update("Tour", values, "Id = " + id, null);
     }
 

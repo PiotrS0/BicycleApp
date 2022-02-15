@@ -45,6 +45,7 @@
         <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/drawable/ic_launcher_no_image_foreground.xml" value="0.307" />
         <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/drawable/ic_route_4.xml" value="0.36" />
         <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/drawable/roundedbutton.xml" value="0.319" />
+        <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/layout/activity_edit_tour.xml" value="0.28489583333333335" />
         <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/layout/activity_highlight_add.xml" value="0.30364583333333334" />
         <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/layout/activity_highlight_details.xml" value="0.3423913043478261" />
         <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/layout/activity_highlight_list.xml" value="0.25625" />
@@ -52,11 +53,13 @@
         <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/layout/activity_map_point_picker.xml" value="0.25625" />
         <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/layout/activity_record.xml" value="0.25" />
-        <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/layout/activity_record_save.xml" value="0.25625" />
+        <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/layout/activity_record_save.xml" value="0.33" />
         <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/layout/activity_stats.xml" value="0.33" />
         <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/layout/activity_tour_details.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/layout/activity_tour_edit.xml" value="0.28489583333333335" />
         <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/layout/activity_tour_list.xml" value="0.25625" />
-        <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/layout/activity_trip_details.xml" value="0.28125" />
+        <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/layout/activity_trip_add.xml" value="0.3390625" />
+        <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/layout/activity_trip_details.xml" value="0.1" />
         <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/layout/activity_trip_details_from_notification.xml" value="0.28125" />
         <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/layout/activity_trip_list.xml" value="0.25625" />
         <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/layout/tour_adapter.xml" value="0.3423913043478261" />
@@ -64,6 +67,7 @@
         <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/menu/top_app_bar_with_confirm.xml" value="0.28020833333333334" />
         <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/menu/top_app_bar_with_delete_and_confirm.xml" value="0.28020833333333334" />
         <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/menu/top_app_bar_with_delete_and_location.xml" value="0.28020833333333334" />
+        <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/menu/top_app_bar_with_delete_and_route.xml" value="0.2828125" />
         <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3315" />
         <entry key="..\:/Users/Piotr/StudioProjects/BicycleApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.297" />
       </map>

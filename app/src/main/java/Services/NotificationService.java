@@ -12,19 +12,16 @@ import android.os.Build;
 import android.os.Handler;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.bicycleApp.R;
 import com.bicycleApp.TripDetailsFromNotificationActivity;
+import Utils.Utilities;
 
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -55,7 +52,6 @@ public class NotificationService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         handler.post(new Runnable() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void run() {
                 database = new MyDatabase(getApplicationContext(), 1);
@@ -72,9 +68,9 @@ public class NotificationService extends IntentService {
                 }
 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date nowDate = convertToDateViaInstant(LocalDateTime.now());
-                String nowDateAfterFormat = sdf.format(nowDate);
-                Date date3 = convertToDateViaInstant(LocalDateTime.now().plusDays(7));
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.DATE, 7);
+                Date date2 = Utilities.convertToDate(calendar);
                 Trip nearestTrip = new Trip();
 
                 for(Trip x : tripList){
@@ -83,8 +79,8 @@ public class NotificationService extends IntentService {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    if(date.before(date3) && x.getNotification() == true){
-                        date3 = date;
+                    if(date.before(date2) && x.getNotification() == true){
+                        date2 = date;
                         nearestTrip = x;
                     }
                 }
@@ -131,12 +127,5 @@ public class NotificationService extends IntentService {
                 managerCompat.notify(1, builder.build());
             }
         });
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    Date convertToDateViaInstant(LocalDateTime dateToConvert) {
-        return java.util.Date
-                .from(dateToConvert.atZone(ZoneId.systemDefault())
-                        .toInstant());
     }
 }

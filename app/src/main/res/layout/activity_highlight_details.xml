@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="@string/HighlightDetails_actitity_title"
-            app:menu="@menu/top_app_bar_with_delete"
+            app:menu="@menu/top_app_bar_with_delete_and_location"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             />

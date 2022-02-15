@@ -1,6 +1,5 @@
 package com.bicycleApp;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -10,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.MenuItem;
@@ -25,11 +23,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 
 import Data.MyDatabase;
+import Utils.Utilities;
 
 public class HighlightAddActivity extends AppCompatActivity {
 
@@ -44,12 +42,11 @@ public class HighlightAddActivity extends AppCompatActivity {
     private int tourId;
     private String nowDateAfterFormat;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_highlight_add);
-        database = new MyDatabase(this,1);
+        database = new MyDatabase(this, 1);
         toolbar = findViewById(R.id.topAppBarHighlightAdd);
         selectedImageView = (ImageView) findViewById(R.id.new_memory_selected_image);
         titleEditText = (EditText) findViewById(R.id.new_highlight_title);
@@ -62,19 +59,15 @@ public class HighlightAddActivity extends AppCompatActivity {
         });
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 save();
                 return false;
             }
         });
-
-//        lat = getIntent().getDoubleExtra("Lat", 0);
-//        lon = getIntent().getDoubleExtra("Lon", 0);
-//        tourId = getIntent().getIntExtra("TourId",0);
-
-
+        tourId = getIntent().getIntExtra("TourId",0);
+        lat = getIntent().getDoubleExtra("Lat",0);
+        lon = getIntent().getDoubleExtra("Lon",0);
     }
 
     public void openGallery(View view) {
@@ -87,28 +80,22 @@ public class HighlightAddActivity extends AppCompatActivity {
     public void openCamera(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         ComponentName a = takePictureIntent.resolveActivity(getPackageManager());
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null)
             startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
-        }
-        else{
+        else
             Toast.makeText(HighlightAddActivity.this, "Camera device unavaliable", Toast.LENGTH_LONG).show();
-        }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void save() {
-        Bitmap image = ((BitmapDrawable)selectedImageView.getDrawable()).getBitmap();
+        Bitmap image = ((BitmapDrawable) selectedImageView.getDrawable()).getBitmap();
         byte[] b = getBitmapAsByteArray(image);
         title = titleEditText.getText().toString() != "" ? titleEditText.getText().toString() : null;
         description = descriptionEditText.getText().toString() != "" ? descriptionEditText.getText().toString() : null;
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date nowDate = Utilities.convertToDateViaInstant(LocalDateTime.now());
+        Date nowDate = Utilities.convertToDate(Calendar.getInstance());
         nowDateAfterFormat = sdf.format(nowDate);
 
-        lat = 34.56;
-        lon = 12.34;
-        tourId = 0;
         database.addHighlight(b,title, description, nowDateAfterFormat, lat, lon, tourId);
         finish();
     }

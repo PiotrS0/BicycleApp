@@ -23,6 +23,7 @@ public class MapsShowPointActivity extends FragmentActivity implements OnMapRead
     private ActivityMapsShowPointBinding binding;
     private double lat, lon;
     private MaterialToolbar toolbar;
+    private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class MapsShowPointActivity extends FragmentActivity implements OnMapRead
 
         lat = getIntent().getDoubleExtra("Lat", 0);
         lon = getIntent().getDoubleExtra("Lon", 0);
+        title = getIntent().getStringExtra("Title");
         binding = ActivityMapsShowPointBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         toolbar = findViewById(R.id.topAppBarMapShowPoint);
@@ -60,7 +62,7 @@ public class MapsShowPointActivity extends FragmentActivity implements OnMapRead
         mMap = googleMap;
 
         LatLng startPoint = new LatLng(lat, lon);
-        mMap.addMarker(new MarkerOptions().position(startPoint).title("Start point"));
+        mMap.addMarker(new MarkerOptions().position(startPoint).title(title));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPoint, 10));
     }
 }

@@ -6,21 +6,18 @@ import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Build;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 
-import com.bicycleApp.Utilities;
+import Utils.Utilities;
 
-import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,9 +35,8 @@ public class TourRecordService extends Service {
     private MyDatabase database;
     private List<Point> points = new LinkedList<Point>();
     private long tourId;
-    private double startLat, startLon, endLat, endLon, distance;
+    private double startLat, startLon, endLat, endLon, distance, tripTime = 0.0;
     private boolean isFirst = true;
-    private String startDate;
     private int isNotPause = 1;
 
     Handler handler = new Handler();
@@ -53,7 +49,7 @@ public class TourRecordService extends Service {
         return null;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         database = new MyDatabase(this, 1);
@@ -73,20 +69,25 @@ public class TourRecordService extends Service {
             // for ActivityCompat#requestPermissions for more details.
             return TODO;
         }
+
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 3.0f, new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
                 handler.post(new Runnable() {
-                    @RequiresApi(api = Build.VERSION_CODES.O)
+
                     @Override
                     public void run() {
-                        Date date = Utilities.convertToDateViaInstant(LocalDateTime.now());
+                        Calendar calendar = Calendar.getInstance();
+
+                        //Date date = Utilities.convertToDateViaInstant(LocalDateTime.now());
+                        Date date = Utilities.convertToDate(calendar);
                         if(intent.getBooleanExtra("ISPAUSE",false) == false){
                             if(!isFirst){
-                                Location l = new Location(LocationManager.GPS_PROVIDER);
+                                Location l = new Location(LocationManager.KEY_LOCATIONS);
                                 l.setLatitude(endLat);
                                 l.setLongitude(endLon);
-                                distance += location.distanceTo(l);
+
+                                distance += (double)(location.distanceTo(l)/1000f);
                             }
                             endLat = location.getLatitude();
                             endLon = location.getLongitude();
@@ -96,92 +97,45 @@ public class TourRecordService extends Service {
                         if(isFirst){
                             startLat = location.getLatitude();
                             startLon = location.getLongitude();
-                            startDate = date.toString();
                             isFirst = false;
                         }
                     }
                 });
             }
-
-            @Override
-            public void onFlushComplete(int requestCode) {
-                LocationListener.super.onFlushComplete(requestCode);
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-                LocationListener.super.onStatusChanged(provider, status, extras);
-            }
-
-            @Override
-            public void onProviderEnabled(@NonNull String provider) {
-                LocationListener.super.onProviderEnabled(provider);
-            }
-
-            @Override
-            public void onProviderDisabled(@NonNull String provider) {
-                LocationListener.super.onProviderDisabled(provider);
-            }
         });
-
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                //Toast.makeText(getApplicationContext(), "123", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        timer.scheduleAtFixedRate(new LocTask(), 0, 5000);
-
 
         //return super.onStartCommand(intent, flags, startId);
         return START_NOT_STICKY;
     }
 
-
-
     @Override
     public void onDestroy() {
-
+        database.updateTour((int) tourId, startLat, startLon, endLat, endLon, tripTime, distance);
         for(Point p : points){
             database.addPoint(p.getDate(), p.getTourId(), p.getLat(), p.getLon());
         }
-        database.updateTour((int) tourId, startLat, startLon, endLat, endLon, distance, startDate);
-        database.close();
+
         timer.cancel();
         super.onDestroy();
-    }
-
-    class LocTask extends TimerTask{
-
-        public LocTask(){
-
-        }
-
-        @Override
-        public void run() {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    //Toast.makeText(getApplicationContext(), "onStart", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
     }
 
     class TimeTask extends TimerTask{
         private double time;
 
         public TimeTask(double time){
-           this.time = time;
+
+            this.time = time;
         }
 
         @Override
         public void run(){
             Intent intent = new Intent(TIMER_UPDATED);
             time++;
+            tripTime++;
             intent.putExtra(TIME_EXTRA, time);
             intent.putExtra("Distance", distance);
+            intent.putExtra("Lat", endLat);
+            intent.putExtra("Lon", endLon);
             sendBroadcast(intent);
         }
     }

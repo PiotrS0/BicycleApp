@@ -4,22 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
-import android.content.ContentResolver;
 import android.content.DialogInterface;
-import android.database.CharArrayBuffer;
-import android.database.ContentObserver;
-import android.database.Cursor;
-import android.database.CursorWrapper;
-import android.database.DataSetObserver;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
 
 import Data.MyDatabase;
+import Utils.Utilities;
 
 public class RecordSaveActivity extends AppCompatActivity {
 
@@ -27,7 +23,9 @@ public class RecordSaveActivity extends AppCompatActivity {
     private MyDatabase database;
     private MaterialToolbar toolbar;
     private double time, distance;
-
+    private TextView distanceText, timeText, speedText;
+    private EditText titleText;
+    private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +35,12 @@ public class RecordSaveActivity extends AppCompatActivity {
         time = this.getIntent().getDoubleExtra("Time", 0);
         distance = this.getIntent().getDoubleExtra("Distance", 0);
         database = new MyDatabase(this, 1);
-        toolbar = findViewById(R.id.topAppBarRecordSave);
+        distanceText = findViewById(R.id.text_record_save_distance);
+        timeText = findViewById(R.id.text_record_save_time);
+        speedText = findViewById(R.id.text_record_save_avg_speed);
+        titleText = findViewById(R.id.text_record_save_title);
 
+        toolbar = findViewById(R.id.topAppBarRecordSave);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,7 +51,6 @@ public class RecordSaveActivity extends AppCompatActivity {
                 }
             }
         });
-
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -57,10 +58,15 @@ public class RecordSaveActivity extends AppCompatActivity {
                 return false;
             }
         });
+        distanceText.setText(""+ Utilities.roundTo2DecimalPlace(distance) + " km");
     }
 
     private void saveItem(){
-        //database.saveTour(id, );
+        title = titleText.getText().toString();
+        if(title.equals(""))
+            title = "Tour";
+        database.saveTour((int)id, title);
+        finish();
     }
 
     private void deleteItem() throws InterruptedException {

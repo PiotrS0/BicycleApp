@@ -1,7 +1,6 @@
 package com.bicycleApp;
 
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 
@@ -21,9 +19,6 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,6 +28,7 @@ import java.util.TimeZone;
 
 import Data.MyDatabase;
 import Model.Tour;
+import Utils.Utilities;
 
 public class StatsActivity extends AppCompatActivity {
 
@@ -43,11 +39,9 @@ public class StatsActivity extends AppCompatActivity {
     private Date startDate, endDate, tempDateFrom, tempDateTo;
     private Cursor cursor;
     private List<Tour> toursList = new ArrayList<Tour>();
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private double distance, avgDistance, time, avgTime, speed, avgSpeed;
     private TextView textToursCompleted, textTime, textAVGTime, textDistance, textAVGDistance, textAVGSpeed;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,30 +77,52 @@ public class StatsActivity extends AppCompatActivity {
                 handleDateRange();
             }
         });
-        LocalDateTime currentDate = LocalDateTime.now();
-        tempDateTo = Utilities.convertToDateViaInstant(currentDate);
+        //LocalDateTime currentDate = LocalDateTime.now();
+        //tempDateTo = Utilities.convertToDateViaInstant(currentDate);
+        tempDateTo = Utilities.convertToDate(Calendar.getInstance());
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
                 if(i == 0)
                     return;
-                if(i == 1)
-                    tempDateFrom = Utilities.convertToDateViaInstant(currentDate.minusDays(3));
-                if(i == 2)
-                    tempDateFrom = Utilities.convertToDateViaInstant(currentDate.minusDays(7));
-                if(i == 3)
-                    tempDateFrom = Utilities.convertToDateViaInstant(currentDate.minusDays(14));
-                if(i == 4)
-                    tempDateFrom = Utilities.convertToDateViaInstant(currentDate.minusDays(30));
-                if(i == 5)
-                    tempDateFrom = Utilities.convertToDateViaInstant(currentDate.minusMonths(3));
-                if(i == 6)
-                    tempDateFrom = Utilities.convertToDateViaInstant(currentDate.minusMonths(6));
-                if(i == 7)
-                    tempDateFrom = Utilities.convertToDateViaInstant(currentDate.minusYears(1));
+                if(i == 1){
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.add(Calendar.DATE, -3);
+                    tempDateFrom = Utilities.convertToDate(calendar);
+                }
+                if(i == 2){
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.add(Calendar.DATE, -7);
+                    tempDateFrom = Utilities.convertToDate(calendar);
+                }
+                if(i == 3){
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.add(Calendar.DATE, -14);
+                    tempDateFrom = Utilities.convertToDate(calendar);
+                }
+                if(i == 4){
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.add(Calendar.DATE, -30);
+                    tempDateFrom = Utilities.convertToDate(calendar);
+                }
+                if(i == 5){
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.add(Calendar.MONTH, -3);
+                    tempDateFrom = Utilities.convertToDate(calendar);
+                }
+                if(i == 6){
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.add(Calendar.MONTH, -6);
+                    tempDateFrom = Utilities.convertToDate(calendar);
+                }
+                if(i == 7) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.add(Calendar.YEAR, -1);
+                    tempDateFrom = Utilities.convertToDate(calendar);
+                }
 
-                Log.d("Karolina", ""+i);
                 displayParameters(tempDateFrom, tempDateTo);
             }
 
@@ -167,7 +183,7 @@ public class StatsActivity extends AppCompatActivity {
 
         for(Tour tour : toursList){
             try {
-                Date d = sdf.parse(tour.getDate());
+                Date d = Utilities.sdf.parse(tour.getDate());
                 if(d.after(dateFrom) && d.before(dateTo)){
                     distance += tour.getDistance();
                     time += tour.getTime();
@@ -191,8 +207,8 @@ public class StatsActivity extends AppCompatActivity {
         int avgseconds = (int) avgTime % 86400 % 3600 % 60;
 
         textToursCompleted.setText(""+tourAmount);
-        textDistance.setText(""+distance+" km");
-        textAVGDistance.setText(""+avgDistance+" km");
+        textDistance.setText(""+Utilities.roundTo2DecimalPlace(distance)+" km");
+        textAVGDistance.setText(""+Utilities.roundTo2DecimalPlace(avgDistance)+" km");
         textTime.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
         textAVGTime.setText(String.format("%02d:%02d:%02d", avghours, avgminutes, avgseconds));
         textAVGSpeed.setText(""+Utilities.roundTo2DecimalPlace(avgSpeed)+" km/h");

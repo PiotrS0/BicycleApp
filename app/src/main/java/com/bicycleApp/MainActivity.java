@@ -9,6 +9,9 @@ import android.widget.Button;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import Data.MyDatabase;
 import Services.NotificationService;
 
@@ -17,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     private Button listButton, infoButton, statsButton, highlightsButton, recordButton, toursButton;
     private MyDatabase database;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         highlightsButton = findViewById(R.id.btn_highlights);
         highlightsButton.setOnClickListener((view -> {
             Intent intent = new Intent(this, HighlightListActivity.class);
+            Intent intent1 = new Intent(this, HighlightAddActivity.class);
             startActivity(intent);
         }));
 
