@@ -10,6 +10,7 @@
         android:id="@+id/imageViewHA"
         android:layout_width="170dp"
         android:layout_height="170dp"
+        android:scaleType="fitCenter"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="0dp"

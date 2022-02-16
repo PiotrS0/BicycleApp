@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
         recordButton = findViewById(R.id.btn_record);
         recordButton.setOnClickListener((view -> {
             Intent intent = new Intent(this,RecordActivity.class);
-            startActivity(intent);
+            Intent intent1 = new Intent(this, HighlightAddActivity.class);
+            startActivity(intent1);
         }));
         infoButton = (Button) findViewById(R.id.infobutton);
         infoButton.setOnClickListener((view -> {
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         statsButton = findViewById(R.id.btn_stats);
         statsButton.setOnClickListener((view -> {
             startActivity(new Intent(this, StatsActivity.class));
+            //makebasetour();
         }));
         highlightsButton = findViewById(R.id.btn_highlights);
         highlightsButton.setOnClickListener((view -> {
@@ -70,9 +72,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void makebasetour(){
-        //database.clearTable("Tour");
-        database.addTour("Title123",12.34,12.34,56.78,56.78,3670,56.70,"2022-01-20 19:02:35");
-        database.addTour("Title1243",12.34,12.34,56.78,56.78,3810,12.30,"2022-02-09 19:02:35");
+        database.clearTable("Highlight");
+//        database.addTour("Title123",12.34,12.34,56.78,56.78,3670,56.70,"2022-01-20 19:02:35");
+//        database.addTour("Title1243",12.34,12.34,56.78,56.78,3810,12.30,"2022-02-09 19:02:35");
     }
 
 }

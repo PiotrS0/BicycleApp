@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,9 +20,11 @@ import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -88,7 +91,23 @@ public class HighlightAddActivity extends AppCompatActivity {
 
     public void save() {
         Bitmap image = ((BitmapDrawable) selectedImageView.getDrawable()).getBitmap();
-        byte[] b = getBitmapAsByteArray(image);
+        int width = image.getWidth();
+        int height = image.getHeight();
+        double a = 0.0;
+        byte[] b;
+        if(width > 1280){
+            a = width/1280;
+            float scaleWidth = (float)((float)image.getWidth()/a) / image.getWidth();
+            float scaleHeight = (float)((float)image.getHeight()/a) / image.getHeight();
+            Matrix matrix = new Matrix();
+            matrix.postScale(scaleWidth, scaleHeight);
+            Bitmap resized = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), matrix, false);
+            b = getBitmapAsByteArray(resized);
+        }
+        else{
+            b = getBitmapAsByteArray(image);
+        }
+
         title = titleEditText.getText().toString() != "" ? titleEditText.getText().toString() : null;
         description = descriptionEditText.getText().toString() != "" ? descriptionEditText.getText().toString() : null;
 

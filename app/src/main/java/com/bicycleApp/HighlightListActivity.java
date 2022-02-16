@@ -17,6 +17,7 @@ import java.util.List;
 import Adapters.HighlightAdapter;
 import Data.MyDatabase;
 import Model.Highlight;
+import Utils.Utilities;
 
 public class HighlightListActivity extends AppCompatActivity {
 
@@ -65,7 +66,7 @@ public class HighlightListActivity extends AppCompatActivity {
     private void placeholder(int position){
         Intent intent = new Intent(this, HighlightDetailsActivity.class);
         intent.putExtra("Id", highlightList.get(position).getId());
-        intent.putExtra("Image", highlightList.get(position).getImage());
+        Utilities.imageBetweenActivities = highlightList.get(position).getImage();
         intent.putExtra("Title", highlightList.get(position).getTitle());
         intent.putExtra("Description", highlightList.get(position).getDescription());
         intent.putExtra("Date", highlightList.get(position).getDate());

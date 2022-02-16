@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import Data.MyDatabase;
+import Utils.Utilities;
 
 public class HighlightDetailsActivity extends AppCompatActivity {
 
@@ -26,7 +27,6 @@ public class HighlightDetailsActivity extends AppCompatActivity {
     private int id, tourId;
     private String date, title, description;
     private double lat, lon;
-    private byte[] image;
     private TextView titleView, descriptionView;
     private ImageView imageView;
 
@@ -49,7 +49,6 @@ public class HighlightDetailsActivity extends AppCompatActivity {
         description = getIntent().getStringExtra("Description");
         lat = getIntent().getDoubleExtra("Lat",0);
         lon = getIntent().getDoubleExtra("Lon", 0);
-        image = getIntent().getByteArrayExtra("Image");
 
         toolbar.setTitle(date);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -74,7 +73,7 @@ public class HighlightDetailsActivity extends AppCompatActivity {
         imageView = findViewById(R.id.highlight_details_image_view);
         titleView.setText(title);
         descriptionView.setText(description);
-        imageView.setImageBitmap(BitmapFactory.decodeByteArray(image, 0, image.length));
+        imageView.setImageBitmap(BitmapFactory.decodeByteArray(Utilities.imageBetweenActivities, 0, Utilities.imageBetweenActivities.length));
     }
 
 
