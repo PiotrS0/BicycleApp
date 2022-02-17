@@ -34,8 +34,8 @@ public class TripAddActivity extends AppCompatActivity {
     private MaterialToolbar toolbar;
     private Calendar calendar1 = Calendar.getInstance();
     private MyDatabase database;
-    Button locationButton;
-    TextView dateTextView, timeTextView;
+    private Button locationButton;
+    private TextView dateTextView, timeTextView;
     private Date data = new Date();
     private CheckBox checkBox;
     private EditText editText;
@@ -73,7 +73,6 @@ public class TripAddActivity extends AppCompatActivity {
                 handleDateButton();
             }
         });
-        //dateTextView.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         Calendar currentDate = Calendar.getInstance();
         Date date = currentDate.getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -141,7 +140,6 @@ public class TripAddActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         int HOUR = calendar.get(Calendar.HOUR);
         int MINUTE = calendar.get(Calendar.MINUTE);
-
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
@@ -153,29 +151,21 @@ public class TripAddActivity extends AppCompatActivity {
                     timeTextView.setText(""+hour+":"+0+minute);
                 else
                     timeTextView.setText(""+hour+":"+minute);
-
             }
         }, HOUR, MINUTE, true);
-
         timePickerDialog.show();
     }
 
     public void openAdd() throws InterruptedException {
-
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
         String dateAfterFormat = sdf.format(data);
-
         Date nowDate = Utilities.convertToDate(java.util.Calendar.getInstance());
         String nowDateAfterFormat = sdf.format(nowDate);
-
         if(data.before(nowDate))
-            Toast.makeText(TripAddActivity.this,"Wprowadź poprawną datę", Toast.LENGTH_SHORT).show();
+            Toast.makeText(TripAddActivity.this, getResources().getString(R.string.enterVaildDate), Toast.LENGTH_SHORT).show();
         else{
             database.addTrip(editText.getText().toString(), dateAfterFormat,checkBox.isChecked(),nowDateAfterFormat,lat,lon);
-
-            Toast.makeText(TripAddActivity.this,"Wycieczka dodana", Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(TripAddActivity.this, getResources().getString(R.string.tripAdded), Toast.LENGTH_SHORT).show();
             Thread.sleep(500);
             finish();
         }

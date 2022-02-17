@@ -86,7 +86,7 @@ public class HighlightAddActivity extends AppCompatActivity {
         if (takePictureIntent.resolveActivity(getPackageManager()) != null)
             startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
         else
-            Toast.makeText(HighlightAddActivity.this, "Camera device unavaliable", Toast.LENGTH_LONG).show();
+            Toast.makeText(HighlightAddActivity.this, getResources().getString(R.string.cameraUnavaliable), Toast.LENGTH_LONG).show();
     }
 
     public void save() {
@@ -111,9 +111,8 @@ public class HighlightAddActivity extends AppCompatActivity {
         title = titleEditText.getText().toString() != "" ? titleEditText.getText().toString() : null;
         description = descriptionEditText.getText().toString() != "" ? descriptionEditText.getText().toString() : null;
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date nowDate = Utilities.convertToDate(Calendar.getInstance());
-        nowDateAfterFormat = sdf.format(nowDate);
+        nowDateAfterFormat = Utilities.sdf.format(nowDate);
 
         database.addHighlight(b,title, description, nowDateAfterFormat, lat, lon, tourId);
         finish();

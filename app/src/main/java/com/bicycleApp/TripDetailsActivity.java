@@ -28,7 +28,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -42,13 +41,11 @@ public class TripDetailsActivity extends AppCompatActivity {
     private TextView textView, weatherTextView;
     private CheckBox checkBox;
     private int id;
-    private String date, title;
     private boolean notification;
     private double lat, lon;
     private MyDatabase database;
-    DecimalFormat df = new DecimalFormat("#.##");
     private final String url = "https://api.openweathermap.org/data/2.5/";
-    private String apiId;
+    private String apiId, date, title, weatherCurrentName, weatherForecastName, weatherTemp, weatherFeels, weatherPressure, weatherDescription, weatherWind, weatherCloud, weatherPrecipation;
     private Date dateFromBase;
     private ImageView imageView;
     private MaterialToolbar toolbar;
@@ -58,6 +55,15 @@ public class TripDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_details);
         apiId = getResources().getString(R.string.openweather_api_key);
+        weatherCurrentName = getResources().getString(R.string.weatherNameCurrent);
+        weatherForecastName = getResources().getString(R.string.weatherNameForecast);
+        weatherTemp = getResources().getString(R.string.weatherTemp);
+        weatherFeels = getResources().getString(R.string.weatherFeels);
+        weatherPressure = getResources().getString(R.string.weatherPressure);
+        weatherDescription = getResources().getString(R.string.weatherDescription);
+        weatherWind = getResources().getString(R.string.weatherWind);
+        weatherCloud = getResources().getString(R.string.weatherCloud);
+        weatherPrecipation = getResources().getString(R.string.weatherPrecipation);
         database = new MyDatabase(this, 1);
         toolbar = findViewById(R.id.topAppBarTripDetails);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -69,7 +75,6 @@ public class TripDetailsActivity extends AppCompatActivity {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-
                 if(item.getTitle().equals("location")){
                     Intent intent = new Intent(getApplicationContext(), MapsShowPointActivity.class);
                     intent.putExtra("Lat", lat);
@@ -84,24 +89,22 @@ public class TripDetailsActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-
                 return false;
             }
         });
         textView = findViewById(R.id.trip_details_title);
-        checkBox = findViewById(R.id.checkBox2);
-        weatherTextView = findViewById(R.id.textView3);
+        checkBox = findViewById(R.id.trip_details_checkbox);
+        weatherTextView = findViewById(R.id.trip_details_text_weather);
         id = getIntent().getIntExtra("Id",0);
         date = getIntent().getStringExtra("Date");
         notification = getIntent().getBooleanExtra("Notification",true);
         title = getIntent().getStringExtra("Title");
         lat = getIntent().getDoubleExtra("Lat",0);
         lon = getIntent().getDoubleExtra("Lon",0);
-        imageView = findViewById(R.id.imageView2);
+        imageView = findViewById(R.id.trip_details_imageview);
         textView.setText(title);
         toolbar.setTitle(date.substring(0,date.length()-3));
         checkBox.setChecked(notification);
-
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,9 +112,8 @@ public class TripDetailsActivity extends AppCompatActivity {
             }
         });
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
-            dateFromBase = sdf.parse(date);
+            dateFromBase = Utilities.sdf.parse(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -127,34 +129,31 @@ public class TripDetailsActivity extends AppCompatActivity {
         int days = 0;
         Calendar calendar = Calendar.getInstance();
         Date date = Utilities.convertToDate(calendar);
+        if(date.after(dateBase))
+            return days = -1;
         dateBase.setHours(date.getHours());
         dateBase.setMinutes(date.getMinutes());
         dateBase.setSeconds(date.getSeconds());
-
         if(date.getDate() == dateBase.getDate() && date.getMonth() == dateBase.getMonth() && date.getYear() == dateBase.getYear())
             return days = -2;
-
         for(int i = 0;i < 7;i++){
             calendar.add(Calendar.DATE, 1);
             date = Utilities.convertToDate(calendar);
             if(date.getDate() == dateBase.getDate() && date.getMonth() == dateBase.getMonth() && date.getYear() == dateBase.getYear())
                 return days = i+1;
         }
-        if(date.after(dateBase))
-            return days = -1;
-
         return days;
     }
 
     private void deleteItem() throws InterruptedException {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("Czy na pewno chcesz usunąć wycieczkę?");
-        alertDialogBuilder.setPositiveButton("Tak",
+        alertDialogBuilder.setMessage(getResources().getString(R.string.sureDeleteTrip));
+        alertDialogBuilder.setPositiveButton(getResources().getString(R.string.yes),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
                         database.deleteRow("Trip",id);
-                        Toast.makeText(TripDetailsActivity.this,"Usunięto wycieczkę",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TripDetailsActivity.this,getResources().getString(R.string.tripDeleted),Toast.LENGTH_SHORT).show();
                         try {
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {
@@ -164,7 +163,7 @@ public class TripDetailsActivity extends AppCompatActivity {
                     }
                 });
 
-        alertDialogBuilder.setNegativeButton("Nie",new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setNegativeButton(getResources().getString(R.string.no),new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
@@ -180,10 +179,9 @@ public class TripDetailsActivity extends AppCompatActivity {
         String tempUrl = "";
 
         if(days == 0){
-            weatherTextView.setText("Prognoza pogody jest dostępna na 7 dni przed terminem wycieczki.");
+            weatherTextView.setText(getResources().getString(R.string.weatherAvaliableSevenDays));
             Glide.with(this).load(R.mipmap.empty).into(imageView);
         }
-
         else{
             if(days==-1){
                 tempUrl = url + "weather?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + apiId;
@@ -208,14 +206,14 @@ public class TripDetailsActivity extends AppCompatActivity {
                             String icon = jsonObjectWeather.getString("icon");
                             java.util.Date time=new java.util.Date((long)timeStamp*1000);
                             weatherTextView.setTextColor(Color.rgb(68,134,199));
-                            output += "Aktualna pogoda: "
-                                    + "\n Temp: " + df.format(temp) + " °C"
-                                    + "\n Feels Like: " + df.format(feels) + " °C"
-                                    + "\n Pressure: " + pressure
-                                    + "\n Description: " + description
-                                    + "\n Wind Speed: " + windSpeed + "m/s (meters per second)"
-                                    + "\n Cloudiness: " + clouds + "%"
-                                    + "\n TIME: " + time;
+                            output += weatherCurrentName +
+                                "\n" + weatherTemp + " " +  Utilities.df.format(temp) + " °C" +
+                                "\n" + weatherFeels + " " + Utilities.df.format(feels) + " °C" +
+                                "\n" + weatherPressure + " " + pressure +
+                                "\n" + weatherDescription + " " + description +
+                                "\n" + weatherWind + " " + windSpeed + " m/s" +
+                                "\n" + weatherCloud + " " + clouds + " %" +
+                                "\n" + Utilities.sdf.format(time);
                             weatherTextView.setText(output);
                             Glide.with(TripDetailsActivity.this).load("https://openweathermap.org/img/wn/"+icon+"@2x.png").into(imageView);
                         } catch (JSONException e) {
@@ -226,7 +224,7 @@ public class TripDetailsActivity extends AppCompatActivity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        weatherTextView.setText("Brak połączenia z internetem");
+                        weatherTextView.setText(getResources().getString(R.string.noInternet));
                         Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -261,20 +259,18 @@ public class TripDetailsActivity extends AppCompatActivity {
                             String description = jsonObjectWeather.getString("description");
                             int clouds = jsonObject.getInt("clouds");
                             double pop = jsonObject.getDouble("pop");
-
                             long timeStamp = jsonObject.getLong("dt");
                             java.util.Date time=new java.util.Date((long)timeStamp*1000);
-
                             weatherTextView.setTextColor(Color.rgb(68,134,199));
-                                output += "Przewidywana pogoda: "
-                                    + "\n Temp: " + df.format(temp) + " °C"
-                                    + "\n Feels Like: " + df.format(feels) + " °C"
-                                    + "\n Pressure: " + pressure
-                                    + "\n Description: " + description
-                                    + "\n Wind Speed: " + windSpeed + "m/s (meters per second)"
-                                    + "\n Cloudiness: " + clouds + "%"
-                                    + "\n Probability of precipitation: " + pop + "%"
-                                    + "\n TIME: " + time;
+                            output += weatherForecastName +
+                                    "\n" + weatherTemp + " " +  Utilities.df.format(temp) + " °C" +
+                                    "\n" + weatherFeels + " " + Utilities.df.format(feels) + " °C" +
+                                    "\n" + weatherPressure + " " + pressure +
+                                    "\n" + weatherDescription + " " + description +
+                                    "\n" + weatherWind + " " + windSpeed + " m/s" +
+                                    "\n" + weatherCloud + " " + clouds + " %" +
+                                    "\n" + weatherPrecipation + " " + pop + " %" +
+                                    "\n" + Utilities.sdf.format(time);
                             weatherTextView.setText(output);
                             Glide.with(TripDetailsActivity.this).load("https://openweathermap.org/img/wn/"+icon+"@2x.png").into(imageView);
                         } catch (JSONException e) {
@@ -284,7 +280,7 @@ public class TripDetailsActivity extends AppCompatActivity {
                 }, new Response.ErrorListener(){
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        weatherTextView.setText("Błąd w połączeniu");
+                        weatherTextView.setText(getResources().getString(R.string.connectionError));
                         Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
                     }
                 });

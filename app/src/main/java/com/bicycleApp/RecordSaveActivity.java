@@ -58,6 +58,7 @@ public class RecordSaveActivity extends AppCompatActivity {
                 return false;
             }
         });
+        timeText.setText(Utilities.getTimeStringFromDouble(time));
         distanceText.setText(""+ Utilities.roundTo2DecimalPlace(distance) + " km");
     }
 

@@ -43,7 +43,7 @@
                     android:id="@+id/highlight_details_title_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:text=""
                     android:textAlignment="center"
                     android:textSize="20sp" />
 
@@ -62,7 +62,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:text="" />
-
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

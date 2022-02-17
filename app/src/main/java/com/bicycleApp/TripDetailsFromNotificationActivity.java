@@ -34,14 +34,12 @@ import Utils.Utilities;
 public class TripDetailsFromNotificationActivity extends AppCompatActivity {
 
     private TextView titleText, weatherTextView;
-    private int id;
     private String date, title;
     private boolean notification;
     private double lat, lon;
     private MyDatabase database;
-    DecimalFormat df = new DecimalFormat("#.##");
     private final String url = "https://api.openweathermap.org/data/2.5/";
-    private String apiId;
+    private String apiId, weatherCurrentName, weatherForecastName, weatherTemp, weatherFeels, weatherPressure, weatherDescription, weatherWind, weatherCloud, weatherPrecipation;;
     private Date dateFromBase;
     private ImageView imageView;
     private MaterialToolbar toolbar;
@@ -59,22 +57,28 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        weatherCurrentName = getResources().getString(R.string.weatherNameCurrent);
+        weatherForecastName = getResources().getString(R.string.weatherNameForecast);
+        weatherTemp = getResources().getString(R.string.weatherTemp);
+        weatherFeels = getResources().getString(R.string.weatherFeels);
+        weatherPressure = getResources().getString(R.string.weatherPressure);
+        weatherDescription = getResources().getString(R.string.weatherDescription);
+        weatherWind = getResources().getString(R.string.weatherWind);
+        weatherCloud = getResources().getString(R.string.weatherCloud);
+        weatherPrecipation = getResources().getString(R.string.weatherPrecipation);
         titleText = findViewById(R.id.text_trip_details_from_notification_title);
-        weatherTextView = findViewById(R.id.textView3);
-        id = this.getIntent().getIntExtra("Id",0);
+        weatherTextView = findViewById(R.id.trip_details_from_notification_text_weather);
         date = this.getIntent().getStringExtra("Date");
         title = this.getIntent().getStringExtra("Title");
         notification = this.getIntent().getBooleanExtra("Notification",true);
         lat = this.getIntent().getDoubleExtra("Lat",0);
         lon = this.getIntent().getDoubleExtra("Lon",0);
-        imageView = findViewById(R.id.imageView2);
+        imageView = findViewById(R.id.trip_details_from_notification_imageview);
         toolbar.setTitle(date.substring(0,date.length()-3));
         titleText.setText(title);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
-            dateFromBase = sdf.parse(date);
+            dateFromBase = Utilities.sdf.parse(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -113,7 +117,7 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
         String tempUrl = "";
 
         if(days == 0){
-            weatherTextView.setText("Prognoza pogody jest dostępna na 7 dni przed terminem wycieczki.");
+            weatherTextView.setText(getResources().getString(R.string.weatherAvaliableSevenDays));
             Glide.with(this).load(R.drawable.error).into(imageView);
         }
 
@@ -141,14 +145,14 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
                             String icon = jsonObjectWeather.getString("icon");
                             java.util.Date time=new java.util.Date((long)timeStamp*1000);
                             weatherTextView.setTextColor(Color.rgb(68,134,199));
-                            output += "Aktualna pogoda: "
-                                    + "\n Temp: " + df.format(temp) + " °C"
-                                    + "\n Feels Like: " + df.format(feels) + " °C"
-                                    + "\n Pressure: " + pressure
-                                    + "\n Description: " + description
-                                    + "\n Wind Speed: " + windSpeed + "m/s (meters per second)"
-                                    + "\n Cloudiness: " + clouds + "%"
-                                    + "\n TIME: " + time;
+                            output += weatherCurrentName +
+                                    "\n" + weatherTemp + " " +  Utilities.df.format(temp) + " °C" +
+                                    "\n" + weatherFeels + " " + Utilities.df.format(feels) + " °C" +
+                                    "\n" + weatherPressure + " " + pressure +
+                                    "\n" + weatherDescription + " " + description +
+                                    "\n" + weatherWind + " " + windSpeed + " m/s" +
+                                    "\n" + weatherCloud + " " + clouds + " %" +
+                                    "\n" + Utilities.sdf.format(time);
                             weatherTextView.setText(output);
                             Glide.with(TripDetailsFromNotificationActivity.this).load("https://openweathermap.org/img/wn/"+icon+"@2x.png").into(imageView);
                         } catch (JSONException e) {
@@ -159,7 +163,7 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        weatherTextView.setText("Brak połączenia z internetem");
+                        weatherTextView.setText(getResources().getString(R.string.noInternet));
                         Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -199,15 +203,15 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
                             java.util.Date time=new java.util.Date((long)timeStamp*1000);
 
                             weatherTextView.setTextColor(Color.rgb(68,134,199));
-                            output += "Przewidywana pogoda: "
-                                    + "\n Temp: " + df.format(temp) + " °C"
-                                    + "\n Feels Like: " + df.format(feels) + " °C"
-                                    + "\n Pressure: " + pressure
-                                    + "\n Description: " + description
-                                    + "\n Wind Speed: " + windSpeed + "m/s (meters per second)"
-                                    + "\n Cloudiness: " + clouds + "%"
-                                    + "\n Probability of precipitation: " + pop + "%"
-                                    + "\n TIME: " + time;
+                            output += weatherForecastName +
+                                    "\n" + weatherTemp + " " +  Utilities.df.format(temp) + " °C" +
+                                    "\n" + weatherFeels + " " + Utilities.df.format(feels) + " °C" +
+                                    "\n" + weatherPressure + " " + pressure +
+                                    "\n" + weatherDescription + " " + description +
+                                    "\n" + weatherWind + " " + windSpeed + " m/s" +
+                                    "\n" + weatherCloud + " " + clouds + " %" +
+                                    "\n" + weatherPrecipation + " " + pop + " %" +
+                                    "\n" + Utilities.sdf.format(time);
                             weatherTextView.setText(output);
                             Glide.with(TripDetailsFromNotificationActivity.this).load("https://openweathermap.org/img/wn/"+icon+"@2x.png").into(imageView);
                         } catch (JSONException e) {
@@ -217,7 +221,7 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
                 }, new Response.ErrorListener(){
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        weatherTextView.setText("Błąd w połączeniu");
+                        weatherTextView.setText(getResources().getString(R.string.connectionError));
                         Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
                     }
                 });

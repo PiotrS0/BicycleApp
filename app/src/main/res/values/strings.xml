@@ -1,46 +1,113 @@
 <resources>
-    <string name="app_name">BicycleApp</string>
-    <string name="title_activity_map_point_picker">MapPointPickerActivity</string>
-    <string name="title_activity_maps">MapsActivity</string>
-    <string name="title_activity_maps_show_point">MapsShowPointActivity</string>
-    <string name="main_actitity_title">Main</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="camera">Camera</string>
+    <string name="cameraUnavaliable">Camera device unavaliable</string>
+    <string name="connectionError">Connection error</string>
+    <string name="descriptionOptional">Description (optional)</string>
+    <string name="enterVaildDate">Enter a vaild date</string>
+    <string name="gallery">Gallery</string>
     <string name="HighlightAdd_actitity_title">AddHighlight</string>
+    <string name="highlightDeleted">Highlight deleted</string>
     <string name="HighlightDetails_actitity_title">HighlightDetails</string>
-    <string name="tripDetails_actitity_title">TripDetails</string>
-    <string name="tripAdd_actitity_title">AddTrip</string>
-    <string name="delete">delete</string>
-    <string name="location">location</string>
-    <string name="start_point">StartPoint</string>
-    <string name="tourDetails_actitity_title">TourDetails</string>
-    <string name="title_activity_map_show_route">MapShowRoute</string>
+    <string name="info_version">Version</string>
+    <string name="info_updated">Updated on</string>
+    <string name="info_author">Author</string>
+    <string name="info_released">Released on</string>
+    <string name="info_os">Android OS</string>
+    <string name="main_planned">Planned</string>
+    <string name="main_app_name">BikeApp</string>
+    <string name="main_completed">Completed</string>
+    <string name="main_stats">Stats</string>
+    <string name="main_record">Record</string>
+    <string name="main_highlights">Highlights</string>
+    <string name="main_info">Info</string>
+    <string name="noInternet">No internet connection.</string>
+    <string name="ownScope">Own scope</string>
+    <string name="send_notifications">Send notifications</string>
+    <string name="set_start_location">Set Start Location</string>
+    <string name="sureDeleteTrip">Are you sure you want to delete this tour?</string>
+    <string name="sureDeleteHighlight">Are you sure you want to delete this highlight?</string>
     <string name="stats_tours_amount">Tours Completed</string>
     <string name="stats_distance">Distance</string>
     <string name="stats_average_time">Average time per tour</string>
     <string name="stats_time">Time</string>
     <string name="stats_average_distance">Average distance per tour</string>
     <string name="stats_average_speed">Average speed per tour</string>
-    <string name="main_app_name">BikeApp</string>
-    <string name="main_completed">Completed</string>
-    <string name="main_stats">Stats</string>
-    <string name="main_planned">Planned</string>
-    <string name="main_record">Record</string>
-    <string name="main_highlights">Highlights</string>
-    <string name="main_info">Info</string>
+    <string name="title">Title</string>
+    <string name="tripAdd_actitity_title">AddTrip</string>
+    <string name="tripAdded">Trip added</string>
+    <string name="tripDetails_actitity_title">TripDetails</string>
+    <string name="weather_unavaliable">Weather unavaliable</string>
+    <string name="weatherNameCurrent">Current weather: </string>//
+    <string name="weatherNameForecast">Weather forecast: </string>//
+    <string name="weatherTemp">Temperature: </string>
+    <string name="weatherFeels">Feels like: </string>
+    <string name="weatherPressure">Pressure: </string>
+    <string name="weatherDescription">Description: </string>
+    <string name="weatherWind">Wind speed: </string>
+    <string name="weatherCloud">Cloudiness: </string>
+    <string name="weatherPrecipation">Probability of precipitation: </string>
+    <string name="weatherAvaliableSevenDays">The weather forecast is available 7 days before the date of the trip.</string>
+    <string name="tripDeleted">Trip deleted</string>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--NOT CHECKED-->
+
+
+    <string name="app_name">BicycleApp</string>
+    <string name="title_activity_map_point_picker">MapPointPickerActivity</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_maps_show_point">MapsShowPointActivity</string>
+    <string name="main_actitity_title">Main</string>
+
+    <string name="delete">delete</string>
+    <string name="location">location</string>
+    <string name="start_point">StartPoint</string>
+    <string name="tourDetails_actitity_title">TourDetails</string>
+    <string name="title_activity_map_show_route">MapShowRoute</string>
+
     <string name="map_start_point">Start point</string>
     <string name="average_speed">Average speed</string>
-    <string name="info_version">Version</string>
-    <string name="info_updated">Updated on</string>
-    <string name="info_author">Author</string>
-    <string name="info_released">Released on</string>
-    <string name="info_os">Android OS</string>
+    <string name="route">route</string>
+    <string name="edit">edit</string>
+
+
+<!--    NOT CHECKED-->
+
+
+
+
+
+
+
+
+
+
+
     <!--    APP INFO -->
     <string name="version">1.0</string>
     <string name="updated">Feb 14, 2022</string>
     <string name="author">Piotr Sawczuk</string>
     <string name="released">Feb 14, 2022</string>
     <string name="android_os">6.0 and up</string>
-    <string name="route">route</string>
-    <string name="edit">edit</string>
+
+
+
+
+
+
+
     <string-array name="options_array">
         <item>Choose option</item>
         <item>3 days</item>

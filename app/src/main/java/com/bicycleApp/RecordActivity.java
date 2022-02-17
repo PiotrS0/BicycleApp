@@ -25,6 +25,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 
 import Data.MyDatabase;
 import Services.TourRecordService;
+import Utils.Utilities;
 
 public class RecordActivity extends AppCompatActivity {
 
@@ -35,10 +36,11 @@ public class RecordActivity extends AppCompatActivity {
     private TextView textView;
     private MaterialToolbar toolbar;
     private static int REQUEST_LOCATION_PERMISSION = 123;
-    private boolean locationAvaliable = false;
+    private boolean locationAvaliable = false, firstActivate = false;
     private MyDatabase database;
     private long id;
-    private double distance, lat, lon;
+    private double distance, lat, lon, tripTime;
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -141,7 +143,7 @@ public class RecordActivity extends AppCompatActivity {
         intent.putExtra("Time", time);
         intent.putExtra("Distance", distance);
         time = 0.0;
-        textView.setText(getTimeStringFromDouble(time));
+        textView.setText(Utilities.getTimeStringFromDouble(time));
         startActivity(intent);
         //binding.timeTV.text = getTimeStringFromDouble(time)
     }
@@ -156,11 +158,11 @@ public class RecordActivity extends AppCompatActivity {
 
     private void startTimer()
     {
-        if(timerStarted == false)
+        if(firstActivate == false)
             id = database.addTourStart();
+        firstActivate = true;
         serviceIntent.putExtra(TourRecordService.TIME_EXTRA, time);
         serviceIntent.putExtra("TourId", id);
-        serviceIntent.putExtra("ISPAUSE", false);
         startService(serviceIntent);
         recordButton.setText("Pauza");
 //        binding.startStopButton.text = "Stop"
@@ -170,7 +172,6 @@ public class RecordActivity extends AppCompatActivity {
 
     private void stopTimer()
     {
-        serviceIntent.putExtra("ISPAUSE", true);
         stopService(serviceIntent);
         recordButton.setText("Start");
 //        binding.startStopButton.text = "Start"
@@ -187,24 +188,12 @@ public class RecordActivity extends AppCompatActivity {
             distance = intent.getDoubleExtra("Distance", 0);
             lat = intent.getDoubleExtra("Lat",0);
             lon = intent.getDoubleExtra("Lon",0);
-            textView.setText(getTimeStringFromDouble(time));
+            tripTime = intent.getDoubleExtra("TripTime", 0.0);
+            textView.setText(Utilities.getTimeStringFromDouble(time));
             if(time == 86400)
                 stopService(serviceIntent);
             //setText = getTimeStringFromDouble(time);
         }
 
     };
-
-    private String getTimeStringFromDouble(double time){
-        int resultInt = (int) time;
-        int hours = (int) resultInt % 86400 / 3600;
-        int minutes = (int) resultInt % 86400 % 3600 / 60;
-        int seconds = (int) resultInt % 86400 % 3600 % 60;
-
-        return makeTimeString(hours, minutes, seconds);
-    }
-
-    private String makeTimeString(int hour, int min, int sec){
-        return String.format("%02d:%02d:%02d", hour, min, sec);
-    }
 }

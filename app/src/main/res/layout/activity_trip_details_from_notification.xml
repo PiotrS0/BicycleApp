@@ -33,7 +33,7 @@
             android:layout_width="309dp"
             android:layout_height="56dp"
             android:layout_marginTop="24dp"
-            android:text="TextView"
+            android:text=""
             android:textSize="20sp"
             android:gravity="center_horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -42,18 +42,20 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/trip_details_from_notification_text_weather"
             android:layout_width="302dp"
-            android:layout_height="169dp"
+            android:layout_height="280dp"
             android:layout_marginTop="12dp"
-            android:text="MIEJSCE NA POGODE"
+            android:text="@string/weather_unavaliable"
+            android:lineSpacingExtra="6dp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintTop_toBottomOf="@+id/trip_details_from_notification_imageview" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/trip_details_from_notification_imageview"
             android:layout_width="166dp"
             android:layout_height="161dp"
             android:layout_marginTop="12dp"

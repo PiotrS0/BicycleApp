@@ -43,7 +43,7 @@
                 android:id="@+id/btn_stats_range"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Your Range" />
+                android:text="@string/ownScope" />
 
         </LinearLayout>
 
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingRight="5dp"
-                android:text="0"
+                android:text="0 km"
                 android:textAlignment="textEnd"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
@@ -130,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingRight="5dp"
-                android:text="0"
+                android:text="0 km"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textAlignment="textEnd" />
@@ -158,7 +158,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingRight="5dp"
-                android:text="0"
+                android:text="0:00:00"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textAlignment="textEnd" />
@@ -186,7 +186,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingRight="5dp"
-                android:text="0"
+                android:text="0:00:00"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textAlignment="textEnd" />
@@ -213,7 +213,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingRight="5dp"
-                android:text="0"
+                android:text="0 km/h"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textAlignment="textEnd" />

@@ -39,8 +39,6 @@ public class TourRecordService extends Service {
     private boolean isFirst = true;
     private int isNotPause = 1;
 
-    Handler handler = new Handler();
-
     private Timer timer = new Timer();
 
     @Nullable
@@ -55,6 +53,7 @@ public class TourRecordService extends Service {
         database = new MyDatabase(this, 1);
         tourId = intent.getLongExtra("TourId", 0);
         double time = intent.getDoubleExtra(TIME_EXTRA, 0.0);
+        tripTime = time;
         timer.scheduleAtFixedRate(new TimeTask(time), 0, 1000);
 
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -73,34 +72,27 @@ public class TourRecordService extends Service {
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 3.0f, new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
-                handler.post(new Runnable() {
+                Calendar calendar = Calendar.getInstance();
 
-                    @Override
-                    public void run() {
-                        Calendar calendar = Calendar.getInstance();
+                //Date date = Utilities.convertToDateViaInstant(LocalDateTime.now());
+                Date date = Utilities.convertToDate(calendar);
+                if(!isFirst){
+                    Location l = new Location(LocationManager.KEY_LOCATIONS);
+                    l.setLatitude(endLat);
+                    l.setLongitude(endLon);
 
-                        //Date date = Utilities.convertToDateViaInstant(LocalDateTime.now());
-                        Date date = Utilities.convertToDate(calendar);
-                        if(intent.getBooleanExtra("ISPAUSE",false) == false){
-                            if(!isFirst){
-                                Location l = new Location(LocationManager.KEY_LOCATIONS);
-                                l.setLatitude(endLat);
-                                l.setLongitude(endLon);
+                    distance += (double)(location.distanceTo(l)/1000f);
+                }
+                endLat = location.getLatitude();
+                endLon = location.getLongitude();
+                points.add(new Point(date.toString(), (int)tourId, endLat, endLon));
 
-                                distance += (double)(location.distanceTo(l)/1000f);
-                            }
-                            endLat = location.getLatitude();
-                            endLon = location.getLongitude();
-                            points.add(new Point(date.toString(), (int)tourId, endLat, endLon));
-                        }
 
-                        if(isFirst){
-                            startLat = location.getLatitude();
-                            startLon = location.getLongitude();
-                            isFirst = false;
-                        }
-                    }
-                });
+                if(isFirst){
+                    startLat = location.getLatitude();
+                    startLon = location.getLongitude();
+                    isFirst = false;
+                }
             }
         });
 
@@ -132,6 +124,7 @@ public class TourRecordService extends Service {
             Intent intent = new Intent(TIMER_UPDATED);
             time++;
             tripTime++;
+            Utilities.tripTime++;
             intent.putExtra(TIME_EXTRA, time);
             intent.putExtra("Distance", distance);
             intent.putExtra("Lat", endLat);

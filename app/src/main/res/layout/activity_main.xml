@@ -9,7 +9,6 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
     <LinearLayout
         android:layout_width="400dp"
         android:layout_height="200dp"
@@ -30,7 +29,6 @@
             android:layout_height="142dp"
             app:srcCompat="@drawable/ic_baseline_directions_bike_24" />
 
-
     </LinearLayout>
 
     <LinearLayout
@@ -40,7 +38,7 @@
         android:layout_gravity="center">
 
         <Button
-            android:id="@+id/listbutton"
+            android:id="@+id/btn_trips"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="2dp"
@@ -56,7 +54,6 @@
             android:layout_weight="1"
             android:drawableBottom="@drawable/ic_baseline_fiber_manual_record_48"
             android:text="@string/main_record" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -65,7 +62,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/archivesbutton"
+            android:id="@+id/btn_tours"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="2dp"
@@ -81,7 +78,6 @@
             android:layout_weight="1"
             android:drawableBottom="@drawable/ic_baseline_history_48"
             android:text="@string/main_highlights" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -99,7 +95,7 @@
             android:text="@string/main_stats" />
 
         <Button
-            android:id="@+id/infobutton"
+            android:id="@+id/btn_info"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="2dp"
@@ -107,6 +103,5 @@
             android:drawableBottom="@drawable/ic_baseline_info_48"
             android:text="@string/main_info" />
     </LinearLayout>
-
 
 </LinearLayout>

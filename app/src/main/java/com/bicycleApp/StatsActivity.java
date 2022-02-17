@@ -77,8 +77,6 @@ public class StatsActivity extends AppCompatActivity {
                 handleDateRange();
             }
         });
-        //LocalDateTime currentDate = LocalDateTime.now();
-        //tempDateTo = Utilities.convertToDateViaInstant(currentDate);
         tempDateTo = Utilities.convertToDate(Calendar.getInstance());
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -122,17 +120,15 @@ public class StatsActivity extends AppCompatActivity {
                     calendar.add(Calendar.YEAR, -1);
                     tempDateFrom = Utilities.convertToDate(calendar);
                 }
-
                 displayParameters(tempDateFrom, tempDateTo);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.d("Info", "Spinner onNothingSelected called");
+
             }
         });
-
     }
+
     private void handleDateRange() {
         MaterialDatePicker.Builder builderRange = MaterialDatePicker.Builder.dateRangePicker();
         builderRange.setCalendarConstraints(limitRange().build());
@@ -156,19 +152,14 @@ public class StatsActivity extends AppCompatActivity {
 
     private CalendarConstraints.Builder limitRange(){
         CalendarConstraints.Builder constraintsBuilderRange = new CalendarConstraints.Builder();
-
         Calendar calendarStart = GregorianCalendar.getInstance();
         Calendar calendarEnd = GregorianCalendar.getInstance();
-
         calendarStart.set(2020, 0, 1);
         calendarEnd.set(2040, 11, 31);
-
         long minDate = calendarStart.getTimeInMillis();
         long maxDate = calendarEnd.getTimeInMillis();
-
         constraintsBuilderRange.setStart(minDate);
         constraintsBuilderRange.setEnd(maxDate);
-
         return constraintsBuilderRange;
     }
 
@@ -182,16 +173,17 @@ public class StatsActivity extends AppCompatActivity {
         avgSpeed = 0;
 
         for(Tour tour : toursList){
-            try {
+            try{
                 Date d = Utilities.sdf.parse(tour.getDate());
                 if(d.after(dateFrom) && d.before(dateTo)){
                     distance += tour.getDistance();
                     time += tour.getTime();
-                    speed += tour.getDistance()/(tour.getTime()/3600);
+                    if(tour.getTime() != 0)
+                        speed += tour.getDistance()/(tour.getTime()/3600);
                     tourAmount++;
                 }
-
-            } catch (ParseException e) {
+            }
+            catch (ParseException e) {
                 e.printStackTrace();
             }
         }

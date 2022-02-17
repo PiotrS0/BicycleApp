@@ -95,7 +95,6 @@ public class NotificationService extends IntentService {
                     flag = PendingIntent.FLAG_MUTABLE;
 
                 Intent intent = new Intent(getApplicationContext(), TripDetailsFromNotificationActivity.class);
-                intent.putExtra("Id", nearestTrip.getId());
                 intent.putExtra("Date", nearestTrip.getDate());
                 intent.putExtra("Title", nearestTrip.getTitle());
                 intent.putExtra("Notification", nearestTrip.getNotification());
