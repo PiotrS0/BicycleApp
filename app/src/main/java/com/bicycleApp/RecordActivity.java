@@ -41,8 +41,6 @@ public class RecordActivity extends AppCompatActivity {
     private long id;
     private double distance, lat, lon, tripTime;
 
-
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +66,9 @@ public class RecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(locationAvaliable == false)
-                    Toast.makeText(getApplicationContext(), "Lokalizacja niedostępna", Toast.LENGTH_LONG).show();
-                else{
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.localizationUnavaliable), Toast.LENGTH_LONG).show();
+                else
                     startStopTimer();
-                }
             }
         });
         stopButton.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +76,6 @@ public class RecordActivity extends AppCompatActivity {
             public void onClick(View view) {
                 resetTimer();
             }
-
         });
         highlightButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,19 +102,17 @@ public class RecordActivity extends AppCompatActivity {
             gps_enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         } catch(Exception ex) {}
         if(!gps_enabled) {
-            // notify user
             new AlertDialog.Builder(this)
-                    .setMessage("GPS not enabled")
-                    .setPositiveButton("Open", new DialogInterface.OnClickListener() {
+                    .setMessage(getResources().getString(R.string.gpsUnavaliable))
+                    .setPositiveButton(getResources().getString(R.string.openSettings), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface paramDialogInterface, int paramInt) {
                             settings();
                         }
                     })
-                    .setNegativeButton("Cancel",null)
+                    .setNegativeButton(getResources().getString(R.string.cancel),null)
                     .show();
         }
-
     }
 
     private void settings(){
@@ -145,7 +139,6 @@ public class RecordActivity extends AppCompatActivity {
         time = 0.0;
         textView.setText(Utilities.getTimeStringFromDouble(time));
         startActivity(intent);
-        //binding.timeTV.text = getTimeStringFromDouble(time)
     }
 
     private void startStopTimer()
@@ -164,18 +157,12 @@ public class RecordActivity extends AppCompatActivity {
         serviceIntent.putExtra(TourRecordService.TIME_EXTRA, time);
         serviceIntent.putExtra("TourId", id);
         startService(serviceIntent);
-        recordButton.setText("Pauza");
-//        binding.startStopButton.text = "Stop"
-//        binding.startStopButton.icon = getDrawable(R.drawable.ic_baseline_pause_24)
         timerStarted = true;
     }
 
     private void stopTimer()
     {
         stopService(serviceIntent);
-        recordButton.setText("Start");
-//        binding.startStopButton.text = "Start"
-//        binding.startStopButton.icon = getDrawable(R.drawable.ic_baseline_play_arrow_24)
         timerStarted = false;
     }
 
@@ -192,7 +179,6 @@ public class RecordActivity extends AppCompatActivity {
             textView.setText(Utilities.getTimeStringFromDouble(time));
             if(time == 86400)
                 stopService(serviceIntent);
-            //setText = getTimeStringFromDouble(time);
         }
 
     };

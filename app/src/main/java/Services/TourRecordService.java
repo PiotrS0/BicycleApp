@@ -37,8 +37,6 @@ public class TourRecordService extends Service {
     private long tourId;
     private double startLat, startLon, endLat, endLon, distance, tripTime = 0.0;
     private boolean isFirst = true;
-    private int isNotPause = 1;
-
     private Timer timer = new Timer();
 
     @Nullable
@@ -46,7 +44,6 @@ public class TourRecordService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
-
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -73,20 +70,16 @@ public class TourRecordService extends Service {
             @Override
             public void onLocationChanged(@NonNull Location location) {
                 Calendar calendar = Calendar.getInstance();
-
-                //Date date = Utilities.convertToDateViaInstant(LocalDateTime.now());
                 Date date = Utilities.convertToDate(calendar);
                 if(!isFirst){
                     Location l = new Location(LocationManager.KEY_LOCATIONS);
                     l.setLatitude(endLat);
                     l.setLongitude(endLon);
-
                     distance += (double)(location.distanceTo(l)/1000f);
                 }
                 endLat = location.getLatitude();
                 endLon = location.getLongitude();
                 points.add(new Point(date.toString(), (int)tourId, endLat, endLon));
-
 
                 if(isFirst){
                     startLat = location.getLatitude();
@@ -106,14 +99,12 @@ public class TourRecordService extends Service {
         for(Point p : points){
             database.addPoint(p.getDate(), p.getTourId(), p.getLat(), p.getLon());
         }
-
         timer.cancel();
         super.onDestroy();
     }
 
     class TimeTask extends TimerTask{
         private double time;
-
         public TimeTask(double time){
 
             this.time = time;

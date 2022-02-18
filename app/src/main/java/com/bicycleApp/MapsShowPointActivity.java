@@ -35,6 +35,7 @@ public class MapsShowPointActivity extends FragmentActivity implements OnMapRead
         binding = ActivityMapsShowPointBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         toolbar = findViewById(R.id.topAppBarMapShowPoint);
+        toolbar.setTitle(title);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

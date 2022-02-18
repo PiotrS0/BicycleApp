@@ -72,14 +72,14 @@ public class RecordSaveActivity extends AppCompatActivity {
 
     private void deleteItem() throws InterruptedException {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("Czy na pewno chcesz usunąć wycieczkę?");
-        alertDialogBuilder.setPositiveButton("Tak",
+        alertDialogBuilder.setMessage(getResources().getString(R.string.sureDeleteTour));
+        alertDialogBuilder.setPositiveButton(getResources().getString(R.string.yes),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
                         database.deleteRow("Tour", (int) id);
                         database.deletePoints((int) id);
-                        Toast.makeText(RecordSaveActivity.this,"Usunięto wycieczkę",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RecordSaveActivity.this,getResources().getString(R.string.tourDeleted),Toast.LENGTH_SHORT).show();
                         try {
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {
@@ -88,7 +88,7 @@ public class RecordSaveActivity extends AppCompatActivity {
                         finish();
                     }
                 });
-        alertDialogBuilder.setNegativeButton("Nie",new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setNegativeButton(getResources().getString(R.string.no),new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();

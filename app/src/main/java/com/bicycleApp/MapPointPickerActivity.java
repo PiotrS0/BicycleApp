@@ -57,7 +57,7 @@ public class MapPointPickerActivity extends FragmentActivity implements OnMapRea
                     finish();
                 }
                 else
-                    Toast.makeText(getApplicationContext(), "Please select start location",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.mapSelectStartLocation),Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
@@ -83,7 +83,7 @@ public class MapPointPickerActivity extends FragmentActivity implements OnMapRea
                 lon = latLng.longitude;
                 changed = true;
                 mMap.clear();
-                mMap.addMarker(new MarkerOptions().position(latLng).title("Start location"));
+                mMap.addMarker(new MarkerOptions().position(latLng).title(getResources().getString(R.string.mapStartPoint)));
             }
         });
     }

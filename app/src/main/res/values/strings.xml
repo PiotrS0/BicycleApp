@@ -1,33 +1,53 @@
 <resources>
+    <string name="app_name" translatable="false">BicycleApp</string>
+    <string name="main_app_name" translatable="false">BikeApp</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="delete" translatable="false">delete</string>
+    <string name="location" translatable="false">location</string>
+    <string name="route" translatable="false">route</string>
+    <string name="edit" translatable="false">edit</string>
+    <string name="add" translatable="false">add</string>
+    <string name="averageSpeed">Average speed</string>
+    <string name="confirm" translatable="false">confirm</string>
     <string name="camera">Camera</string>
     <string name="cameraUnavaliable">Camera device unavaliable</string>
+    <string name="cancel">Cancel</string>
     <string name="connectionError">Connection error</string>
     <string name="descriptionOptional">Description (optional)</string>
     <string name="enterVaildDate">Enter a vaild date</string>
+    <string name="finish">Finish</string>
     <string name="gallery">Gallery</string>
+    <string name="gpsUnavaliable">GPS is not enabled</string>
+    <string name="addHighlight">Add highlight</string>
     <string name="HighlightAdd_actitity_title">AddHighlight</string>
     <string name="highlightDeleted">Highlight deleted</string>
-    <string name="HighlightDetails_actitity_title">HighlightDetails</string>
     <string name="info_version">Version</string>
     <string name="info_updated">Updated on</string>
     <string name="info_author">Author</string>
     <string name="info_released">Released on</string>
     <string name="info_os">Android OS</string>
+    <string name="localizationUnavaliable">Localization unavaliable</string>
+    <string name="mapStartPoint">Start point</string>
+    <string name="mapSelectStartLocation">Please select start location</string>
+    <string name="mapPickStartPoint">Pick start point</string>
+    <string name="mapStartLocation">Start location</string>
+    <string name="mapEndLocation">End location</string>
+    <string name="mapShowRoute">Show route</string>
     <string name="main_planned">Planned</string>
-    <string name="main_app_name">BikeApp</string>
     <string name="main_completed">Completed</string>
     <string name="main_stats">Stats</string>
     <string name="main_record">Record</string>
     <string name="main_highlights">Highlights</string>
     <string name="main_info">Info</string>
     <string name="noInternet">No internet connection.</string>
+    <string name="openSettings">Open settings</string>
     <string name="ownScope">Own scope</string>
     <string name="send_notifications">Send notifications</string>
     <string name="set_start_location">Set Start Location</string>
-    <string name="sureDeleteTrip">Are you sure you want to delete this tour?</string>
+    <string name="sureDeleteTrip">Are you sure you want to delete this trip?</string>
     <string name="sureDeleteHighlight">Are you sure you want to delete this highlight?</string>
+    <string name="sureDeleteTour">Are you sure you want to delete this tour?</string>
     <string name="stats_tours_amount">Tours Completed</string>
     <string name="stats_distance">Distance</string>
     <string name="stats_average_time">Average time per tour</string>
@@ -37,75 +57,31 @@
     <string name="title">Title</string>
     <string name="tripAdd_actitity_title">AddTrip</string>
     <string name="tripAdded">Trip added</string>
-    <string name="tripDetails_actitity_title">TripDetails</string>
-    <string name="weather_unavaliable">Weather unavaliable</string>
-    <string name="weatherNameCurrent">Current weather: </string>//
-    <string name="weatherNameForecast">Weather forecast: </string>//
-    <string name="weatherTemp">Temperature: </string>
-    <string name="weatherFeels">Feels like: </string>
-    <string name="weatherPressure">Pressure: </string>
-    <string name="weatherDescription">Description: </string>
-    <string name="weatherWind">Wind speed: </string>
-    <string name="weatherCloud">Cloudiness: </string>
-    <string name="weatherPrecipation">Probability of precipitation: </string>
-    <string name="weatherAvaliableSevenDays">The weather forecast is available 7 days before the date of the trip.</string>
     <string name="tripDeleted">Trip deleted</string>
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--NOT CHECKED-->
-
-
-    <string name="app_name">BicycleApp</string>
-    <string name="title_activity_map_point_picker">MapPointPickerActivity</string>
-    <string name="title_activity_maps">MapsActivity</string>
-    <string name="title_activity_maps_show_point">MapsShowPointActivity</string>
-    <string name="main_actitity_title">Main</string>
-
-    <string name="delete">delete</string>
-    <string name="location">location</string>
-    <string name="start_point">StartPoint</string>
-    <string name="tourDetails_actitity_title">TourDetails</string>
-    <string name="title_activity_map_show_route">MapShowRoute</string>
-
-    <string name="map_start_point">Start point</string>
-    <string name="average_speed">Average speed</string>
-    <string name="route">route</string>
-    <string name="edit">edit</string>
-
-
-<!--    NOT CHECKED-->
-
-
-
-
-
-
-
-
-
+    <string name="tripDetails_actitity_title">TripDetails</string>
+    <string name="tourDeleted">Tour deleted</string>
+    <string name="upcomingTrip">Upcoming trip</string>
+    <string name="weather_unavaliable">Weather unavaliable</string>
+    <string name="weatherNameCurrent">Current weather</string>//
+    <string name="weatherNameForecast">Weather forecast</string>//
+    <string name="weatherTemp">Temperature</string>
+    <string name="weatherFeels">Feels like</string>
+    <string name="weatherPressure">Pressure</string>
+    <string name="weatherDescription">Description</string>
+    <string name="weatherWind">Wind speed</string>
+    <string name="weatherCloud">Cloudiness</string>
+    <string name="weatherPrecipation">Probability of precipitation</string>
+    <string name="weatherAvaliableSevenDays">The weather forecast is available 7 days before the date of the trip.</string>
+    <string name="weatherNoLocation">Weather unavaliable. Trip location not saved.</string>
+    <string name="weatherShow">Show weather forecast</string>
 
 
     <!--    APP INFO -->
-    <string name="version">1.0</string>
+    <string name="version" translatable="false">1.0</string>
     <string name="updated">Feb 14, 2022</string>
-    <string name="author">Piotr Sawczuk</string>
+    <string name="author" translatable="false">Piotr Sawczuk</string>
     <string name="released">Feb 14, 2022</string>
     <string name="android_os">6.0 and up</string>
-
-
-
-
-
 
 
     <string-array name="options_array">

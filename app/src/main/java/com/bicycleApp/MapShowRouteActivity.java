@@ -79,8 +79,8 @@ public class MapShowRouteActivity extends FragmentActivity implements OnMapReady
         // Add a marker in Sydney and move the camera
         LatLng startLoc = new LatLng(startLat, startLon);
         LatLng endLoc = new LatLng(endLat, endLon);
-        mMap.addMarker(new MarkerOptions().position(startLoc).title("Start Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-        mMap.addMarker(new MarkerOptions().position(endLoc).title("End Location"));
+        mMap.addMarker(new MarkerOptions().position(startLoc).title(getResources().getString(R.string.mapStartLocation)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        mMap.addMarker(new MarkerOptions().position(endLoc).title(getResources().getString(R.string.mapEndLocation)));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startLoc, 10));
 
         Polyline polyline = googleMap.addPolyline(new PolylineOptions().clickable(true).addAll(points));

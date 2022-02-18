@@ -9,6 +9,7 @@
     -->
     <uses-permission android:name=".android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -43,14 +44,14 @@
         <activity
             android:name=".MapShowRouteActivity"
             android:exported="false"
-            android:label="@string/title_activity_map_show_route" />
+            android:label="@string/mapShowRoute" />
         <activity
             android:name=".TripDetailsFromNotificationActivity"
             android:exported="false" />
         <activity
             android:name=".MapsShowPointActivity"
             android:exported="false"
-            android:label="@string/title_activity_maps_show_point" />
+            android:label="@string/mapStartPoint" />
         <activity
             android:name="Adapters.TourAdapter"
             android:exported="false"
@@ -58,7 +59,7 @@
         <activity
             android:name=".MapPointPickerActivity"
             android:exported="false"
-            android:label="@string/title_activity_map_point_picker" />
+            android:label="@string/mapPickStartPoint" />
         <activity
             android:name=".HighlightDetailsActivity"
             android:exported="false" />

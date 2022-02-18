@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
+    <string name="averageSpeed">Średnia prędkość</string>
+    <string name="camera">Aparat</string>
+    <string name="cameraUnavaliable">Aparat niedostępny</string>
+    <string name="cancel">Anuluj</string>
+    <string name="connectionError">Błąd w połączeniu</string>
+    <string name="descriptionOptional">Opis (opcjonalny)</string>
+    <string name="enterVaildDate">Wprowadź poprawną datę</string>
+    <string name="finish">Zakończ</string>
+    <string name="gallery">Galeria</string>
+    <string name="gpsUnavaliable">GPS niedostępny</string>
+    <string name="addHighlight">Dodaj ciekawe miejsce</string>
+    <string name="HighlightAdd_actitity_title">Dodaj ciekawe miejsce</string>
+    <string name="highlightDeleted">Ciekawe miejsce usunięte</string>
+    <string name="info_version">Wersja</string>
+    <string name="info_updated">Zaktualizowano</string>
+    <string name="info_author">Autor</string>
+    <string name="info_released">Wydana</string>
+    <string name="info_os">Wersja systemu</string>
+    <string name="localizationUnavaliable">Lokalizacja niedostępna</string>
+    <string name="mapStartPoint">Punkt startowy</string>
+    <string name="mapSelectStartLocation">Proszę wybrać punkt startowy</string>
+    <string name="mapPickStartPoint">Wybierz pubkt startowy</string>
+    <string name="mapStartLocation">Lokalizacja startowa</string>
+    <string name="mapEndLocation">Lokalizacja końcowa</string>
+    <string name="mapShowRoute">Pokaż trasę</string>
+    <string name="main_planned">Zaplanowane</string>
+    <string name="main_completed">Ukończone</string>
+    <string name="main_stats">Statystyki</string>
+    <string name="main_record">Rejestruj</string>
+    <string name="main_highlights">Ciekawe miejsca</string>
+    <string name="main_info">Informacje</string>
+    <string name="noInternet">Brak połączenia z internetem</string>
+    <string name="openSettings">Otwórz ustawienia</string>
+    <string name="ownScope">Własny zakres</string>
+    <string name="send_notifications">Wysyłaj powiadomienia</string>
+    <string name="set_start_location">Ustaw lokalizację startową</string>
+    <string name="sureDeleteTrip">Czy na pewno chcesz usunąć tą wycieczkę?</string>
+    <string name="sureDeleteTour">Czy na pewno chcesz usunąć tą wycieczkę?</string>
+    <string name="sureDeleteHighlight">Czy na pewno chcesz usunąć te ciekawe miejsce?</string>
+    <string name="stats_tours_amount">Ukończone wycieczki</string>
+    <string name="stats_distance">Dystans</string>
+    <string name="stats_average_time">Średni czas na wycieczkę</string>
+    <string name="stats_time">Czas</string>
+    <string name="stats_average_distance">Średni dystans na wycieczkę</string>
+    <string name="stats_average_speed">Średnia prędkość na wycieczkę</string>
+    <string name="title">Tytuł</string>
+    <string name="tripAdd_actitity_title">Dodaj wycieczkę</string>
+    <string name="tripAdded">Wycieczka dodana</string>
+    <string name="tripDeleted">Wycieczka usunięta</string>
+    <string name="tripDetails_actitity_title">Szczegóły wycieczki</string>
+    <string name="tourDeleted">Wycieczka usunięta</string>
+    <string name="upcomingTrip">Nadchodząca wycieczka</string>
+    <string name="weather_unavaliable">Pogoda niedostępna</string>
+    <string name="weatherNameCurrent">Aktualna pogoda</string>
+    <string name="weatherNameForecast">Przewidywana pogoda</string>
+    <string name="weatherTemp">Temperatura</string>
+    <string name="weatherFeels">Odczuwalna</string>
+    <string name="weatherPressure">Ciśnienie</string>
+    <string name="weatherDescription">Opis</string>
+    <string name="weatherWind">Prędkość wiatru</string>
+    <string name="weatherCloud">Zachmurzenie</string>
+    <string name="weatherPrecipation">Prawdopodobieństwo opadów</string>
+    <string name="weatherAvaliableSevenDays">Prognoza pogody jest dostępna na 7 dni przed wycieczką.</string>
+    <string name="weatherNoLocation">Pogoda niedostępna. Brak zapisanej lokalizacji.</string>
+    <string name="weatherShow">Pokaż prognozę pogody</string>
+    <string name="updated">14 luty, 2022</string>
+    <string name="released">14 luty, 2022</string>
+    <string name="android_os">6.0 i nowszy</string>
+
+    <string-array name="options_array">
+        <item>Wybierz zakres</item>
+        <item>3 dni</item>
+        <item>7 dni</item>
+        <item>14 dni</item>
+        <item>30 dni</item>
+        <item>3 miesiące</item>
+        <item>6 miesięcy</item>
+        <item>12 miesięcy</item>
+    </string-array>
+</resources>

@@ -107,17 +107,17 @@ public class NotificationService extends IntentService {
 
                 inboxStyle.addLine(nearestTrip.getDate().substring(0, nearestTrip.getDate().length()-3));
                 if(isOnline == true)
-                    inboxStyle.addLine("Przewidywana pogoda");
+                    inboxStyle.addLine(getResources().getString(R.string.weatherNameForecast));
 
                 NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
 
                 builder = new NotificationCompat.Builder(getApplicationContext(), "Mynotification")
-                        .setContentTitle("Nadchodząca wycieczka")
+                        .setContentTitle(getResources().getString(R.string.upcomingTrip))
                         .setContentText(nearestTrip.getDate().substring(0, nearestTrip.getDate().length()-3))
-                        .setTicker("Nadchodząca wycieczka")
+                        .setTicker(getResources().getString(R.string.upcomingTrip))
                         .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.icon_app))
                         .setAutoCancel(true)
-                        .addAction(R.mipmap.icon_app, "Zobacz prognozę pogody", pendingIntent)
+                        .addAction(R.mipmap.icon_app, getResources().getString(R.string.weatherShow), pendingIntent)
                         .setStyle(inboxStyle)
                         .setSmallIcon(R.drawable.ic_baseline_directions_bike_24)
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)

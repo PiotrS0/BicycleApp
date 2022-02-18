@@ -123,9 +123,7 @@ public class StatsActivity extends AppCompatActivity {
                 displayParameters(tempDateFrom, tempDateTo);
             }
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) {}
         });
     }
 
@@ -190,19 +188,11 @@ public class StatsActivity extends AppCompatActivity {
         avgDistance = distance / tourAmount;
         avgTime = time / tourAmount;
         avgSpeed = speed / tourAmount;
-
-        int hours = (int) time % 86400 / 3600;
-        int minutes = (int) time % 86400 % 3600 / 60;
-        int seconds = (int) time % 86400 % 3600 % 60;
-        int avghours = (int) avgTime % 86400 / 3600;
-        int avgminutes = (int) avgTime % 86400 % 3600 / 60;
-        int avgseconds = (int) avgTime % 86400 % 3600 % 60;
-
         textToursCompleted.setText(""+tourAmount);
         textDistance.setText(""+Utilities.roundTo2DecimalPlace(distance)+" km");
         textAVGDistance.setText(""+Utilities.roundTo2DecimalPlace(avgDistance)+" km");
-        textTime.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
-        textAVGTime.setText(String.format("%02d:%02d:%02d", avghours, avgminutes, avgseconds));
+        textTime.setText(Utilities.getTimeStringFromDouble(time));
+        textAVGTime.setText(Utilities.getTimeStringFromDouble(avgTime));
         textAVGSpeed.setText(""+Utilities.roundTo2DecimalPlace(avgSpeed)+" km/h");
     }
 }

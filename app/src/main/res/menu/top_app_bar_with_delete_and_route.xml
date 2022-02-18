@@ -5,7 +5,7 @@
         android:id="@+id/route"
         android:icon="@drawable/ic_route_4"
         android:title="@string/route"
-        android:contentDescription="@string/location"
+        android:contentDescription="@string/route"
         app:showAsAction="ifRoom" />
 
     <item

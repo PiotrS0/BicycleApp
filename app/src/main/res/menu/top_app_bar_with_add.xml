@@ -4,21 +4,7 @@
         <item
             android:id="@+id/add"
             android:icon="@drawable/ic_baseline_add_24"
-            android:title="favorite"
-            android:contentDescription="elo"
+            android:title="@string/add"
+            android:contentDescription="@string/add"
             app:showAsAction="ifRoom" />
-
-    <!--    <item-->
-    <!--        android:id="@+id/search"-->
-    <!--        android:icon="@drawable/ic_search_24dp"-->
-    <!--        android:title="@string/search"-->
-    <!--        android:contentDescription="@string/content_description_search"-->
-    <!--        app:showAsAction="ifRoom" />-->
-
-    <!--    <item-->
-    <!--        android:id="@+id/more"-->
-    <!--        android:title="siema"-->
-    <!--        android:contentDescription="siema"-->
-    <!--        app:showAsAction="never" />-->
-
 </menu>

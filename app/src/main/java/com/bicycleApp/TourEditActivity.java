@@ -40,13 +40,10 @@ public class TourEditActivity extends AppCompatActivity {
         time = getIntent().getDoubleExtra("Time", 0);
         distance = getIntent().getDoubleExtra("Distance", 0);
         titleText.setText(title);
-        int hours = (int) time % 86400 / 3600;
-        int minutes = (int) time % 86400 % 3600 / 60;
-        int seconds = (int) time % 86400 % 3600 % 60;
-        timeText.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
+        timeText.setText(Utilities.getTimeStringFromDouble(time));
         distanceText.setText(""+ Utilities.roundTo2DecimalPlace(distance)+" km");
         speedText.setText(""+Utilities.roundTo2DecimalPlace(distance/(time/3600))+" km/h");
-
+        toolbar.setTitle(getIntent().getStringExtra("Date"));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,7 +67,6 @@ public class TourEditActivity extends AppCompatActivity {
             title = "Tour";
         database.saveTour(id, title);
         database.close();
-
         Intent intent = new Intent(this, TourDetailsActivity.class);
         intent.putExtra("TitleResult", title);
         setResult(Activity.RESULT_OK, intent);

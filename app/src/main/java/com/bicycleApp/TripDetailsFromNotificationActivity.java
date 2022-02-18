@@ -146,12 +146,12 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
                             java.util.Date time=new java.util.Date((long)timeStamp*1000);
                             weatherTextView.setTextColor(Color.rgb(68,134,199));
                             output += weatherCurrentName +
-                                    "\n" + weatherTemp + " " +  Utilities.df.format(temp) + " °C" +
-                                    "\n" + weatherFeels + " " + Utilities.df.format(feels) + " °C" +
-                                    "\n" + weatherPressure + " " + pressure +
-                                    "\n" + weatherDescription + " " + description +
-                                    "\n" + weatherWind + " " + windSpeed + " m/s" +
-                                    "\n" + weatherCloud + " " + clouds + " %" +
+                                    "\n" + weatherTemp + ": " +  Utilities.df.format(temp) + " °C" +
+                                    "\n" + weatherFeels + ": " + Utilities.df.format(feels) + " °C" +
+                                    "\n" + weatherPressure + ": " + pressure +
+                                    "\n" + weatherDescription + ": " + description +
+                                    "\n" + weatherWind + ": " + windSpeed + " m/s" +
+                                    "\n" + weatherCloud + ": " + clouds + " %" +
                                     "\n" + Utilities.sdf.format(time);
                             weatherTextView.setText(output);
                             Glide.with(TripDetailsFromNotificationActivity.this).load("https://openweathermap.org/img/wn/"+icon+"@2x.png").into(imageView);
@@ -204,13 +204,13 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
 
                             weatherTextView.setTextColor(Color.rgb(68,134,199));
                             output += weatherForecastName +
-                                    "\n" + weatherTemp + " " +  Utilities.df.format(temp) + " °C" +
-                                    "\n" + weatherFeels + " " + Utilities.df.format(feels) + " °C" +
-                                    "\n" + weatherPressure + " " + pressure +
-                                    "\n" + weatherDescription + " " + description +
-                                    "\n" + weatherWind + " " + windSpeed + " m/s" +
-                                    "\n" + weatherCloud + " " + clouds + " %" +
-                                    "\n" + weatherPrecipation + " " + pop + " %" +
+                                    "\n" + weatherTemp + ": " +  Utilities.df.format(temp) + " °C" +
+                                    "\n" + weatherFeels + ": " + Utilities.df.format(feels) + " °C" +
+                                    "\n" + weatherPressure + ": " + pressure +
+                                    "\n" + weatherDescription + ": " + description +
+                                    "\n" + weatherWind + ": " + windSpeed + " m/s" +
+                                    "\n" + weatherCloud + ": " + clouds + " %" +
+                                    "\n" + weatherPrecipation + ": " + pop + " %" +
                                     "\n" + Utilities.sdf.format(time);
                             weatherTextView.setText(output);
                             Glide.with(TripDetailsFromNotificationActivity.this).load("https://openweathermap.org/img/wn/"+icon+"@2x.png").into(imageView);

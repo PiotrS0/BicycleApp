@@ -13,7 +13,7 @@
             android:id="@+id/topAppBarMapPointPicker"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/map_start_point"
+            app:title="@string/mapPickStartPoint"
             app:menu="@menu/top_app_bar_with_confirm"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"

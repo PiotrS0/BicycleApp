@@ -13,7 +13,7 @@
             android:id="@+id/topAppBarTourEdit"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/tripDetails_actitity_title"
+            app:title=""
             app:menu="@menu/top_app_bar_with_confirm"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
@@ -43,12 +43,12 @@
 
             <TextView
                 android:id="@+id/textView30"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="bottom|center_horizontal"
                 android:paddingBottom="2dp"
-                android:text="Title"
+                android:text="@string/title"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingRight="5dp"
-                android:text="0"
+                android:text="0 km"
                 android:textAlignment="textEnd"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
@@ -131,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingRight="5dp"
-                android:text="0"
+                android:text="0:00:00"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textAlignment="textEnd" />
@@ -152,7 +152,7 @@
                 android:paddingLeft="5dp"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="@string/average_speed" />
+                android:text="@string/averageSpeed" />
 
             <TextView
                 android:id="@+id/text_tour_edit_avg_speed"
@@ -160,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingRight="5dp"
-                android:text="0"
+                android:text="0 km/h"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textAlignment="textEnd" />

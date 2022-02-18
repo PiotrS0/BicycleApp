@@ -3,7 +3,10 @@ package com.bicycleApp;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -92,8 +95,8 @@ public class TripAddActivity extends AppCompatActivity {
         locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MapPointPickerActivity.class);
-                startActivityForResult(intent, MY_REQUEST_CODE);
+                if(isNetworkAvailable())
+                    startActivityForResult(new Intent(getApplicationContext(), MapPointPickerActivity.class), MY_REQUEST_CODE);
             }
         });
     }
@@ -116,11 +119,9 @@ public class TripAddActivity extends AppCompatActivity {
         int YEAR = calendar.get(Calendar.YEAR);
         int MONTH = calendar.get(Calendar.MONTH);
         int DATE = calendar.get(Calendar.DATE);
-
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int date) {
-
                 calendar1.set(Calendar.YEAR, year);
                 calendar1.set(Calendar.MONTH, month+1);
                 calendar1.set(Calendar.DATE, date);
@@ -169,5 +170,14 @@ public class TripAddActivity extends AppCompatActivity {
             Thread.sleep(500);
             finish();
         }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+        boolean isAvailable = false;
+        if (networkInfo != null && networkInfo.isConnected())
+            isAvailable = true;
+        return isAvailable;
     }
 }
