@@ -158,14 +158,13 @@ public class TripAddActivity extends AppCompatActivity {
     }
 
     public void openAdd() throws InterruptedException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String dateAfterFormat = sdf.format(data);
+        String dateAfterFormat = Utilities.sdf.format(data);
         Date nowDate = Utilities.convertToDate(java.util.Calendar.getInstance());
-        String nowDateAfterFormat = sdf.format(nowDate);
+        String nowDateAfterFormat = Utilities.sdf.format(nowDate);
         if(data.before(nowDate))
             Toast.makeText(TripAddActivity.this, getResources().getString(R.string.enterVaildDate), Toast.LENGTH_SHORT).show();
         else{
-            database.addTrip(editText.getText().toString(), dateAfterFormat,checkBox.isChecked(),nowDateAfterFormat,lat,lon);
+            database.addTripPlanned(editText.getText().toString(), dateAfterFormat,checkBox.isChecked(),lat,lon, true);
             Toast.makeText(TripAddActivity.this, getResources().getString(R.string.tripAdded), Toast.LENGTH_SHORT).show();
             Thread.sleep(500);
             finish();

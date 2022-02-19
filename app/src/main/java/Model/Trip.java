@@ -5,28 +5,37 @@ public class Trip {
     private String date;
     private String title;
     private boolean notification;
-    private double lat;
-    private double lon;
+    private double distance;
+    private double time;
+    private double startLat;
+    private double startLon;
+    private double endLat;
+    private double endLon;
+    private boolean isPlanned;
 
     public Trip() {
     }
 
-    public Trip(int id, String date, String title, double lat, double lon) {
+    public Trip(int id, String date, String title, double startLat, double startLon) {
         this.id = id;
         this.date = date;
         this.title = title;
-        this.lat = lat;
-        this.lon = lon;
         this.notification = true;
+        this.startLat = startLat;
+        this.startLon = startLon;
+        this.isPlanned = isPlanned;
     }
 
-    public Trip(int id, String date, String title, boolean notification, double lat, double lon) {
+    public Trip(int id, String date, String title, double distance, double time, double startLat, double startLon, double endLat, double endLon) {
         this.id = id;
         this.date = date;
         this.title = title;
-        this.notification = notification;
-        this.lat = lat;
-        this.lon = lon;
+        this.distance = distance;
+        this.time = time;
+        this.startLat = startLat;
+        this.startLon = startLon;
+        this.endLat = endLat;
+        this.endLon = endLon;
     }
 
     public int getId() {
@@ -45,10 +54,6 @@ public class Trip {
         this.date = date;
     }
 
-    public String getDateWithoutSeconds(){
-        return date.substring(0,date.length()-3);
-    }
-
     public String getTitle() {
         return title;
     }
@@ -65,19 +70,67 @@ public class Trip {
         this.notification = notification;
     }
 
-    public double getLat() {
-        return lat;
+    public double getDistance() {
+        return distance;
     }
 
-    public void setLat(double lat) {
-        this.lat = lat;
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 
-    public double getLon() {
-        return lon;
+    public double getTime() {
+        return time;
     }
 
-    public void setLon(double lon) {
-        this.lon = lon;
+    public void setTime(double time) {
+        this.time = time;
+    }
+
+    public double getStartLat() {
+        return startLat;
+    }
+
+    public void setStartLat(double startLat) {
+        this.startLat = startLat;
+    }
+
+    public double getStartLon() {
+        return startLon;
+    }
+
+    public void setStartLon(double startLon) {
+        this.startLon = startLon;
+    }
+
+    public double getEndLat() {
+        return endLat;
+    }
+
+    public String getDateWithoutSeconds(){
+        return date.substring(0,date.length()-3);
+    }
+
+    public void setEndLat(double endLat) {
+        this.endLat = endLat;
+    }
+
+    public double getEndLon() {
+        return endLon;
+    }
+
+    public void setEndLon(double endLon) {
+        this.endLon = endLon;
+    }
+
+    public boolean getPlanned() {
+        return isPlanned;
+    }
+
+    public void setPlanned(boolean planned) {
+        isPlanned = planned;
+    }
+
+    public String getDateWithoutTime(){
+        return date.substring(0,date.length()-9);
     }
 }

@@ -149,9 +149,13 @@ public class TripDetailsActivity extends AppCompatActivity {
         alert.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                database.deleteRow("Trip",id);
+                Intent newIntent = new Intent(getApplicationContext(), RecordActivity.class);
+                newIntent.putExtra("SharedId", id);
+                newIntent.putExtra("Title", title);
+                database.updateTripIsPlanned(id, false);
+                //database.deleteRow("Trip",id);
                 finish();
-                startActivity(new Intent(getApplicationContext(), RecordActivity.class));
+                startActivity(newIntent);
             }
         });
         alert.setNeutralButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {

@@ -95,7 +95,8 @@ public class TourRecordService extends Service {
 
     @Override
     public void onDestroy() {
-        database.updateTour((int) tourId, startLat, startLon, endLat, endLon, tripTime, distance);
+        if(distance != 0.0)
+            database.updateTrip((int) tourId, startLat, startLon, endLat, endLon, tripTime, distance);
         for(Point p : points){
             database.addPoint(p.getDate(), p.getTourId(), p.getLat(), p.getLon());
         }
@@ -115,7 +116,6 @@ public class TourRecordService extends Service {
             Intent intent = new Intent(TIMER_UPDATED);
             time++;
             tripTime++;
-            Utilities.tripTime++;
             intent.putExtra(TIME_EXTRA, time);
             intent.putExtra("Distance", distance);
             intent.putExtra("Lat", endLat);

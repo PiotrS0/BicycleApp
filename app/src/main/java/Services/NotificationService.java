@@ -67,7 +67,7 @@ public class NotificationService extends IntentService {
                     tripList.add(trip);
                 }
 
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DATE, 7);
                 Date date2 = Utilities.convertToDate(calendar);
@@ -75,7 +75,7 @@ public class NotificationService extends IntentService {
 
                 for(Trip x : tripList){
                     try {
-                        date = sdf.parse(x.getDate());
+                        date = Utilities.sdf.parse(x.getDate());
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -98,8 +98,8 @@ public class NotificationService extends IntentService {
                 intent.putExtra("Date", nearestTrip.getDate());
                 intent.putExtra("Title", nearestTrip.getTitle());
                 intent.putExtra("Notification", nearestTrip.getNotification());
-                intent.putExtra("Lat", nearestTrip.getLat());
-                intent.putExtra("Lon", nearestTrip.getLon());
+                intent.putExtra("Lat", nearestTrip.getStartLat());
+                intent.putExtra("Lon", nearestTrip.getStartLon());
 
                 PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent,flag);
 

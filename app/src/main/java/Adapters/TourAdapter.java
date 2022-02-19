@@ -11,15 +11,15 @@ import com.bicycleApp.R;
 
 import java.util.List;
 
-import Model.Tour;
+import Model.Trip;
 
 public class TourAdapter extends BaseAdapter {
 
     private Context context;
-    private List<Tour> toursList;
+    private List<Trip> toursList;
     private LayoutInflater layoutInflater;
 
-    public TourAdapter(Context context, List<Tour> toursList) {
+    public TourAdapter(Context context, List<Trip> toursList) {
         this.context = context;
         this.toursList = toursList;
 

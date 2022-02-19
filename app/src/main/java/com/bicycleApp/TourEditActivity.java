@@ -65,7 +65,7 @@ public class TourEditActivity extends AppCompatActivity {
         title = titleText.getText().toString();
         if(title.equals(""))
             title = "Tour";
-        database.saveTour(id, title);
+        database.saveTrip(id, title);
         database.close();
         Intent intent = new Intent(this, TourDetailsActivity.class);
         intent.putExtra("TitleResult", title);

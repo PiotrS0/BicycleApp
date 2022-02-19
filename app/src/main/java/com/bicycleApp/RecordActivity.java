@@ -40,6 +40,8 @@ public class RecordActivity extends AppCompatActivity {
     private MyDatabase database;
     private long id;
     private double distance, lat, lon, tripTime;
+    private int sharedId;
+    private String title;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -54,7 +56,8 @@ public class RecordActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        sharedId = getIntent().getIntExtra("SharedId",0);
+        title = getIntent().getStringExtra("Title");
         recordButton = findViewById(R.id.RecordButton);
         stopButton = findViewById(R.id.btn_record_stop);
         stopButton.setVisibility(View.INVISIBLE);
@@ -132,10 +135,11 @@ public class RecordActivity extends AppCompatActivity {
     private void resetTimer()
     {
         stopTimer();
+        tripTime = time;
         time = 0.0;
         textView.setText(Utilities.getTimeStringFromDouble(time));
         if(distance == 0.0){
-            database.deleteRow("Tour", (int) id);
+            database.deleteRow("Trip", (int) id);
             database.deletePoints((int) id);
             Toast.makeText(this, getResources().getString(R.string.tourTooShort), Toast.LENGTH_LONG).show();
             finish();
@@ -143,8 +147,9 @@ public class RecordActivity extends AppCompatActivity {
         else{
             Intent intent = new Intent(this, RecordSaveActivity.class);
             intent.putExtra("TourId", id);
-            intent.putExtra("Time", time);
+            intent.putExtra("Time", tripTime);
             intent.putExtra("Distance", distance);
+            intent.putExtra("Title", title);
             startActivity(intent);
         }
 
@@ -160,8 +165,15 @@ public class RecordActivity extends AppCompatActivity {
 
     private void startTimer()
     {
-        if(firstActivate == false)
-            id = database.addTourStart();
+        if(firstActivate == false){
+            if(sharedId == 0)
+                id = database.addTourStart();
+            else{
+                database.updateTourStart(sharedId, title);
+                id = sharedId;
+            }
+
+        }
         firstActivate = true;
         serviceIntent.putExtra(TourRecordService.TIME_EXTRA, time);
         serviceIntent.putExtra("TourId", id);

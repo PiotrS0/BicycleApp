@@ -15,13 +15,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 import Data.MyDatabase;
-import Model.Tour;
 import Adapters.*;
+import Model.Trip;
 
 public class TourListActivity extends AppCompatActivity {
 
     private MyDatabase database;
-    private List<Tour> toursList = new LinkedList<>();
+    private List<Trip> toursList = new LinkedList<>();
     private Cursor cursor;
     private ListView list;
     private TourAdapter tourAdapter;
@@ -55,8 +55,9 @@ public class TourListActivity extends AppCompatActivity {
         toursList.removeAll(toursList);
         cursor = database.getAllTours();
         while(cursor.moveToNext()){
-            Tour tour = new Tour(cursor.getInt(0),cursor.getString(1),cursor.getDouble(2), cursor.getDouble(3), cursor.getDouble(4), cursor.getDouble(5), cursor.getDouble(6), cursor.getDouble(7), cursor.getString(8));
-            toursList.add(tour);
+            Trip tour = new Trip(cursor.getInt(0),cursor.getString(1), cursor.getString(2),cursor.getDouble(3), cursor.getDouble(4), cursor.getDouble(5), cursor.getDouble(6), cursor.getDouble(7), cursor.getDouble(8));
+            if(cursor.getInt(9)==0)
+                toursList.add(tour);
         }
 
         tourAdapter = new TourAdapter(this, toursList);

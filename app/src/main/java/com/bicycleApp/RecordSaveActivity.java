@@ -25,7 +25,7 @@ public class RecordSaveActivity extends AppCompatActivity {
     private double time, distance;
     private TextView distanceText, timeText, speedText;
     private EditText titleText;
-    private String title;
+    private String title, sharedTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +34,12 @@ public class RecordSaveActivity extends AppCompatActivity {
         id = this.getIntent().getLongExtra("TourId", 0);
         time = this.getIntent().getDoubleExtra("Time", 0);
         distance = this.getIntent().getDoubleExtra("Distance", 0);
+        sharedTitle = this.getIntent().getStringExtra("Title");
         database = new MyDatabase(this, 1);
         distanceText = findViewById(R.id.text_record_save_distance);
         timeText = findViewById(R.id.text_record_save_time);
         speedText = findViewById(R.id.text_record_save_avg_speed);
         titleText = findViewById(R.id.text_record_save_title);
-
         toolbar = findViewById(R.id.topAppBarRecordSave);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,13 +60,17 @@ public class RecordSaveActivity extends AppCompatActivity {
         });
         timeText.setText(Utilities.getTimeStringFromDouble(time));
         distanceText.setText(""+ Utilities.roundTo2DecimalPlace(distance) + " km");
+        speedText.setText(""+ Utilities.roundTo2DecimalPlace(distance/(time/3600)) + " km/h");
+
+        if(sharedTitle != null)
+            titleText.setText(sharedTitle);
     }
 
     private void saveItem(){
         title = titleText.getText().toString();
         if(title.equals(""))
             title = "Tour";
-        database.saveTour((int)id, title);
+        database.saveTrip((int)id, title);
         finish();
     }
 
@@ -77,7 +81,7 @@ public class RecordSaveActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
-                        database.deleteRow("Tour", (int) id);
+                        database.deleteRow("Trip", (int) id);
                         database.deletePoints((int) id);
                         Toast.makeText(RecordSaveActivity.this,getResources().getString(R.string.tourDeleted),Toast.LENGTH_SHORT).show();
                         try {

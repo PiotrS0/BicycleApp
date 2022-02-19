@@ -107,7 +107,7 @@ public class TourDetailsActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
-                        database.deleteRow("Tour",id);
+                        database.deleteRow("Trip",id);
                         database.deletePoints(id);
                         Toast.makeText(TourDetailsActivity.this,getResources().getString(R.string.tourDeleted),Toast.LENGTH_SHORT).show();
                         try {

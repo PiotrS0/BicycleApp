@@ -68,11 +68,11 @@ public class TripListActivity extends AppCompatActivity {
         tripList.removeAll(tripList);
         cursor = database.getAllTrips();
         while(cursor.moveToNext()){
-            Trip trip = new Trip(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getDouble(4),cursor.getDouble(5));
+            Trip trip = new Trip(cursor.getInt(0),cursor.getString(1), cursor.getString(2), cursor.getDouble(4), cursor.getDouble(5));
             if(cursor.getInt(3) == 0)
                 trip.setNotification(false);
-
-            tripList.add(trip);
+            if(cursor.getInt(6)==1)
+                tripList.add(trip);
         }
 
         tripAdapter = new TripAdapter(this, tripList);
@@ -85,8 +85,8 @@ public class TripListActivity extends AppCompatActivity {
         intent.putExtra("Date", tripList.get(position).getDate());
         intent.putExtra("Title", tripList.get(position).getTitle());
         intent.putExtra("Notification", tripList.get(position).getNotification());
-        intent.putExtra("Lat", tripList.get(position).getLat());
-        intent.putExtra("Lon", tripList.get(position).getLon());
+        intent.putExtra("Lat", tripList.get(position).getStartLat());
+        intent.putExtra("Lon", tripList.get(position).getStartLon());
         startActivity(intent);
     }
 

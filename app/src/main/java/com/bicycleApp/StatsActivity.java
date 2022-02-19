@@ -2,7 +2,6 @@ package com.bicycleApp;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,7 +26,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 import Data.MyDatabase;
-import Model.Tour;
+import Model.Trip;
 import Utils.Utilities;
 
 public class StatsActivity extends AppCompatActivity {
@@ -38,7 +37,7 @@ public class StatsActivity extends AppCompatActivity {
     private Button rangeButton;
     private Date startDate, endDate, tempDateFrom, tempDateTo;
     private Cursor cursor;
-    private List<Tour> toursList = new ArrayList<Tour>();
+    private List<Trip> toursList = new ArrayList<Trip>();
     private double distance, avgDistance, time, avgTime, speed, avgSpeed;
     private TextView textToursCompleted, textTime, textAVGTime, textDistance, textAVGDistance, textAVGSpeed;
 
@@ -49,8 +48,9 @@ public class StatsActivity extends AppCompatActivity {
         database = new MyDatabase(this, 1);
         cursor = database.getAllTours();
         while(cursor.moveToNext()){
-            Tour tour = new Tour(cursor.getInt(0),cursor.getString(1),cursor.getDouble(2), cursor.getDouble(3), cursor.getDouble(4), cursor.getDouble(5), cursor.getDouble(6), cursor.getDouble(7), cursor.getString(8));
-            toursList.add(tour);
+            Trip tour = new Trip(cursor.getInt(0),cursor.getString(1), cursor.getString(2),cursor.getDouble(3), cursor.getDouble(4), cursor.getDouble(5), cursor.getDouble(6), cursor.getDouble(7), cursor.getDouble(8));
+            if(cursor.getInt(9)==0)
+                toursList.add(tour);
         }
         toolbar = findViewById(R.id.topAppBarStats);
         textToursCompleted = findViewById(R.id.text_stats_tour_completed);
@@ -170,7 +170,7 @@ public class StatsActivity extends AppCompatActivity {
         speed = 0;
         avgSpeed = 0;
 
-        for(Tour tour : toursList){
+        for(Trip tour : toursList){
             try{
                 Date d = Utilities.sdf.parse(tour.getDate());
                 if(d.after(dateFrom) && d.before(dateTo)){
