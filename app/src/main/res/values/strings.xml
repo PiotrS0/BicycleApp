@@ -74,7 +74,10 @@
     <string name="weatherAvaliableSevenDays">The weather forecast is available 7 days before the date of the trip.</string>
     <string name="weatherNoLocation">Weather unavaliable. Trip location not saved.</string>
     <string name="weatherShow">Show weather forecast</string>
-
+    <string name="tourTooShort">Distance is too short. Tour has been not registered.</string>
+    <string name="start_recording">Start Recording</string>
+    <string name="onlyDelete">Only delete</string>
+    <string name="sureRecordFromDetails">Are you sure you want to go to logging the trip? (The scheduled tour will be deleted)</string>
 
     <!--    APP INFO -->
     <string name="version" translatable="false">1.0</string>
@@ -82,6 +85,7 @@
     <string name="author" translatable="false">Piotr Sawczuk</string>
     <string name="released">Feb 14, 2022</string>
     <string name="android_os">6.0 and up</string>
+
 
 
     <string-array name="options_array">

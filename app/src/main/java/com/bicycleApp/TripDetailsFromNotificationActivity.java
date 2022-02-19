@@ -148,7 +148,7 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
                             output += weatherCurrentName +
                                     "\n" + weatherTemp + ": " +  Utilities.df.format(temp) + " °C" +
                                     "\n" + weatherFeels + ": " + Utilities.df.format(feels) + " °C" +
-                                    "\n" + weatherPressure + ": " + pressure +
+                                    "\n" + weatherPressure + ": " + pressure + " hPa" +
                                     "\n" + weatherDescription + ": " + description +
                                     "\n" + weatherWind + ": " + windSpeed + " m/s" +
                                     "\n" + weatherCloud + ": " + clouds + " %" +
@@ -206,7 +206,7 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
                             output += weatherForecastName +
                                     "\n" + weatherTemp + ": " +  Utilities.df.format(temp) + " °C" +
                                     "\n" + weatherFeels + ": " + Utilities.df.format(feels) + " °C" +
-                                    "\n" + weatherPressure + ": " + pressure +
+                                    "\n" + weatherPressure + ": " + pressure + " hPa" +
                                     "\n" + weatherDescription + ": " + description +
                                     "\n" + weatherWind + ": " + windSpeed + " m/s" +
                                     "\n" + weatherCloud + ": " + clouds + " %" +

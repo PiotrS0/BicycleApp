@@ -32,7 +32,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="310dp"
         android:layout_height="120dp"
         android:orientation="horizontal"
         android:layout_gravity="center">
@@ -46,6 +46,7 @@
             android:drawableBottom="@drawable/ic_baseline_event_note_24"
             android:text="@string/main_planned" />
 
+
         <Button
             android:id="@+id/btn_record"
             android:layout_width="match_parent"
@@ -57,7 +58,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="310dp"
         android:layout_height="120dp"
         android:orientation="horizontal">
 
@@ -81,7 +82,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="310dp"
         android:layout_height="120dp"
         android:orientation="horizontal">
 

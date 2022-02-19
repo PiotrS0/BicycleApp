@@ -70,6 +70,10 @@
     <string name="updated">14 luty, 2022</string>
     <string name="released">14 luty, 2022</string>
     <string name="android_os">6.0 i nowszy</string>
+    <string name="tourTooShort">Dystans jest zbyt krótki. Wycieczka nie została zarejestrowana.</string>
+    <string name="start_recording">Rozpocznij nagrywanie</string>
+    <string name="onlyDelete">Tylko usuń</string>
+    <string name="sureRecordFromDetails">Czy na pewno chcesz przejść do rejestrowania wycieczki? (Zaplanowana wycieczka zostanie usunięta)</string>
 
     <string-array name="options_array">
         <item>Wybierz zakres</item>

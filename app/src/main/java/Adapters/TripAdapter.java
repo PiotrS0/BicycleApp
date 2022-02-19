@@ -5,15 +5,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bicycleApp.R;
 
 import org.w3c.dom.Text;
 
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import Model.Trip;
+import Utils.Utilities;
 
 public class TripAdapter extends BaseAdapter {
 
@@ -52,11 +58,24 @@ public class TripAdapter extends BaseAdapter {
             viewHolder.index = (TextView) convertView.findViewById(R.id.trip_adapter_text_number);
             viewHolder.date = (TextView) convertView.findViewById(R.id.trip_adapter_text_date);
             viewHolder.title = (TextView) convertView.findViewById(R.id.trip_adapter_text_title);
+            viewHolder.icon = convertView.findViewById(R.id.trip_adapter_image);
             convertView.setTag(viewHolder);
         }
         else
             viewHolder = (ViewHolder) convertView.getTag();
 
+        Date date = new Date();
+        try {
+            date = Utilities.sdf.parse(tripList.get(position).getDate()) ;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR, 3);
+        Date dateCheck = Utilities.convertToDate(calendar);
+        if(date.before(dateCheck)){
+            viewHolder.icon.setImageResource(R.mipmap.timer_icon);
+        }
         viewHolder.index.setText(""+(position+1));
         viewHolder.date.setText(""+tripList.get(position).getDateWithoutSeconds());
         viewHolder.title.setText(""+tripList.get(position).getTitle());
@@ -68,5 +87,6 @@ public class TripAdapter extends BaseAdapter {
         TextView index;
         TextView date;
         TextView title;
+        ImageView icon;
     }
 }

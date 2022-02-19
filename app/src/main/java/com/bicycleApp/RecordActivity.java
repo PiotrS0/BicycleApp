@@ -132,13 +132,22 @@ public class RecordActivity extends AppCompatActivity {
     private void resetTimer()
     {
         stopTimer();
-        Intent intent = new Intent(this, RecordSaveActivity.class);
-        intent.putExtra("TourId", id);
-        intent.putExtra("Time", time);
-        intent.putExtra("Distance", distance);
         time = 0.0;
         textView.setText(Utilities.getTimeStringFromDouble(time));
-        startActivity(intent);
+        if(distance == 0.0){
+            database.deleteRow("Tour", (int) id);
+            database.deletePoints((int) id);
+            Toast.makeText(this, getResources().getString(R.string.tourTooShort), Toast.LENGTH_LONG).show();
+            finish();
+        }
+        else{
+            Intent intent = new Intent(this, RecordSaveActivity.class);
+            intent.putExtra("TourId", id);
+            intent.putExtra("Time", time);
+            intent.putExtra("Distance", distance);
+            startActivity(intent);
+        }
+
     }
 
     private void startStopTimer()

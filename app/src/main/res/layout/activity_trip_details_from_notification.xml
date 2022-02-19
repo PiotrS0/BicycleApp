@@ -44,7 +44,7 @@
         <TextView
             android:id="@+id/trip_details_from_notification_text_weather"
             android:layout_width="302dp"
-            android:layout_height="280dp"
+            android:layout_height="240dp"
             android:layout_marginTop="12dp"
             android:text="@string/weather_unavaliable"
             android:lineSpacingExtra="6dp"

@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,6 +50,7 @@ public class TripDetailsActivity extends AppCompatActivity {
     private Date dateFromBase;
     private ImageView imageView;
     private MaterialToolbar toolbar;
+    private Button startRecordButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,7 @@ public class TripDetailsActivity extends AppCompatActivity {
         weatherPrecipation = getResources().getString(R.string.weatherPrecipation);
         database = new MyDatabase(this, 1);
         toolbar = findViewById(R.id.topAppBarTripDetails);
+        startRecordButton = findViewById(R.id.trip_details_start_record_button);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,6 +129,52 @@ public class TripDetailsActivity extends AppCompatActivity {
             weatherTextView.setText(e.getMessage());
             e.printStackTrace();
         }
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR, 3);
+        Date dateCheck = Utilities.convertToDate(calendar);
+        if(dateFromBase.before(dateCheck))
+            startRecordButton.setVisibility(View.VISIBLE);
+
+        startRecordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startRecord();
+            }
+        });
+    }
+
+    private void startRecord(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage(getResources().getString(R.string.sureRecordFromDetails));
+        alert.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                database.deleteRow("Trip",id);
+                finish();
+                startActivity(new Intent(getApplicationContext(), RecordActivity.class));
+            }
+        });
+        alert.setNeutralButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        alert.setNegativeButton(getResources().getString(R.string.onlyDelete), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                database.deleteRow("Trip",id);
+                Toast.makeText(TripDetailsActivity.this,getResources().getString(R.string.tripDeleted),Toast.LENGTH_SHORT).show();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                finish();
+            }
+        });
+        AlertDialog alertDialog = alert.create();
+        alertDialog.show();
     }
 
     private int checkData(Date dateBase){
@@ -212,11 +261,10 @@ public class TripDetailsActivity extends AppCompatActivity {
                             output += weatherCurrentName +
                                 "\n" + weatherTemp + ": " +  Utilities.df.format(temp) + " °C" +
                                 "\n" + weatherFeels + ": " + Utilities.df.format(feels) + " °C" +
-                                "\n" + weatherPressure + ": " + pressure +
+                                "\n" + weatherPressure + ": " + pressure + " hPa" +
                                 "\n" + weatherDescription + ": " + description +
                                 "\n" + weatherWind + ": " + windSpeed + " m/s" +
-                                "\n" + weatherCloud + ": " + clouds + " %" +
-                                "\n" + Utilities.sdf.format(time);
+                                "\n" + weatherCloud + ": " + clouds + " %";
                             weatherTextView.setText(output);
                             Glide.with(TripDetailsActivity.this).load("https://openweathermap.org/img/wn/"+icon+"@2x.png").into(imageView);
                         } catch (JSONException e) {
@@ -268,12 +316,11 @@ public class TripDetailsActivity extends AppCompatActivity {
                             output += weatherForecastName +
                                     "\n" + weatherTemp + ": " +  Utilities.df.format(temp) + " °C" +
                                     "\n" + weatherFeels + ": " + Utilities.df.format(feels) + " °C" +
-                                    "\n" + weatherPressure + ": " + pressure +
+                                    "\n" + weatherPressure + ": " + pressure + " hPa" +
                                     "\n" + weatherDescription + ": " + description +
                                     "\n" + weatherWind + ": " + windSpeed + " m/s" +
                                     "\n" + weatherCloud + ": " + clouds + " %" +
-                                    "\n" + weatherPrecipation + ": " + pop + " %" +
-                                    "\n" + Utilities.sdf.format(time);
+                                    "\n" + weatherPrecipation + ": " + pop + " %";
                             weatherTextView.setText(output);
                             Glide.with(TripDetailsActivity.this).load("https://openweathermap.org/img/wn/"+icon+"@2x.png").into(imageView);
                         } catch (JSONException e) {

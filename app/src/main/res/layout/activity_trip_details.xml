@@ -32,8 +32,8 @@
             android:id="@+id/trip_details_checkbox"
             android:layout_width="197dp"
             android:layout_height="39dp"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="8dp"
             android:checked="true"
             android:text="@string/send_notifications"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,8 +44,8 @@
             android:layout_width="309dp"
             android:layout_height="56dp"
             android:layout_marginTop="24dp"
-            android:text=""
             android:gravity="center"
+            android:text=""
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.47"
@@ -55,10 +55,10 @@
         <TextView
             android:id="@+id/trip_details_text_weather"
             android:layout_width="302dp"
-            android:layout_height="260dp"
+            android:layout_height="240dp"
             android:layout_marginTop="12dp"
-            android:text="@string/weather_unavaliable"
             android:lineSpacingExtra="6dp"
+            android:text="@string/weather_unavaliable"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.504"
@@ -73,6 +73,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/trip_details_title"
             app:srcCompat="@mipmap/empty_foreground" />
+
+        <Button
+            android:id="@+id/trip_details_start_record_button"
+            android:layout_width="230dp"
+            android:layout_height="81dp"
+            android:layout_marginTop="8dp"
+            android:drawableRight="@drawable/ic_baseline_timer_24"
+            android:text="@string/start_recording"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/trip_details_checkbox" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
