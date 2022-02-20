@@ -23,7 +23,7 @@ public class Trip {
         this.notification = true;
         this.startLat = startLat;
         this.startLon = startLon;
-        this.isPlanned = isPlanned;
+        this.isPlanned = true;
     }
 
     public Trip(int id, String date, String title, double distance, double time, double startLat, double startLon, double endLat, double endLon) {

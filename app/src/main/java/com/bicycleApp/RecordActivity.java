@@ -142,9 +142,11 @@ public class RecordActivity extends AppCompatActivity {
             database.deleteRow("Trip", (int) id);
             database.deletePoints((int) id);
             Toast.makeText(this, getResources().getString(R.string.tourTooShort), Toast.LENGTH_LONG).show();
+            stopService(serviceIntent);
             finish();
         }
         else{
+            stopService(serviceIntent);
             Intent intent = new Intent(this, RecordSaveActivity.class);
             intent.putExtra("TourId", id);
             intent.putExtra("Time", tripTime);
@@ -166,6 +168,17 @@ public class RecordActivity extends AppCompatActivity {
     private void startTimer()
     {
         if(firstActivate == false){
+            LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+            boolean gps_enabled = false;
+            try {
+                gps_enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            } catch(Exception ex) {}
+            if(!gps_enabled) {
+               Toast.makeText(this,getResources().getString(R.string.gpsUnavaliable), Toast.LENGTH_SHORT).show();
+               finish();
+               return;
+            }
+
             if(sharedId == 0)
                 id = database.addTourStart();
             else{

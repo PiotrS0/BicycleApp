@@ -64,9 +64,14 @@ public class NotificationService extends IntentService {
                     Trip trip = new Trip(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getDouble(4),cursor.getDouble(5));
                     if(cursor.getInt(3) == 0)
                         trip.setNotification(false);
-                    tripList.add(trip);
+                    if(cursor.getInt(6) == 1)
+                        tripList.add(trip);
                 }
 
+                if(tripList.size() == 0){
+                    stopSelf();
+                    return;
+                }
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DATE, 7);
@@ -83,6 +88,11 @@ public class NotificationService extends IntentService {
                         date2 = date;
                         nearestTrip = x;
                     }
+                }
+
+                if(nearestTrip.getId() == 0){
+                    stopSelf();
+                    return;
                 }
 
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){

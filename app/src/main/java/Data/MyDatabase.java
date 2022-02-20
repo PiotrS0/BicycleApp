@@ -48,6 +48,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("Title", "NEW TOUR");
         values.put("Date", Utilities.sdf.format(calendar.getTime()));
+        values.put("Notification", false);
         values.put("IsPlanned", false);
         return db.insertOrThrow("Trip", null, values);
     }

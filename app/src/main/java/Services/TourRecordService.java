@@ -12,8 +12,10 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.Log;
 
 import Utils.Utilities;
 
@@ -69,25 +71,53 @@ public class TourRecordService extends Service {
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 3.0f, new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
+                Log.d("onLocationChanged",location.toString());
                 Calendar calendar = Calendar.getInstance();
                 Date date = Utilities.convertToDate(calendar);
-                if(!isFirst){
-                    Location l = new Location(LocationManager.KEY_LOCATIONS);
-                    l.setLatitude(endLat);
-                    l.setLongitude(endLon);
-                    distance += (double)(location.distanceTo(l)/1000f);
-                }
-                endLat = location.getLatitude();
-                endLon = location.getLongitude();
-                points.add(new Point(date.toString(), (int)tourId, endLat, endLon));
+                try {
+                    if(!isFirst){
+                        Location l = new Location(LocationManager.KEY_LOCATIONS);
+                        l.setLatitude(endLat);
+                        l.setLongitude(endLon);
+                        distance += (double)(location.distanceTo(l)/1000f);
+                    }
+                    endLat = location.getLatitude();
+                    endLon = location.getLongitude();
+                    points.add(new Point(date.toString(), (int)tourId, endLat, endLon));
 
-                if(isFirst){
-                    startLat = location.getLatitude();
-                    startLon = location.getLongitude();
-                    isFirst = false;
+                    if(isFirst){
+                        startLat = location.getLatitude();
+                        startLon = location.getLongitude();
+                        isFirst = false;
+                    }
                 }
+                catch (Exception e){
+                    Log.d("Error Location Service",e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+                Log.d("onStatusChanged",provider);
+                Log.d("Triptime",""+tripTime);
+//                LocationListener.super.onStatusChanged(provider, status, extras);
+            }
+
+            @Override
+            public void onProviderEnabled(@NonNull String provider) {
+                Log.d("onProviderEnabled", provider);
+//                LocationListener.super.onProviderEnabled(provider);
+            }
+
+            @Override
+            public void onProviderDisabled(@NonNull String provider) {
+                Log.d("onProviderDisabled", provider);
+//                LocationListener.super.onProviderDisabled(provider);
             }
         });
+
+
 
         //return super.onStartCommand(intent, flags, startId);
         return START_NOT_STICKY;
