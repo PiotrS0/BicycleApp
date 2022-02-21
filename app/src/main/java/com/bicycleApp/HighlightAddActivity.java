@@ -95,8 +95,9 @@ public class HighlightAddActivity extends AppCompatActivity {
         int height = image.getHeight();
         double a = 0.0;
         byte[] b;
-        if(width > 1280){
-            a = width/1280;
+        if(width > 1280 || height > 1280){
+            int c = Math.max(width, height);
+            a = c/1280;
             float scaleWidth = (float)((float)image.getWidth()/a) / image.getWidth();
             float scaleHeight = (float)((float)image.getHeight()/a) / image.getHeight();
             Matrix matrix = new Matrix();
