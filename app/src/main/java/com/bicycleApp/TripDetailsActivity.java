@@ -314,8 +314,6 @@ public class TripDetailsActivity extends AppCompatActivity {
                             String description = jsonObjectWeather.getString("description");
                             int clouds = jsonObject.getInt("clouds");
                             double pop = jsonObject.getDouble("pop");
-                            long timeStamp = jsonObject.getLong("dt");
-                            java.util.Date time=new java.util.Date((long)timeStamp*1000);
                             weatherTextView.setTextColor(Color.rgb(68,134,199));
                             output += weatherForecastName +
                                     "\n" + weatherTemp + ": " +  Utilities.df.format(temp) + " °C" +

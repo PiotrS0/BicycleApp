@@ -2,7 +2,6 @@ package com.bicycleApp;
 
 import androidx.fragment.app.FragmentActivity;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,16 +17,10 @@ import com.bicycleApp.databinding.ActivityMapShowRouteBinding;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 import java.util.List;
 
 import Data.MyDatabase;
-import Model.Highlight;
 
 public class MapShowRouteActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -76,7 +69,6 @@ public class MapShowRouteActivity extends FragmentActivity implements OnMapReady
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
         LatLng startLoc = new LatLng(startLat, startLon);
         LatLng endLoc = new LatLng(endLat, endLon);
         mMap.addMarker(new MarkerOptions().position(startLoc).title(getResources().getString(R.string.mapStartLocation)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
