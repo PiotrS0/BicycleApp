@@ -71,6 +71,7 @@ public class RecordSaveActivity extends AppCompatActivity {
         if(title.equals(""))
             title = "Tour";
         database.saveTrip((int)id, title);
+        Toast.makeText(this, getResources().getString(R.string.tourSaved),Toast.LENGTH_SHORT).show();
         finish();
     }
 

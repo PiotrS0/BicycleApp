@@ -116,6 +116,7 @@ public class HighlightAddActivity extends AppCompatActivity {
         nowDateAfterFormat = Utilities.sdf.format(nowDate);
 
         database.addHighlight(b,title, description, nowDateAfterFormat, lat, lon, tourId);
+        Toast.makeText(this, getResources().getString(R.string.hilhlightSaved), Toast.LENGTH_SHORT).show();
         finish();
     }
 

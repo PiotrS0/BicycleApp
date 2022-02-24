@@ -43,10 +43,10 @@
     <string name="sureDeleteHighlight">Czy na pewno chcesz usunąć te ciekawe miejsce?</string>
     <string name="stats_tours_amount">Ukończone wycieczki</string>
     <string name="stats_distance">Dystans</string>
-    <string name="stats_average_time">Średni czas na wycieczkę</string>
+    <string name="stats_average_time">Czas na wycieczkę</string>
     <string name="stats_time">Czas</string>
-    <string name="stats_average_distance">Średni dystans na wycieczkę</string>
-    <string name="stats_average_speed">Średnia prędkość na wycieczkę</string>
+    <string name="stats_average_distance">Dystans na wycieczkę</string>
+    <string name="stats_average_speed">Prędkość na wycieczkę</string>
     <string name="title">Tytuł</string>
     <string name="tripAdd_actitity_title">Dodaj wycieczkę</string>
     <string name="tripAdded">Wycieczka dodana</string>
@@ -74,6 +74,9 @@
     <string name="start_recording">Rozpocznij nagrywanie</string>
     <string name="onlyDelete">Tylko usuń</string>
     <string name="sureRecordFromDetails">Czy na pewno chcesz przejść do rejestrowania wycieczki? (Zaplanowana wycieczka zostanie usunięta)</string>
+`   <string name="tourSaved">Wycieczka została zapisana</string>
+    <string name="hilhlightSaved">Ciekawe miejsce zostało zapisane</string>
+
 
     <string-array name="options_array">
         <item>Wybierz zakres</item>

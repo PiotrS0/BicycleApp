@@ -35,9 +35,7 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
 
     private TextView titleText, weatherTextView;
     private String date, title;
-    private boolean notification;
     private double lat, lon;
-    private MyDatabase database;
     private final String url = "https://api.openweathermap.org/data/2.5/";
     private String apiId, weatherCurrentName, weatherForecastName, weatherTemp, weatherFeels, weatherPressure, weatherDescription, weatherWind, weatherCloud, weatherPrecipation;;
     private Date dateFromBase;
@@ -49,7 +47,6 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_details_from_notification);
         apiId = getResources().getString(R.string.openweather_api_key);
-        database = new MyDatabase(this, 1);
         toolbar = findViewById(R.id.topAppBarTripDetailsFromNotification);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +67,6 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
         weatherTextView = findViewById(R.id.trip_details_from_notification_text_weather);
         date = this.getIntent().getStringExtra("Date");
         title = this.getIntent().getStringExtra("Title");
-        notification = this.getIntent().getBooleanExtra("Notification",true);
         lat = this.getIntent().getDoubleExtra("Lat",0);
         lon = this.getIntent().getDoubleExtra("Lon",0);
         imageView = findViewById(R.id.trip_details_from_notification_imageview);
@@ -82,12 +78,17 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        try {
-            getWeatherDetails(checkData(dateFromBase));
-        } catch (Exception e) {
-            weatherTextView.setText(e.getMessage());
-            e.printStackTrace();
+        if(lat == 0.0 && lon == 0.0)
+            weatherTextView.setText(getResources().getString(R.string.weatherNoLocation));
+        else{
+            try {
+                getWeatherDetails(checkData(dateFromBase));
+            } catch (Exception e) {
+                weatherTextView.setText(e.getMessage());
+                e.printStackTrace();
+            }
         }
+
     }
 
     private int checkData(Date dateBase){

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
 
@@ -70,6 +71,7 @@ public class TourEditActivity extends AppCompatActivity {
         Intent intent = new Intent(this, TourDetailsActivity.class);
         intent.putExtra("TitleResult", title);
         setResult(Activity.RESULT_OK, intent);
+        Toast.makeText(this, getResources().getString(R.string.tourSaved),Toast.LENGTH_SHORT).show();
         finish();
     }
 }

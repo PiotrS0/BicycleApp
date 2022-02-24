@@ -78,6 +78,8 @@
     <string name="start_recording">Start Recording</string>
     <string name="onlyDelete">Only delete</string>
     <string name="sureRecordFromDetails">Are you sure you want to go to logging the trip? (The scheduled tour will be deleted)</string>
+    <string name="tourSaved">The trip has been saved</string>
+    <string name="hilhlightSaved">The highlight has been saved</string>
 
     <!--    APP INFO -->
     <string name="version" translatable="false">1.0</string>

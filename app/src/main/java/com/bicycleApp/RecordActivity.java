@@ -138,6 +138,8 @@ public class RecordActivity extends AppCompatActivity {
         tripTime = time;
         time = 0.0;
         textView.setText(Utilities.getTimeStringFromDouble(time));
+        stopButton.setVisibility(View.INVISIBLE);
+        highlightButton.setVisibility(View.INVISIBLE);
         if(distance == 0.0){
             database.deleteRow("Trip", (int) id);
             database.deletePoints((int) id);
