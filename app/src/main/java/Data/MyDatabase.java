@@ -20,7 +20,6 @@ public class MyDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table Trip(Id integer not null primary key autoincrement, Date Date not null, Title text, Notification numeric, Distance numeric, Time numeric, StartLat numeric, StartLon numeric, EndLat numeric, EndLon numeric, IsPlanned numeric)");
-//        db.execSQL("create table Tour(Id integer not null primary key autoincrement, Title text, StartLat numeric, StartLon numeric, EndLat numeric, EndLon numeric, Time numeric, Distance numeric, Date Date)");
         db.execSQL("create table Point(Id integer not null primary key autoincrement, Date Date not null, Lat numeric not null, Lon numeric not null, TourId integer not null references Tour(Id))");
         db.execSQL("create table Highlight(Id integer not null primary key autoincrement, Image blob not null, Title text, Description text, Date Date not null, Lat numeric not null, Lon numeric not null, TourId references Tour(Id))");
     }
@@ -63,19 +62,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         values.put("IsPlanned", false);
         db.update("Trip", values, "Id = "+ id, null);
     }
-//
-//    public void updateTour(int id, double startLat, double startLon, double endLat, double endLon, double time, double distance){
-//        SQLiteDatabase db = getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//        values.put("StartLat",startLat);
-//        values.put("StartLon",startLon);
-//        values.put("EndLat",endLat);
-//        values.put("EndLon",endLon);
-//        values.put("Time", time);
-//        values.put("Distance", distance);
-//        db.update("Tour", values,"Id = " + id,null);
-//    }
-//
+
     public void updateTrip(int id, double startLat, double startLon, double endLat, double endLon, double time, double distance){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -94,20 +81,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         values.put("Title", title);
         db.update("Trip", values, "Id = " + id, null);
     }
-//
-//    public void addTour(String title, double startLat, double startLon, double endLat, double endLon, double time, double distance, String date){
-//        SQLiteDatabase db = getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//        values.put("Title",title);
-//        values.put("StartLat",startLat);
-//        values.put("StartLon",startLon);
-//        values.put("EndLat",endLat);
-//        values.put("EndLon",endLon);
-//        values.put("Time",time);
-//        values.put("Distance",distance);
-//        values.put("Date", date);
-//        db.insertOrThrow("Tour",null, values);
-//    }
+
 
     public void addPoint(String date, int tourId, double lat, double lon){
         SQLiteDatabase db = getWritableDatabase();
@@ -172,11 +146,6 @@ public class MyDatabase extends SQLiteOpenHelper {
         db.update("Trip",cv,"Id = " + id,null);
     }
 
-    public Cursor getTourDistance(int id){
-        SQLiteDatabase db = getReadableDatabase();
-        return db.query("Tour", null, "TourId = "+ id, null, null, null, null);
-    }
-
     public void deletePoints(int tourId){
         SQLiteDatabase db = getWritableDatabase();
         db.delete("Point", "TourId = "+ tourId, null);
@@ -188,6 +157,4 @@ public class MyDatabase extends SQLiteOpenHelper {
         cv.put("IsPlanned", isPlanned);
         db.update("Trip", cv, "Id = " + id, null);
     }
-
-
 }

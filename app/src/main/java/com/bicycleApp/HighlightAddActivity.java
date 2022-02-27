@@ -20,12 +20,9 @@ import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -96,8 +93,8 @@ public class HighlightAddActivity extends AppCompatActivity {
         double a = 0.0;
         byte[] b;
         if(width > 1280 || height > 1280){
-            int c = Math.max(width, height);
-            a = c/1280;
+            double c = Math.max(width, height);
+            a = c/1000;
             float scaleWidth = (float)((float)image.getWidth()/a) / image.getWidth();
             float scaleHeight = (float)((float)image.getHeight()/a) / image.getHeight();
             Matrix matrix = new Matrix();

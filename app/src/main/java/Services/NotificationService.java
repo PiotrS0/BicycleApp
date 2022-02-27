@@ -20,7 +20,6 @@ import com.bicycleApp.TripDetailsFromNotificationActivity;
 import Utils.Utilities;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -95,6 +94,13 @@ public class NotificationService extends IntentService {
                     return;
                 }
 
+                Intent intent2 = new Intent(getApplicationContext(), TripDetailsFromNotificationActivity.class);
+                intent2.putExtra("Date", nearestTrip.getDate());
+                intent2.putExtra("Title", nearestTrip.getTitle());
+                intent2.putExtra("Notification", nearestTrip.getNotification());
+                intent2.putExtra("Lat", nearestTrip.getStartLat());
+                intent2.putExtra("Lon", nearestTrip.getStartLon());
+
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
                     NotificationChannel channel = new NotificationChannel("Mynotification", "Mynotificaiton", NotificationManager.IMPORTANCE_DEFAULT);
                     NotificationManager manager = getSystemService(NotificationManager.class);
@@ -102,16 +108,11 @@ public class NotificationService extends IntentService {
                 }
                 int flag = 0;
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
-                    flag = PendingIntent.FLAG_MUTABLE;
+                    flag = PendingIntent.FLAG_UPDATE_CURRENT;
 
-                Intent intent = new Intent(getApplicationContext(), TripDetailsFromNotificationActivity.class);
-                intent.putExtra("Date", nearestTrip.getDate());
-                intent.putExtra("Title", nearestTrip.getTitle());
-                intent.putExtra("Notification", nearestTrip.getNotification());
-                intent.putExtra("Lat", nearestTrip.getStartLat());
-                intent.putExtra("Lon", nearestTrip.getStartLon());
 
-                PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent,flag);
+
+                PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent2,PendingIntent.FLAG_UPDATE_CURRENT);
 
                 NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
@@ -137,4 +138,6 @@ public class NotificationService extends IntentService {
             }
         });
     }
+
+
 }

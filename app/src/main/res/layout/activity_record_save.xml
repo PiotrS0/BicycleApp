@@ -13,7 +13,7 @@
             android:id="@+id/topAppBarRecordSave"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/main_record"
+            app:title="@string/save"
             app:menu="@menu/top_app_bar_with_confirm"
             app:navigationIcon="@drawable/ic_baseline_delete_24"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"

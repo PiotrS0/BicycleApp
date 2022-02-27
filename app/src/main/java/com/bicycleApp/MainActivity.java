@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         startService(new Intent(this, NotificationService.class));
-        //makebasetour();
+
         tripsButton = findViewById(R.id.btn_trips);
         tripsButton.setOnClickListener((view -> {
             startActivity(new Intent(this, TripListActivity.class));
@@ -45,18 +45,5 @@ public class MainActivity extends AppCompatActivity {
         highlightsButton.setOnClickListener((view -> {
             startActivity(new Intent(this, HighlightListActivity.class));
         }));
-    }
-
-    private void makebasetour(){
-        database = new MyDatabase(this, 1);
-        database.clearTable("Highlight");
-        //deleteRow("Highlight",2);
-//        database.addTour("Title123",12.34,12.34,56.78,56.78,3670,56.70,"2022-01-20 19:02:35");
-//        database.addTour("Title1243",12.34,12.34,56.78,56.78,3810,12.30,"2022-02-09 19:02:35");
-
-//        Intent intent = new Intent(this, MapsShowPointActivity.class);
-//        startActivity(intent);
-//        database.clearTable("Trip");
-//        database.deleteRow("Trip",15);
     }
 }

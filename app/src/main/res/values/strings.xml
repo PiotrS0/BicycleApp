@@ -80,6 +80,7 @@
     <string name="sureRecordFromDetails">Are you sure you want to go to logging the trip? (The scheduled tour will be deleted)</string>
     <string name="tourSaved">The trip has been saved</string>
     <string name="hilhlightSaved">The highlight has been saved</string>
+    <string name="save">Save</string>
 
     <!--    APP INFO -->
     <string name="version" translatable="false">1.0</string>
@@ -87,7 +88,7 @@
     <string name="author" translatable="false">Piotr Sawczuk</string>
     <string name="released">Feb 14, 2022</string>
     <string name="android_os">6.0 and up</string>
-
+    <string name="place">Application was created at the Faculty of Computer Science Bialystok University of Technology.</string>
 
 
     <string-array name="options_array">

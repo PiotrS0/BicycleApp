@@ -17,14 +17,6 @@ public class Point {
         this.lon = lon;
     }
 
-    public Point(int id, String date, int tourId, double lat, double lon) {
-        this.id = id;
-        this.date = date;
-        this.tourId = tourId;
-        this.lat = lat;
-        this.lon = lon;
-    }
-
     public int getId() {
         return id;
     }

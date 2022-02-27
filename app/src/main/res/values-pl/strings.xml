@@ -23,7 +23,7 @@
     <string name="localizationUnavaliable">Lokalizacja niedostępna</string>
     <string name="mapStartPoint">Punkt startowy</string>
     <string name="mapSelectStartLocation">Proszę wybrać punkt startowy</string>
-    <string name="mapPickStartPoint">Wybierz pubkt startowy</string>
+    <string name="mapPickStartPoint">Wybierz punkt startowy</string>
     <string name="mapStartLocation">Lokalizacja startowa</string>
     <string name="mapEndLocation">Lokalizacja końcowa</string>
     <string name="mapShowRoute">Pokaż trasę</string>
@@ -71,11 +71,14 @@
     <string name="released">14 luty, 2022</string>
     <string name="android_os">6.0 i nowszy</string>
     <string name="tourTooShort">Dystans jest zbyt krótki. Wycieczka nie została zarejestrowana.</string>
-    <string name="start_recording">Rozpocznij nagrywanie</string>
+    <string name="start_recording">Rozpocznij rejestrację</string>
     <string name="onlyDelete">Tylko usuń</string>
-    <string name="sureRecordFromDetails">Czy na pewno chcesz przejść do rejestrowania wycieczki? (Zaplanowana wycieczka zostanie usunięta)</string>
+    <string name="sureRecordFromDetails">Czy na pewno chcesz przejść do rejestrowania wycieczki?</string>
 `   <string name="tourSaved">Wycieczka została zapisana</string>
     <string name="hilhlightSaved">Ciekawe miejsce zostało zapisane</string>
+    <string name="save">Zapisz</string>
+    <string name="place">Aplikacja powstała na Wydziale Informatyki Politechniki Białostockiej.</string>
+
 
 
     <string-array name="options_array">

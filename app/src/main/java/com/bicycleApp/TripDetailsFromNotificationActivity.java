@@ -22,13 +22,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import Data.MyDatabase;
 import Utils.Utilities;
 
 public class TripDetailsFromNotificationActivity extends AppCompatActivity {
@@ -65,10 +62,10 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
         weatherPrecipation = getResources().getString(R.string.weatherPrecipation);
         titleText = findViewById(R.id.text_trip_details_from_notification_title);
         weatherTextView = findViewById(R.id.trip_details_from_notification_text_weather);
-        date = this.getIntent().getStringExtra("Date");
-        title = this.getIntent().getStringExtra("Title");
-        lat = this.getIntent().getDoubleExtra("Lat",0);
-        lon = this.getIntent().getDoubleExtra("Lon",0);
+        date = getIntent().getStringExtra("Date");
+        title = getIntent().getStringExtra("Title");
+        lat = getIntent().getDoubleExtra("Lat",0);
+        lon = getIntent().getDoubleExtra("Lon",0);
         imageView = findViewById(R.id.trip_details_from_notification_imageview);
         toolbar.setTitle(date.substring(0,date.length()-3));
         titleText.setText(title);
@@ -88,7 +85,6 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
     }
 
     private int checkData(Date dateBase){
@@ -119,7 +115,7 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
 
         if(days == 0){
             weatherTextView.setText(getResources().getString(R.string.weatherAvaliableSevenDays));
-            Glide.with(this).load(R.drawable.error).into(imageView);
+            Glide.with(this).load(R.mipmap.empty).into(imageView);
         }
 
         else{
@@ -142,9 +138,7 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
                             String windSpeed = jsonObjectWind.getString("speed");
                             JSONObject jsonObjectClouds = jsonResponse.getJSONObject("clouds");
                             String clouds = jsonObjectClouds.getString("all");
-                            long timeStamp = jsonResponse.getLong("dt");
                             String icon = jsonObjectWeather.getString("icon");
-                            java.util.Date time=new java.util.Date((long)timeStamp*1000);
                             weatherTextView.setTextColor(Color.rgb(68,134,199));
                             output += weatherCurrentName +
                                     "\n" + weatherTemp + ": " +  Utilities.df.format(temp) + " °C" +
@@ -152,8 +146,7 @@ public class TripDetailsFromNotificationActivity extends AppCompatActivity {
                                     "\n" + weatherPressure + ": " + pressure + " hPa" +
                                     "\n" + weatherDescription + ": " + description +
                                     "\n" + weatherWind + ": " + windSpeed + " m/s" +
-                                    "\n" + weatherCloud + ": " + clouds + " %" +
-                                    "\n" + Utilities.sdf.format(time);
+                                    "\n" + weatherCloud + ": " + clouds + " %";
                             weatherTextView.setText(output);
                             Glide.with(TripDetailsFromNotificationActivity.this).load("https://openweathermap.org/img/wn/"+icon+"@2x.png").into(imageView);
                         } catch (JSONException e) {

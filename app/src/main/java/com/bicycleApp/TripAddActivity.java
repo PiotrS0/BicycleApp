@@ -88,7 +88,6 @@ public class TripAddActivity extends AppCompatActivity {
         });
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         timeTextView.setText(timeFormat.format(date));
-        //timeTextView.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
         editText = findViewById(R.id.editTextTitle);
         database = new MyDatabase(this, 1);
         locationButton = findViewById(R.id.bnt_location_add_trip);

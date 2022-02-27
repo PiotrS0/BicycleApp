@@ -54,7 +54,7 @@
                     android:layout_margin="5dp"
                     android:adjustViewBounds="true"
                     android:maxHeight="500dp"
-                    app:srcCompat="@drawable/error" />
+                    app:srcCompat="@drawable/ic_launcher_no_image_foreground" />
 
                 <TextView
                     android:id="@+id/highlight_details_description_view"

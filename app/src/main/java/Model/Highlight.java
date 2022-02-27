@@ -1,10 +1,5 @@
 package Model;
 
-import android.graphics.Bitmap;
-import android.media.Image;
-
-import java.util.Date;
-
 public class Highlight {
     private int id;
     private byte[] image;
@@ -16,11 +11,6 @@ public class Highlight {
     private int tourId;
 
     public Highlight(){}
-
-    public Highlight(byte[] image, String date) {
-        this.image = image;
-        this.date = date;
-    }
 
     public Highlight(int id, byte[] image, String title, String description, String date, double lat, double lon, int tourId) {
         this.id = id;

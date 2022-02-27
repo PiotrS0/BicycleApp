@@ -13,7 +13,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -71,7 +70,6 @@ public class TourRecordService extends Service {
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 3.0f, new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
-                Log.d("onLocationChanged",location.toString());
                 Calendar calendar = Calendar.getInstance();
                 Date date = Utilities.convertToDate(calendar);
                 try {
@@ -99,27 +97,20 @@ public class TourRecordService extends Service {
 
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {
-                Log.d("onStatusChanged",provider);
-                Log.d("Triptime",""+tripTime);
-//                LocationListener.super.onStatusChanged(provider, status, extras);
+
             }
 
             @Override
             public void onProviderEnabled(@NonNull String provider) {
-                Log.d("onProviderEnabled", provider);
-//                LocationListener.super.onProviderEnabled(provider);
+
             }
 
             @Override
             public void onProviderDisabled(@NonNull String provider) {
-                Log.d("onProviderDisabled", provider);
-//                LocationListener.super.onProviderDisabled(provider);
+
             }
         });
 
-
-
-        //return super.onStartCommand(intent, flags, startId);
         return START_NOT_STICKY;
     }
 

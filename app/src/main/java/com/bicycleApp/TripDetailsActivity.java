@@ -30,7 +30,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -132,6 +131,11 @@ public class TripDetailsActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR, 3);
         Date dateCheck = Utilities.convertToDate(calendar);
+        try {
+            dateFromBase = Utilities.sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         if(dateFromBase.before(dateCheck))
             startRecordButton.setVisibility(View.VISIBLE);
 
@@ -153,7 +157,6 @@ public class TripDetailsActivity extends AppCompatActivity {
                 newIntent.putExtra("SharedId", id);
                 newIntent.putExtra("Title", title);
                 database.updateTripIsPlanned(id, false);
-                //database.deleteRow("Trip",id);
                 finish();
                 startActivity(newIntent);
             }
@@ -258,9 +261,7 @@ public class TripDetailsActivity extends AppCompatActivity {
                             String windSpeed = jsonObjectWind.getString("speed");
                             JSONObject jsonObjectClouds = jsonResponse.getJSONObject("clouds");
                             String clouds = jsonObjectClouds.getString("all");
-                            long timeStamp = jsonResponse.getLong("dt");
                             String icon = jsonObjectWeather.getString("icon");
-                            java.util.Date time=new java.util.Date((long)timeStamp*1000);
                             weatherTextView.setTextColor(Color.rgb(68,134,199));
                             output += weatherCurrentName +
                                 "\n" + weatherTemp + ": " +  Utilities.df.format(temp) + " °C" +

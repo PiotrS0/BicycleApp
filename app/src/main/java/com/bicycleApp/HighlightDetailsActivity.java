@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.text.method.CharacterPickerDialog;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,7 +23,7 @@ public class HighlightDetailsActivity extends AppCompatActivity {
 
     private MaterialToolbar toolbar;
     private MyDatabase database;
-    private int id, tourId;
+    private int id;
     private String date, title, description;
     private double lat, lon;
     private TextView titleView, descriptionView;
@@ -43,7 +42,6 @@ public class HighlightDetailsActivity extends AppCompatActivity {
             }
         });
         id = getIntent().getIntExtra("Id", 0);
-        tourId = getIntent().getIntExtra("TourId", 0);
         date = getIntent().getStringExtra("Date");
         title = getIntent().getStringExtra("Title");
         description = getIntent().getStringExtra("Description");

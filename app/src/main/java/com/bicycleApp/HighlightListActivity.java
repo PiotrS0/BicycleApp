@@ -72,7 +72,6 @@ public class HighlightListActivity extends AppCompatActivity {
         intent.putExtra("Date", highlightList.get(position).getDate());
         intent.putExtra("Lat", highlightList.get(position).getLat());
         intent.putExtra("Lon", highlightList.get(position).getLon());
-        intent.putExtra("TourId", highlightList.get(position).getTourId());
         startActivity(intent);
     }
 }

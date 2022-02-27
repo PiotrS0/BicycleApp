@@ -23,9 +23,9 @@
 
         <!-- Note: A RecyclerView can also be used -->
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -60,7 +60,7 @@
                 android:text="@string/version"
                 android:textAlignment="textEnd"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -76,7 +76,7 @@
                 android:paddingLeft="5dp"
                 android:text="@string/info_author"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView23"
@@ -87,7 +87,7 @@
                 android:text="@string/author"
                 android:textAlignment="textEnd"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -101,9 +101,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="5dp"
+                android:text="@string/info_updated"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:text="@string/info_updated" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView25"
@@ -112,9 +112,9 @@
                 android:layout_weight="1"
                 android:paddingRight="5dp"
                 android:text="@string/updated"
+                android:textAlignment="textEnd"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:textAlignment="textEnd" />
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -129,9 +129,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="5dp"
+                android:text="@string/info_os"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:text="@string/info_os" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView27"
@@ -140,9 +140,9 @@
                 android:layout_weight="1"
                 android:paddingRight="5dp"
                 android:text="@string/android_os"
+                android:textAlignment="textEnd"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:textAlignment="textEnd" />
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -157,9 +157,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="5dp"
+                android:text="@string/info_released"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:text="@string/info_released" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView29"
@@ -168,12 +168,28 @@
                 android:layout_weight="1"
                 android:paddingRight="5dp"
                 android:text="@string/released"
+                android:textAlignment="textEnd"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:textAlignment="textEnd" />
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="65dp">
+
+            <TextView
+                android:id="@+id/textView31"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingRight="5dp"
+                android:text="@string/place"
+                android:textAlignment="center"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
     </LinearLayout>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

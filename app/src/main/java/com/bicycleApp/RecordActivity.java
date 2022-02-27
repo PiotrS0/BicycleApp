@@ -156,7 +156,6 @@ public class RecordActivity extends AppCompatActivity {
             intent.putExtra("Title", title);
             startActivity(intent);
         }
-
     }
 
     private void startStopTimer()
