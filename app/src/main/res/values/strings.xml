@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name" translatable="false">BicycleApp</string>
-    <string name="main_app_name" translatable="false">BikeApp</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="delete" translatable="false">delete</string>

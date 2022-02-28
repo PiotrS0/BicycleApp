@@ -14,7 +14,7 @@ import java.util.Calendar;
 
 public class MyDatabase extends SQLiteOpenHelper {
     public MyDatabase(@Nullable Context context,  int version) {
-        super(context, "test18.db", null, version);
+        super(context, "Database.db", null, version);
     }
 
     @Override

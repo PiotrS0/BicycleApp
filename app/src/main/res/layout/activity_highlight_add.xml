@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:ems="10"
-            android:maxLength="100"
+            android:maxLength="1000"
             android:hint="@string/descriptionOptional"
             android:inputType="textMultiLine" />
 

@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         startService(new Intent(this, NotificationService.class));
-
         tripsButton = findViewById(R.id.btn_trips);
         tripsButton.setOnClickListener((view -> {
             startActivity(new Intent(this, TripListActivity.class));
