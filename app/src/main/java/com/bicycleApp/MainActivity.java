@@ -45,4 +45,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, HighlightListActivity.class));
         }));
     }
+
+    private void makeBase(){
+        database = new MyDatabase(this, 1);
+
+    }
 }
